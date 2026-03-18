@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edric Fendy — Food Science & Technology Professional</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #faf9f6;
+  --white: #ffffff;
+  --ink: #1a1a18;
+  --ink-light: #3d3d38;
+  --muted: #8a8a7e;
+  --border: #e8e6df;
+  --amber: #c8860a;
+  --amber-light: #f5e6c8;
+  --amber-pale: #fdf6e8;
+  --green: #3a5c3a;
+  --green-pale: #edf3ed;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+  cursor: default;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px;
+  background: rgba(250,249,246,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.nav-name {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--ink);
+  border: none; border-radius: 2px;
+  padding: 8px 18px; cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--amber); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 100px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(200,134,10,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(58,92,58,0.05) 0%, transparent 60%);
+}
+.hero-grid-lines {
+  position: absolute; inset: 0; opacity: 0.4;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+.hero-inner {
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative; z-index: 1;
+}
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-label::before {
+  content: '';
+  display: block; width: 32px; height: 1px;
+  background: var(--amber);
+}
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.hero-name em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--amber);
+}
+.hero-tagline {
+  font-size: 16px; font-weight: 300;
+  color: var(--ink-light);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.hero-sub {
+  font-family: var(--font-mono);
+  font-size: 12px; color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 36px;
+}
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: white;
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 12px 24px; border-radius: 2px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--amber); transform: translateY(-1px); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--ink); color: var(--ink);
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 12px 24px; border-radius: 2px;
+  text-decoration: none; cursor: pointer; background: transparent;
+  transition: all 0.2s;
+}
+.btn-outline:hover { background: var(--ink); color: white; transform: translateY(-1px); }
+
+/* Hero right — avatar + stats */
+.hero-right { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.hero-avatar-wrap { position: relative; }
+.hero-avatar {
+  width: 220px; height: 220px; border-radius: 50%;
+  background: linear-gradient(135deg, #1e3a2f 0%, #2d5a3d 50%, #1a3328 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 64px; font-weight: 300;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: -2px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08);
+  position: relative; z-index: 1;
+}
+.hero-avatar-ring {
+  position: absolute; inset: -12px;
+  border-radius: 50%;
+  border: 1px dashed var(--amber);
+  opacity: 0.5;
+  animation: spin 20s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.hero-avatar-dot {
+  position: absolute; top: 10px; right: 16px;
+  width: 12px; height: 12px;
+  background: #4ade80; border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.3);
+  animation: pulse 2s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(74,222,128,0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(74,222,128,0.1); }
+}
+.hero-contact-pills {
+  display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 280px;
+}
+.contact-pill {
+  display: flex; align-items: center; gap: 10px;
+  background: white; border: 1px solid var(--border);
+  border-radius: 40px; padding: 8px 16px;
+  font-size: 13px; color: var(--ink-light);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.contact-pill:hover { border-color: var(--amber); transform: translateX(4px); }
+.contact-pill-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--amber-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+}
+
+/* ─── SECTION BASE ─── */
+section { padding: 100px 48px; }
+.container { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.section-label::before {
+  content: '';
+  display: block; width: 32px; height: 1px;
+  background: var(--amber);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 300; line-height: 1.1;
+  margin-bottom: 56px;
+  letter-spacing: -0.01em;
+}
+.section-title em { font-style: italic; color: var(--amber); }
+
+/* ─── ABOUT ─── */
+#about { background: white; }
+.about-grid {
+  display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: start;
+}
+.about-text {
+  font-size: 16px; font-weight: 300; color: var(--ink-light);
+  line-height: 1.8; margin-bottom: 32px;
+}
+.about-text strong { font-weight: 500; color: var(--ink); }
+.about-highlights { display: flex; flex-direction: column; gap: 12px; }
+.highlight-item {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--ink-light);
+}
+.highlight-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--amber); flex-shrink: 0;
+}
+
+/* Languages sidebar */
+.lang-card {
+  background: var(--cream); border: 1px solid var(--border);
+  border-radius: 8px; padding: 28px;
+  position: sticky; top: 80px;
+}
+.lang-card-title {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.lang-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.lang-row:last-child { border-bottom: none; }
+.lang-name { font-size: 14px; font-weight: 400; color: var(--ink); }
+.lang-level {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px;
+}
+.lang-level.native { background: var(--green-pale); color: var(--green); }
+.lang-level.fluent { background: var(--amber-pale); color: var(--amber); }
+.lang-level.conversant { background: #f0f4ff; color: #4060c0; }
+
+/* ─── EXPERIENCE ─── */
+#experience { background: var(--cream); }
+.exp-timeline { display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 48px; padding: 48px 0;
+  border-top: 1px solid var(--border);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.exp-item.visible { opacity: 1; transform: translateY(0); }
+.exp-item:last-child { border-bottom: 1px solid var(--border); }
+.exp-meta { }
+.exp-date {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--muted); letter-spacing: 0.04em;
+  margin-bottom: 8px; line-height: 1.6;
+}
+.exp-location {
+  font-size: 12px; color: var(--muted);
+  display: flex; align-items: center; gap: 4px;
+}
+.exp-body { }
+.exp-role {
+  font-family: var(--font-display); font-size: 26px;
+  font-weight: 400; line-height: 1.2; margin-bottom: 6px;
+  color: var(--ink);
+}
+.exp-company {
+  font-family: var(--font-mono); font-size: 13px;
+  letter-spacing: 0.06em; color: var(--amber);
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.exp-bullets li {
+  font-size: 14px; font-weight: 300; color: var(--ink-light);
+  padding-left: 20px; position: relative; line-height: 1.6;
+}
+.exp-bullets li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--amber); font-size: 12px;
+  top: 2px;
+}
+
+/* ─── EDUCATION ─── */
+#education { background: white; }
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.edu-card {
+  background: var(--cream); border: 1px solid var(--border);
+  border-radius: 8px; padding: 36px;
+  transition: border-color 0.2s, transform 0.2s;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s;
+}
+.edu-card.visible { opacity: 1; transform: translateY(0); }
+.edu-card:hover { border-color: var(--amber); transform: translateY(-3px); }
+.edu-icon {
+  font-size: 32px; margin-bottom: 20px; display: block;
+}
+.edu-school {
+  font-family: var(--font-display); font-size: 22px;
+  font-weight: 400; margin-bottom: 8px; color: var(--ink);
+}
+.edu-degree {
+  font-size: 14px; color: var(--ink-light);
+  font-weight: 400; margin-bottom: 6px;
+}
+.edu-dates {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--muted); letter-spacing: 0.04em;
+}
+
+/* ─── PROJECTS ─── */
+#projects { background: var(--cream); }
+.project-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.project-card.visible { opacity: 1; transform: translateY(0); }
+.project-card-header {
+  background: linear-gradient(135deg, #1e3a2f 0%, #2d5a3d 60%, #1a3328 100%);
+  padding: 40px 40px 32px;
+  position: relative; overflow: hidden;
+}
+.project-card-header::after {
+  content: '🌿';
+  position: absolute; right: 32px; bottom: 16px;
+  font-size: 64px; opacity: 0.12;
+}
+.project-tag {
+  display: inline-flex;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 2px; padding: 4px 10px;
+  margin-bottom: 16px;
+}
+.project-title {
+  font-family: var(--font-display); font-size: 32px;
+  font-weight: 300; color: white; line-height: 1.2;
+  margin-bottom: 8px;
+}
+.project-meta {
+  font-family: var(--font-mono); font-size: 12px;
+  color: rgba(255,255,255,0.5); letter-spacing: 0.04em;
+}
+.project-body { padding: 36px 40px; }
+.project-desc {
+  font-size: 15px; font-weight: 300; color: var(--ink-light);
+  line-height: 1.7; margin-bottom: 28px;
+}
+.achievement-box {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--amber-pale); border-left: 3px solid var(--amber);
+  border-radius: 0 6px 6px 0; padding: 16px 20px;
+}
+.achievement-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.achievement-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 4px;
+}
+.achievement-text { font-size: 14px; color: var(--ink); font-weight: 400; }
+
+/* ─── SKILLS ─── */
+#skills { background: white; }
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.skill-card {
+  background: var(--cream); border: 1px solid var(--border);
+  border-radius: 8px; padding: 28px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.skill-card.visible { opacity: 1; transform: translateY(0); }
+.skill-card:nth-child(2) { transition-delay: 0.1s; }
+.skill-card:nth-child(3) { transition-delay: 0.2s; }
+.skill-card-icon {
+  width: 40px; height: 40px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 16px;
+}
+.skill-card-icon.blue { background: #e8f0fb; }
+.skill-card-icon.purple { background: #f0ebfb; }
+.skill-card-icon.green { background: var(--green-pale); }
+.skill-card-title {
+  font-size: 15px; font-weight: 600; margin-bottom: 16px; color: var(--ink);
+}
+.skill-tags { display: flex; flex-direction: column; gap: 8px; }
+.skill-tag {
+  font-size: 13px; color: var(--ink-light);
+  padding: 7px 12px; background: white;
+  border: 1px solid var(--border); border-radius: 4px;
+  font-weight: 300;
+  transition: border-color 0.15s, color 0.15s;
+}
+.skill-tag:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ─── CONTACT ─── */
+#contact { background: var(--cream); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+.contact-card {
+  display: flex; gap: 16px; align-items: center;
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 20px;
+  text-decoration: none; color: var(--ink);
+  transition: border-color 0.2s, transform 0.15s;
+}
+.contact-card:hover { border-color: var(--amber); transform: translateX(4px); }
+.contact-card-icon {
+  width: 40px; height: 40px; border-radius: 6px;
+  background: var(--amber-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.contact-card-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 3px;
+}
+.contact-card-value { font-size: 14px; font-weight: 400; color: var(--ink); }
+
+/* Contact form */
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+.form-input {
+  font-family: var(--font-body); font-size: 14px;
+  color: var(--ink); background: white;
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 12px 16px; outline: none;
+  transition: border-color 0.2s;
+}
+.form-input:focus { border-color: var(--amber); }
+.form-input::placeholder { color: var(--muted); }
+textarea.form-input { resize: vertical; min-height: 120px; }
+.form-submit {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--ink); color: white;
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 2px;
+  border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 4px;
+}
+.form-submit:hover { background: var(--amber); transform: translateY(-1px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink);
+  padding: 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 24px;
+}
+.footer-name {
+  font-family: var(--font-display); font-size: 22px;
+  font-weight: 300; color: white;
+}
+.footer-sub {
+  font-family: var(--font-mono); font-size: 11px;
+  color: rgba(255,255,255,0.4); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-top: 4px;
+}
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-family: var(--font-mono); font-size: 12px;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--amber); }
+.footer-copy {
+  font-family: var(--font-mono); font-size: 11px;
+  color: rgba(255,255,255,0.3); letter-spacing: 0.06em;
+}
+
+/* ─── DIVIDER ─── */
+.amber-line {
+  width: 40px; height: 2px; background: var(--amber);
+  margin-bottom: 56px;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-inner > * { animation: fadeUp 0.7s ease-out forwards; opacity: 0; }
+.hero-inner > *:nth-child(1) { animation-delay: 0.1s; }
+.hero-inner > *:nth-child(2) { animation-delay: 0.3s; }
+
+/* ─── HAMBURGER ─── */
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 1px; transition: 0.2s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  section { padding: 72px 24px; }
+  #hero { padding: 100px 24px 64px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-right { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .lang-card { position: static; }
+  .exp-item { grid-template-columns: 1fr; gap: 12px; padding: 36px 0; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  footer { padding: 32px 24px; flex-direction: column; gap: 16px; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#hero" class="nav-name">Edric Fendy</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+  <button class="nav-hamburger" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-label">Food Science & Technology</div>
+      <h1 class="hero-name">Edric<br><em>Fendy</em></h1>
+      <p class="hero-tagline">R&D Specialist · QA/QC Expert · Food Safety Enthusiast</p>
+      <p class="hero-sub">Kuala Lumpur, Malaysia · Open to opportunities</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">↓ Get in Touch</a>
+        <a href="#experience" class="btn-outline">View Experience</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-avatar-wrap">
+        <div class="hero-avatar-ring"></div>
+        <div class="hero-avatar">EF</div>
+        <div class="hero-avatar-dot"></div>
+      </div>
+      <div class="hero-contact-pills">
+        <a href="mailto:edricfendy45@gmail.com" class="contact-pill">
+          <div class="contact-pill-icon">✉</div>
+          edricfendy45@gmail.com
+        </a>
+        <a href="tel:+60147118560" class="contact-pill">
+          <div class="contact-pill-icon">📞</div>
+          +60 14-7118560
+        </a>
+        <a href="https://www.linkedin.com/in/edric-fendy-71b0a6240/" target="_blank" class="contact-pill">
+          <div class="contact-pill-icon">in</div>
+          LinkedIn Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About Me</div>
+    <div class="about-grid">
+      <div>
+        <h2 class="section-title">Aspiring Food<br><em>Scientist</em></h2>
+        <p class="about-text">
+          A <strong>Bachelor's graduate in Food Science & Technology from Monash University</strong>, with hands-on experience across Research & Development, Quality Assurance/Quality Control, and Food Certification through internships at leading food companies.
+        </p>
+        <p class="about-text">
+          Proven ability in <strong>laboratory analysis, compliance management, and new product development</strong> — with a passion for innovation and food safety. I bring a detail-oriented mindset and a drive to make food products safer, healthier, and more marketable.
+        </p>
+        <div class="about-highlights">
+          <div class="highlight-item"><div class="highlight-dot"></div>3 industry internships across R&D, QA/QC, and certification</div>
+          <div class="highlight-item"><div class="highlight-dot"></div>Awarded 'Most Marketable Idea' for product development project</div>
+          <div class="highlight-item"><div class="highlight-dot"></div>Proficient in GMP, HACCP, Halal Certification standards</div>
+          <div class="highlight-item"><div class="highlight-dot"></div>Strong lab skills with industry-grade analytical equipment</div>
+        </div>
+      </div>
+      <div>
+        <div class="lang-card">
+          <div class="lang-card-title">🌐 Languages</div>
+          <div class="lang-row">
+            <span class="lang-name">Bahasa Malaysia</span>
+            <span class="lang-level native">Native</span>
+          </div>
+          <div class="lang-row">
+            <span class="lang-name">English</span>
+            <span class="lang-level fluent">Fluent</span>
+          </div>
+          <div class="lang-row">
+            <span class="lang-name">Hokkien</span>
+            <span class="lang-level fluent">Fluent</span>
+          </div>
+          <div class="lang-row">
+            <span class="lang-name">Melayu</span>
+            <span class="lang-level conversant">Conversant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ─── -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Work Experience</div>
+    <h2 class="section-title">Professional<br><em>Journey</em></h2>
+    <div class="exp-timeline">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">November 2024<br>— February 2025</div>
+          <div class="exp-location">📍 Kuala Lumpur, Malaysia</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">R&D Specialist Intern</div>
+          <div class="exp-company">Mamee-Double Decker</div>
+          <ul class="exp-bullets">
+            <li>Assisted in crisps seasoning trials and prepared finished samples for client requests</li>
+            <li>Supported pilot production runs and interpreted triangle test sensory evaluation reports</li>
+            <li>Conducted laboratory and shelf-life tests using moisture analyzers, oxygen analyzers, pH meters, colorimeter, and Brix-salinity meters to ensure product quality and stability</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">December 2023<br>— February 2024</div>
+          <div class="exp-location">📍 Kuala Lumpur, Malaysia</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">QA/QC Specialist Intern</div>
+          <div class="exp-company">Amazin Graze</div>
+          <ul class="exp-bullets">
+            <li>Ensured all unit operations complied with GMP and HACCP practices</li>
+            <li>Ensured food labelling requirements were met for both import and export distribution</li>
+            <li>Proposed new SOP improvements to enhance food safety and production efficiency</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">December 2022<br>— February 2023</div>
+          <div class="exp-location">📍 Kuala Lumpur, Malaysia</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Food Certification Specialist Intern</div>
+          <div class="exp-company">Interfinite</div>
+          <ul class="exp-bullets">
+            <li>Managed clients' Halal renewal applications and GMP, HACCP manuals for compliance purposes</li>
+            <li>Conducted external audits on clients' premises and reviewed documentation for certificate compliance</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION ─── -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Academic<br><em>Background</em></h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <span class="edu-icon">🎓</span>
+        <div class="edu-school">Monash University</div>
+        <div class="edu-degree">Bachelor of Science — Food Science & Technology</div>
+        <div class="edu-dates">2021 – 2024 · Kuala Lumpur, Malaysia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Featured Projects</div>
+    <h2 class="section-title">Research &<br><em>Innovation</em></h2>
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-tag">FST3850 · Food Product Development</div>
+        <div class="project-title">Healthy Instant Noodle Innovation</div>
+        <div class="project-meta">July 2024 – December 2024 · Monash University</div>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">
+          Developed a healthy instant noodle incorporating dried sunflower microgreen powder, combining nutrition with convenience. The project focused on product formulation, sensory evaluation, and market analysis to create a commercially viable, health-forward noodle product.
+        </p>
+        <div class="achievement-box">
+          <div class="achievement-icon">🏆</div>
+          <div>
+            <div class="achievement-label">Achievement</div>
+            <div class="achievement-text">Awarded <strong>'Most Marketable Idea'</strong> for its strong market potential among all student projects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">Skills & Activities</div>
+    <h2 class="section-title">Core<br><em>Competencies</em></h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-icon blue">⌨️</div>
+        <div class="skill-card-title">Technical Skills</div>
+        <div class="skill-tags">
+          <div class="skill-tag">Microsoft Office Suite</div>
+          <div class="skill-tag">Adobe Photoshop</div>
+          <div class="skill-tag">Canva</div>
+          <div class="skill-tag">Web Development</div>
+          <div class="skill-tag">Python</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon purple">🔬</div>
+        <div class="skill-card-title">Laboratory Equipment</div>
+        <div class="skill-tags">
+          <div class="skill-tag">Moisture Analyzers</div>
+          <div class="skill-tag">Oxygen Analyzers</div>
+          <div class="skill-tag">pH Meters</div>
+          <div class="skill-tag">Colorimeter</div>
+          <div class="skill-tag">Brix-Salinity Meters</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon green">🛡️</div>
+        <div class="skill-card-title">Compliance & Standards</div>
+        <div class="skill-tags">
+          <div class="skill-tag">GMP (Good Manufacturing Practice)</div>
+          <div class="skill-tag">HACCP</div>
+          <div class="skill-tag">Halal Certification</div>
+          <div class="skill-tag">Food Safety Management</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Let's<br><em>Connect</em></h2>
+    <div class="contact-grid">
+      <div>
+        <p style="font-size:15px; font-weight:300; color:var(--ink-light); margin-bottom:32px; line-height:1.7;">
+          Feel free to reach out for collaborations, opportunities, or just a friendly chat about food science!
+        </p>
+        <div class="contact-info">
+          <a href="mailto:edricfendy45@gmail.com" class="contact-card">
+            <div class="contact-card-icon">✉️</div>
+            <div>
+              <div class="contact-card-label">Email</div>
+              <div class="contact-card-value">edricfendy45@gmail.com</div>
+            </div>
+          </a>
+          <a href="tel:+60147118560" class="contact-card">
+            <div class="contact-card-icon">📞</div>
+            <div>
+              <div class="contact-card-label">Phone</div>
+              <div class="contact-card-value">+60 14-7118560</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/edric-fendy-71b0a6240/" target="_blank" class="contact-card">
+            <div class="contact-card-icon">🔗</div>
+            <div>
+              <div class="contact-card-label">LinkedIn</div>
+              <div class="contact-card-value">Connect with me</div>
+            </div>
+          </a>
+          <div class="contact-card">
+            <div class="contact-card-icon">📍</div>
+            <div>
+              <div class="contact-card-label">Location</div>
+              <div class="contact-card-value">Kuala Lumpur, Malaysia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input class="form-input" type="text" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="your.email@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input class="form-input" type="text" placeholder="What's this about?">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-input" placeholder="Tell me more..."></textarea>
+          </div>
+          <button class="form-submit" onclick="handleSend(this)">✈ Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div>
+    <div class="footer-name">Edric Fendy</div>
+    <div class="footer-sub">Food Science & Technology Professional</div>
+  </div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Edric Fendy</div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.exp-item, .edu-card, .skill-card, .project-card').forEach(el => observer.observe(el));
+
+// Stagger edu + skill cards
+document.querySelectorAll('.edu-card').forEach((el, i) => el.style.transitionDelay = (i * 0.12) + 's');
+document.querySelectorAll('.skill-card').forEach((el, i) => el.style.transitionDelay = (i * 0.1) + 's');
+document.querySelectorAll('.exp-item').forEach((el, i) => el.style.transitionDelay = (i * 0.08) + 's');
+
+// Active nav link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--ink)' : '';
+  });
+});
+
+// Form send
+function handleSend(btn) {
+  btn.textContent = '✓ Sent!';
+  btn.style.background = 'var(--green)';
+  setTimeout(() => { btn.textContent = '✈ Send Message'; btn.style.background = ''; }, 3000);
+}
+
+// Hamburger placeholder
+function toggleMenu(btn) {
+  alert('Navigation menu — link to your sections here!');
+}
+</script>
+</body>
+</html>
