@@ -536,9 +536,11 @@ footer {
   z-index: 2;
   margin-top: 16px;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: minmax(116px, auto) 1fr minmax(116px, auto);
+  grid-template-areas: "prev step next";
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
 .road-control-btn {
   font-family: var(--font-main);
@@ -551,25 +553,31 @@ footer {
   background: white;
   color: var(--ink);
   padding: 9px 14px;
+  min-width: 116px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s, box-shadow 0.2s;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
-}
-.road-control-btn:hover {
-  border-color: var(--blue);
-  color: var(--blue);
-}
-.road-control-btn:active {
-  transform: translateY(1px);
+  min-height: 42px;
+  white-space: nowrap;
 }
 .road-control-btn:disabled {
-  opacity: 0.45;
+  opacity: 1;
+  color: #9aa8b8;
+  background: #eef3f8;
+  border-color: #d1ddea;
   cursor: not-allowed;
 }
+.road-control-btn:focus-visible {
+  outline: 2px solid rgba(26,127,212,0.35);
+  outline-offset: 2px;
+}
+#roadPrevBtn { grid-area: prev; justify-self: start; }
+#roadNextBtn { grid-area: next; justify-self: end; }
 .road-step-indicator {
+  grid-area: step;
   font-family: var(--font-main);
   font-size: 11px;
   font-weight: 700;
@@ -581,6 +589,12 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .road-control-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
 }
 
 /* ══ RESPONSIVE ══ */
@@ -617,7 +631,7 @@ footer {
   .skills-grid-2 { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
-  .road-journey-wrap { padding: 28px 20px 36px; }
+  .road-journey-wrap { padding: 28px 20px 52px; }
   .road-header { flex-direction: column; gap: 10px; }
   .skills-tabs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -646,16 +660,31 @@ footer {
   .road-info-panel.active { transform: translate(-50%, 0) scale(1); }
   .road-controls {
     grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "step step"
+      "prev next";
     gap: 10px;
+    align-items: stretch;
   }
-  .road-control-btn { width: 100%; }
+  #roadPrevBtn,
+  #roadNextBtn {
+    width: 100%;
+    min-width: 0;
+  }
   .road-step-indicator {
-    grid-column: 1 / -1;
+    margin-bottom: 2px;
   }
 }
 
 @media (max-width: 560px) {
   .skills-tabs { grid-template-columns: 1fr; }
+  .road-controls {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "step"
+      "prev"
+      "next";
+  }
 }
 </style>
 </head>
