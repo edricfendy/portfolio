@@ -299,6 +299,17 @@ section { padding: 80px 48px; }
 
 .skill-tab-panel { display: none; }
 .skill-tab-panel.active { display: block; }
+.skills-prompt {
+  display: block;
+  margin-bottom: 16px;
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.skills-prompt.hidden { display: none; }
 
 .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .skills-grid-2 { grid-template-columns: repeat(2, 1fr); }
@@ -511,11 +522,10 @@ footer {
   position: relative;
   z-index: 2;
   margin-top: 16px;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
-  flex-wrap: wrap;
 }
 .road-control-btn {
   font-family: var(--font-main);
@@ -530,10 +540,17 @@ footer {
   padding: 9px 14px;
   cursor: pointer;
   transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .road-control-btn:hover {
   border-color: var(--blue);
   color: var(--blue);
+}
+.road-control-btn:active {
+  transform: translateY(1px);
 }
 .road-control-btn:disabled {
   opacity: 0.45;
@@ -546,6 +563,11 @@ footer {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 /* ══ RESPONSIVE ══ */
@@ -611,12 +633,12 @@ footer {
   }
   .road-info-panel.active { transform: translate(-50%, 0) scale(1); }
   .road-controls {
-    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
+  .road-control-btn { width: 100%; }
   .road-step-indicator {
-    width: 100%;
-    text-align: center;
-    order: -1;
+    grid-column: 1 / -1;
   }
 }
 </style>
@@ -964,18 +986,19 @@ footer {
 
     <!-- Tab buttons -->
     <div class="skills-tabs" role="tablist">
-      <button class="skill-tab-btn active" onclick="switchTab(this,'tab-lab')" role="tab">Lab &amp; Instruments</button>
+      <button class="skill-tab-btn" onclick="switchTab(this,'tab-lab')" role="tab">Lab &amp; Instruments</button>
       <button class="skill-tab-btn" onclick="switchTab(this,'tab-compliance')" role="tab">Compliance</button>
       <button class="skill-tab-btn" onclick="switchTab(this,'tab-sensory')" role="tab">Sensory &amp; Chemical</button>
       <button class="skill-tab-btn" onclick="switchTab(this,'tab-micro')" role="tab">Microbiology</button>
       <button class="skill-tab-btn" onclick="switchTab(this,'tab-processing')" role="tab">Processing &amp; Packaging</button>
       <button class="skill-tab-btn" onclick="switchTab(this,'tab-tech')" role="tab">Technical</button>
     </div>
+    <div class="skills-prompt" id="skillsPrompt">Choose a competency heading to view the list</div>
 
     <!-- Tab: Technical -->
     <div class="skill-tab-panel" id="tab-tech">
       <div class="skills-grid">
-        <div class="skill-card visible">
+        <div class="skill-card">
           <div class="skill-card-header"><div class="skill-card-icon">⌨️</div><div class="skill-card-title">Software &amp; Digital</div></div>
           <div class="skill-tags">
             <div class="skill-tag">Microsoft Office Suite</div>
@@ -989,7 +1012,7 @@ footer {
     </div>
 
     <!-- Tab: Lab & Instruments -->
-    <div class="skill-tab-panel active" id="tab-lab">
+    <div class="skill-tab-panel" id="tab-lab">
       <div class="skills-grid">
         <div class="skill-card">
           <div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Analytical Instruments</div></div>
@@ -1269,6 +1292,8 @@ function switchTab(btn, tabId) {
   document.querySelectorAll('.skill-tab-panel').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
   const panel = document.getElementById(tabId);
+  const skillsPrompt = document.getElementById('skillsPrompt');
+  if (skillsPrompt) skillsPrompt.classList.add('hidden');
   panel.classList.add('active');
   // Trigger visible for cards in this panel
   panel.querySelectorAll('.skill-card').forEach((el,i) => {
@@ -1276,8 +1301,6 @@ function switchTab(btn, tabId) {
     setTimeout(() => el.classList.add('visible'), 10);
   });
 }
-// Init first tab cards as visible
-document.querySelectorAll('#tab-lab .skill-card').forEach(el => el.classList.add('visible'));
 
 /* ── Active nav ── */
 const sections = document.querySelectorAll('section[id]');
