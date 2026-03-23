@@ -7,708 +7,705 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 :root {
-  --blue:#1a7fd4; --blue-dark:#1468b0; --blue-light:#e8f4fd; --blue-pale:#f4f8fc;
-  --white:#ffffff; --ink:#1a2535; --ink-mid:#3a4a5c; --muted:#6b7f96;
-  --border:#d8e6f0; --font-main:'Montserrat',sans-serif; --font-body:'Open Sans',sans-serif;
+  --blue:       #1a7fd4;
+  --blue-dark:  #1468b0;
+  --blue-light: #e8f4fd;
+  --blue-pale:  #f4f8fc;
+  --white:      #ffffff;
+  --ink:        #1a2535;
+  --ink-mid:    #3a4a5c;
+  --muted:      #6b7f96;
+  --border:     #d8e6f0;
+  --font-main:  'Montserrat', sans-serif;
+  --font-body:  'Open Sans', sans-serif;
 }
+
 html { scroll-behavior: smooth; }
-body { font-family:var(--font-body); background:var(--white); color:var(--ink); font-size:15px; line-height:1.6; overflow-x:hidden; }
-::-webkit-scrollbar { width:4px; }
-::-webkit-scrollbar-track { background:var(--blue-pale); }
-::-webkit-scrollbar-thumb { background:var(--blue); border-radius:2px; }
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--blue-pale); }
+::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
 
-/* ══════════════════════════════════════════════════
-   INTRO OVERLAY  — 3-D titration scene
-══════════════════════════════════════════════════ */
-#intro-overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  background: #0b1a2e;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  transition: opacity 0.9s ease, transform 1.1s cubic-bezier(.4,0,.2,1);
-}
-#intro-overlay.fade-out {
-  opacity: 0;
-  transform: scale(1.18);
-  pointer-events: none;
-}
-
-/* subtle grid bg */
-#intro-overlay::before {
-  content:'';
-  position:absolute; inset:0;
-  background-image:
-    linear-gradient(rgba(26,127,212,.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26,127,212,.07) 1px, transparent 1px);
-  background-size:48px 48px;
-}
-
-/* particle burst canvas */
-#particle-canvas {
-  position:absolute; inset:0; pointer-events:none;
-}
-
-/* ── 3-D Lab table ── */
-.lab-scene {
-  position:relative;
-  width:520px; height:380px;
-  perspective:900px;
-  transform-style:preserve-3d;
-}
-.lab-table {
-  position:absolute; bottom:0; left:0; right:0;
-  height:18px;
-  background:linear-gradient(180deg,#223a5e 0%,#162840 100%);
-  border-top:2px solid #2d5a8c;
-  transform:rotateX(60deg) translateZ(-10px);
-  transform-origin:bottom center;
-}
-.lab-table::before {
-  content:'';
-  position:absolute; inset:0;
-  background:repeating-linear-gradient(90deg,transparent,transparent 24px,rgba(255,255,255,.04) 24px,rgba(255,255,255,.04) 25px);
-}
-
-/* ── Burette stand ── */
-.burette-stand {
-  position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
-  width:180px; height:300px;
-}
-/* vertical rod */
-.stand-rod {
-  position:absolute; left:50%; transform:translateX(-50%);
-  width:5px; height:280px; bottom:0;
-  background:linear-gradient(90deg,#4a6a8a,#7caad4,#4a6a8a);
-  border-radius:3px;
-}
-/* clamp arm */
-.clamp-arm {
-  position:absolute; top:40px; left:50%;
-  width:60px; height:8px;
-  background:linear-gradient(180deg,#6a9cbf,#3a6a8e);
-  border-radius:4px;
-  transform:translateX(-4px);
-}
-
-/* ── Burette tube ── */
-.burette {
-  position:absolute; top:28px; left:50%; transform:translateX(-50%);
-  width:22px; height:230px;
-  transform-style:preserve-3d;
-}
-.burette-body {
-  position:absolute; inset:0;
-  background:linear-gradient(90deg,rgba(30,80,140,.25),rgba(100,180,255,.55),rgba(30,80,140,.25));
-  border:1.5px solid rgba(100,180,255,.6);
-  border-radius:11px 11px 2px 2px;
-  overflow:hidden;
-}
-/* liquid inside burette */
-.burette-liquid {
-  position:absolute; bottom:0; left:2px; right:2px;
-  border-radius:0 0 8px 8px;
-  background:linear-gradient(180deg,rgba(26,180,255,.35),rgba(26,127,212,.75));
-  transition:height 2s ease-in-out;
-  height:70%;
-}
-/* tick marks */
-.burette-ticks {
-  position:absolute; right:0; top:10px; width:10px; height:200px;
-  background:repeating-linear-gradient(180deg,transparent,transparent 19px,rgba(255,255,255,.35) 19px,rgba(255,255,255,.35) 20px);
-}
-/* burette tip */
-.burette-tip {
-  position:absolute; bottom:-24px; left:50%; transform:translateX(-50%);
-  width:4px; height:24px;
-  background:linear-gradient(180deg,rgba(100,180,255,.8),rgba(100,180,255,.2));
-  border-radius:0 0 2px 2px;
-}
-/* drip */
-.drip {
-  position:absolute; bottom:-32px; left:50%; transform:translateX(-50%);
-  width:6px; height:8px;
-  background:radial-gradient(ellipse at 50% 30%,#80d8ff,#1a7fd4);
-  border-radius:50% 50% 60% 60%;
-  animation:drip-fall 2.4s ease-in infinite;
-  opacity:0;
-}
-@keyframes drip-fall {
-  0%   { transform:translateX(-50%) scaleY(1); opacity:1; }
-  60%  { transform:translateX(-50%) translateY(58px) scaleY(1.4); opacity:1; }
-  80%  { transform:translateX(-50%) translateY(60px) scaleY(.2); opacity:.6; }
-  100% { transform:translateX(-50%) translateY(62px) scaleY(0); opacity:0; }
-}
-
-/* ── Conical flask ── */
-.flask {
-  position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
-  width:110px; height:130px;
-  transform-style:preserve-3d;
-}
-.flask-body {
-  position:absolute; inset:0;
-  clip-path:polygon(38% 0%, 62% 0%, 100% 88%, 100% 100%, 0% 100%, 0% 88%);
-  background:linear-gradient(135deg,rgba(150,210,255,.18),rgba(80,160,230,.38),rgba(150,210,255,.12));
-  border:1.5px solid rgba(100,180,255,.55);
-}
-/* solution in flask */
-.flask-solution {
-  position:absolute; bottom:0; left:0; right:0;
-  border-radius:0 0 4px 4px;
-  transition:height 2s ease-in-out, background 1.2s ease;
-  clip-path:polygon(38% 0%, 62% 0%, 100% 88%, 100% 100%, 0% 100%, 0% 88%);
-  height:50%;
-  background:linear-gradient(180deg,rgba(26,180,255,.3),rgba(26,127,212,.65));
-}
-.flask-solution.turning-blue {
-  background:linear-gradient(180deg,rgba(0,120,255,.55),#1a4fa0cc);
-}
-.flask-solution.blue-done {
-  background:linear-gradient(180deg,rgba(10,80,200,.75),#0d3a90ee);
-}
-/* flask neck */
-.flask-neck {
-  position:absolute; top:-28px; left:50%; transform:translateX(-50%);
-  width:22px; height:32px;
-  background:linear-gradient(90deg,rgba(100,180,255,.2),rgba(150,210,255,.45),rgba(100,180,255,.2));
-  border:1.5px solid rgba(100,180,255,.5);
-  border-bottom:none;
-  border-radius:4px 4px 0 0;
-}
-/* bubbles */
-.bubble {
-  position:absolute; border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.7),rgba(100,180,255,.3));
-  animation:bubble-rise 1.8s ease-out infinite;
-  opacity:0;
-}
-.bubble:nth-child(1){ width:5px;height:5px;left:25%;animation-delay:0s; }
-.bubble:nth-child(2){ width:3px;height:3px;left:55%;animation-delay:.6s; }
-.bubble:nth-child(3){ width:4px;height:4px;left:40%;animation-delay:1.2s; }
-@keyframes bubble-rise {
-  0%  { bottom:10%; opacity:.9; transform:translateX(0); }
-  100%{ bottom:85%; opacity:0; transform:translateX(8px); }
-}
-
-/* ── Scientist figure ── */
-.scientist {
-  position:absolute; bottom:16px; left:-80px;
-  width:80px; height:200px;
-  transform-style:preserve-3d;
-  animation:scientist-sway 3s ease-in-out infinite;
-}
-@keyframes scientist-sway {
-  0%,100%{ transform:rotate(-1deg); }
-  50%    { transform:rotate(1.5deg); }
-}
-/* lab coat */
-.sci-body {
-  position:absolute; bottom:30px; left:50%;transform:translateX(-50%);
-  width:46px; height:90px;
-  background:linear-gradient(180deg,#e8f4fd,#c8dff0);
-  border:1px solid rgba(100,150,200,.4);
-  border-radius:6px 6px 0 0;
-}
-/* coat lapels */
-.sci-body::before {
-  content:''; position:absolute; top:4px; left:8px;
-  width:12px; height:30px;
-  background:linear-gradient(180deg,#b0cce0,#8ab0cc);
-  border-radius:2px 0 0 4px;
-  transform:rotate(-6deg);
-}
-.sci-body::after {
-  content:''; position:absolute; top:4px; right:8px;
-  width:12px; height:30px;
-  background:linear-gradient(180deg,#b0cce0,#8ab0cc);
-  border-radius:0 2px 4px 0;
-  transform:rotate(6deg);
-}
-/* head */
-.sci-head {
-  position:absolute; bottom:118px; left:50%;transform:translateX(-50%);
-  width:32px; height:36px;
-  background:radial-gradient(ellipse at 45% 40%,#f8d8b0,#e8b880);
-  border-radius:50% 50% 45% 45%;
-  border:1px solid rgba(180,130,80,.3);
-}
-/* hair */
-.sci-head::before {
-  content:''; position:absolute; top:-4px; left:2px; right:2px; height:16px;
-  background:linear-gradient(180deg,#4a3010,#6a4820);
-  border-radius:50% 50% 0 0;
-}
-/* safety goggles */
-.sci-goggles {
-  position:absolute; bottom:134px; left:50%;transform:translateX(-50%);
-  width:36px; height:10px;
-  background:linear-gradient(90deg,rgba(100,180,255,.6),rgba(150,210,255,.8),rgba(100,180,255,.6));
-  border:1px solid rgba(80,160,220,.7);
-  border-radius:4px;
-}
-/* arm holding burette */
-.sci-arm-right {
-  position:absolute; bottom:90px; right:-8px;
-  width:14px; height:55px;
-  background:linear-gradient(180deg,#e8f4fd,#c8dff0);
-  border:1px solid rgba(100,150,200,.3);
-  border-radius:7px;
-  transform-origin:top center;
-  animation:arm-squeeze 3s ease-in-out infinite;
-}
-@keyframes arm-squeeze {
-  0%,100%{ transform:rotate(-12deg); }
-  50%    { transform:rotate(-8deg); }
-}
-/* arm resting */
-.sci-arm-left {
-  position:absolute; bottom:90px; left:-8px;
-  width:14px; height:50px;
-  background:linear-gradient(180deg,#e8f4fd,#c8dff0);
-  border:1px solid rgba(100,150,200,.3);
-  border-radius:7px;
-  transform:rotate(12deg);
-  transform-origin:top center;
-}
-/* legs */
-.sci-legs {
-  position:absolute; bottom:0; left:50%;transform:translateX(-50%);
-  width:40px; height:34px;
-  background:linear-gradient(180deg,#2a4a6a,#1a3050);
-  border-radius:0 0 6px 6px;
-}
-/* shoes */
-.sci-shoes {
-  position:absolute; bottom:-8px; left:50%;transform:translateX(-50%);
-  width:44px; height:10px;
-  background:linear-gradient(180deg,#1a1a2e,#0d0d1e);
-  border-radius:4px 4px 5px 5px;
-}
-
-/* ── Beaker on left ── */
-.side-beaker {
-  position:absolute; bottom:16px; right:-90px;
-  width:60px; height:70px;
-}
-.side-beaker-body {
-  position:absolute; inset:0;
-  background:linear-gradient(135deg,rgba(150,210,255,.12),rgba(80,160,230,.28));
-  border:1.5px solid rgba(100,180,255,.4);
-  border-radius:2px 2px 6px 6px;
-}
-.side-beaker-body::before {
-  content:''; position:absolute; top:0; right:-8px;
-  width:8px; height:20px;
-  background:linear-gradient(90deg,rgba(100,180,255,.4),rgba(100,180,255,.15));
-  border:1px solid rgba(100,180,255,.3);
-  border-radius:0 4px 4px 0;
-}
-.side-beaker-liquid {
-  position:absolute; bottom:3px; left:3px; right:3px; height:35%;
-  background:linear-gradient(180deg,rgba(200,100,50,.4),rgba(180,60,20,.6));
-  border-radius:0 0 4px 4px;
-  transition:background 1.5s ease;
-}
-
-/* ── Indicator color transition ── */
-.indicator-bg {
-  position:absolute; inset:0;
-  background:radial-gradient(ellipse at center bottom, rgba(26,127,212,0) 0%, transparent 100%);
-  transition:background 2s ease;
-  pointer-events:none;
-}
-.indicator-bg.glow {
-  background:radial-gradient(ellipse at center bottom, rgba(26,100,255,.18) 0%, transparent 55%);
-}
-
-/* ── Intro text ── */
-.intro-text {
-  position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
-  text-align:center; white-space:nowrap;
-}
-.intro-label {
-  font-family:var(--font-main); font-size:11px; font-weight:600;
-  letter-spacing:.18em; text-transform:uppercase;
-  color:rgba(100,180,255,.7); margin-bottom:8px;
-}
-.intro-title {
-  font-family:var(--font-main); font-size:22px; font-weight:800;
-  color:white; letter-spacing:.04em;
-  animation:text-glow 2s ease-in-out infinite;
-}
-@keyframes text-glow {
-  0%,100%{ text-shadow:0 0 20px rgba(26,127,212,0); }
-  50%    { text-shadow:0 0 30px rgba(26,180,255,.5); }
-}
-.intro-cta {
-  margin-top:14px;
-  display:inline-block;
-  font-family:var(--font-main); font-size:12px; font-weight:600;
-  letter-spacing:.14em; text-transform:uppercase;
-  color:rgba(100,180,255,.9);
-  border:1px solid rgba(100,180,255,.4);
-  padding:8px 22px; border-radius:4px;
-  cursor:pointer; transition:all .2s;
-  animation:pulse-cta 2.5s ease-in-out infinite 4s;
-}
-.intro-cta:hover { background:rgba(100,180,255,.12); border-color:rgba(100,180,255,.8); }
-@keyframes pulse-cta {
-  0%,100%{ opacity:1; }
-  50%    { opacity:.6; }
-}
-
-/* ── Skip button ── */
-.intro-skip {
-  position:absolute; top:20px; right:24px;
-  font-family:var(--font-main); font-size:11px; font-weight:600;
-  letter-spacing:.14em; text-transform:uppercase;
-  color:rgba(255,255,255,.35); cursor:pointer;
-  background:none; border:none; transition:color .2s;
-}
-.intro-skip:hover { color:rgba(255,255,255,.7); }
-
-/* ── Endpoint flash ── */
-#endpoint-flash {
-  position:absolute; inset:0;
-  background:rgba(30,80,255,.25);
-  opacity:0; pointer-events:none;
-  transition:opacity .15s;
-}
-#endpoint-flash.flash { opacity:1; transition:opacity 0s; }
-
-/* ══════════════════════════════════════════════════
-   NAV
-══════════════════════════════════════════════════ */
+/* ══ NAV ══ */
 nav {
-  position:fixed; top:0; left:0; right:0; z-index:300;
-  height:64px; padding:0 48px;
-  background:var(--white); border-bottom:1px solid var(--border);
-  display:flex; align-items:center; justify-content:space-between;
-  box-shadow:0 1px 8px rgba(0,0,0,.06);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 64px; padding: 0 48px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
 }
-.nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
-.nav-logo { width:38px;height:38px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:var(--font-main);font-size:13px;font-weight:700;color:white; }
-.nav-name-text { font-family:var(--font-main);font-weight:600;font-size:16px;color:var(--ink); }
-.nav-name-text span { color:var(--blue);font-weight:300; }
-.nav-links { display:flex;gap:24px; }
-.nav-links a { font-family:var(--font-main);font-size:13px;font-weight:500;color:var(--ink-mid);text-decoration:none;transition:color .2s; }
-.nav-links a:hover { color:var(--blue); }
-.nav-cta { font-family:var(--font-main);font-size:13px;font-weight:600;color:white;background:var(--blue);border:none;border-radius:4px;padding:9px 22px;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s; }
-.nav-cta:hover { background:var(--blue-dark);transform:translateY(-1px); }
-.nav-hamburger { display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px; }
-.nav-hamburger span { display:block;width:22px;height:2px;background:var(--ink);border-radius:1px; }
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-main); font-size: 13px; font-weight: 700; color: white;
+}
+.nav-name-text { font-family: var(--font-main); font-weight: 600; font-size: 16px; color: var(--ink); }
+.nav-name-text span { color: var(--blue); font-weight: 300; }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  font-family: var(--font-main); font-size: 13px; font-weight: 500;
+  color: var(--ink-mid); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--blue); }
+.nav-cta {
+  font-family: var(--font-main); font-size: 13px; font-weight: 600;
+  color: white; background: var(--blue);
+  border: none; border-radius: 4px;
+  padding: 9px 22px; cursor: pointer; text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 1px; }
 
-/* ══════════════════════════════════════════════════
-   HERO
-══════════════════════════════════════════════════ */
+/* ══ HERO ══ */
 #hero {
-  position:relative; min-height:500px; background:var(--blue);
-  overflow:hidden; display:flex; align-items:center;
-  padding:110px 48px 100px;
+  position: relative;
+  min-height: 500px;
+  background: var(--blue);
+  overflow: hidden;
+  display: flex; align-items: center;
+  padding: 110px 48px 100px;
 }
-.hero-sci-bg { position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden; }
-#hero-svg-bg { width:100%;height:100%;position:absolute;inset:0; }
-.hero-content { position:relative;z-index:2;max-width:620px; }
-.hero-label { font-family:var(--font-main);font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:16px; }
-.hero-name { font-family:var(--font-main);font-size:clamp(36px,5vw,56px);font-weight:800;color:white;line-height:1.1;margin-bottom:12px; }
-.hero-title { font-family:var(--font-main);font-size:16px;font-weight:300;color:rgba(255,255,255,.85);margin-bottom:20px; }
-.hero-desc { font-size:15px;font-weight:300;color:rgba(255,255,255,.8);line-height:1.75;max-width:520px;margin-bottom:32px; }
-.hero-desc strong { font-weight:600;color:white; }
-.hero-btns { display:flex;gap:12px;flex-wrap:wrap; }
-.btn-white { display:inline-flex;align-items:center;gap:8px;background:white;color:var(--blue);font-family:var(--font-main);font-size:13px;font-weight:700;padding:11px 26px;border-radius:4px;text-decoration:none;border:none;cursor:pointer;transition:all .2s; }
-.btn-white:hover { background:var(--blue-light);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.15); }
-.btn-outline-white { display:inline-flex;align-items:center;gap:8px;border:2px solid rgba(255,255,255,.6);color:white;font-family:var(--font-main);font-size:13px;font-weight:600;padding:10px 24px;border-radius:4px;text-decoration:none;cursor:pointer;background:transparent;transition:all .2s; }
-.btn-outline-white:hover { background:rgba(255,255,255,.15);border-color:white; }
-.hero-stats,.stat-item,.stat-num,.stat-label { display:none; }
+/* ══ SVG BACKGROUND ══ */
+.hero-sci-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; overflow: hidden;
+}
+#hero-svg-bg { width: 100%; height: 100%; position: absolute; inset: 0; }
+.hero-content { position: relative; z-index: 2; max-width: 620px; }
+.hero-label {
+  font-family: var(--font-main); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); margin-bottom: 16px;
+}
+.hero-name {
+  font-family: var(--font-main); font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800; color: white; line-height: 1.1; margin-bottom: 12px;
+}
+.hero-title {
+  font-family: var(--font-main); font-size: 16px; font-weight: 300;
+  color: rgba(255,255,255,0.85); margin-bottom: 20px;
+}
+.hero-desc {
+  font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.8);
+  line-height: 1.75; max-width: 520px; margin-bottom: 32px;
+}
+.hero-desc strong { font-weight: 600; color: white; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: white; color: var(--blue);
+  font-family: var(--font-main); font-size: 13px; font-weight: 700;
+  padding: 11px 26px; border-radius: 4px;
+  text-decoration: none; border: none; cursor: pointer; transition: all 0.2s;
+}
+.btn-white:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+.btn-outline-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 2px solid rgba(255,255,255,0.6); color: white;
+  font-family: var(--font-main); font-size: 13px; font-weight: 600;
+  padding: 10px 24px; border-radius: 4px;
+  text-decoration: none; cursor: pointer; background: transparent; transition: all 0.2s;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: white; }
 
-/* ══════════════════════════════════════════════════
-   SECTIONS
-══════════════════════════════════════════════════ */
-section { padding:80px 48px; }
-.container { max-width:1120px;margin:0 auto; }
-.bg-white { background:var(--white); }
-.bg-pale  { background:var(--blue-pale); }
-.section-divider { height:3px;background:linear-gradient(to right,var(--blue),#a8d8f5,transparent); }
-.section-kicker { font-family:var(--font-main);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:10px; }
-.section-kicker::before { content:'';width:28px;height:2px;background:var(--blue); }
-.section-title { font-family:var(--font-main);font-size:clamp(28px,3.5vw,42px);font-weight:800;color:var(--ink);line-height:1.15;margin-bottom:48px; }
-.section-title span { color:var(--blue); }
+.hero-stats,
+.stat-item,
+.stat-num,
+.stat-label { display: none; }
 
-/* About */
-.about-grid { display:grid;grid-template-columns:1.4fr .6fr;gap:72px;align-items:start; }
-.about-text { font-size:15px;color:var(--ink-mid);line-height:1.85;margin-bottom:24px; }
-.about-text strong { color:var(--ink);font-weight:600; }
-.about-points { display:flex;flex-direction:column;gap:12px; }
-.about-point { display:flex;align-items:flex-start;gap:12px;font-size:14px;color:var(--ink-mid);line-height:1.5; }
-.ap-icon { width:28px;height:28px;border-radius:6px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:1px; }
-.lang-card { background:white;border:1px solid var(--border);border-radius:8px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.05);position:sticky;top:80px; }
-.lang-card-title { font-family:var(--font-main);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px; }
-.lang-row { display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border); }
-.lang-row:last-child { border-bottom:none; }
-.lang-name { font-size:14px;color:var(--ink); }
-.lang-level { font-family:var(--font-main);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px; }
-.lang-level.native     { background:#dff5e8;color:#1e7e40; }
-.lang-level.fluent     { background:var(--blue-light);color:var(--blue-dark); }
-.lang-level.conversant { background:#f0eefb;color:#5b47c1; }
+/* ══ SECTION BASE ══ */
+section { padding: 80px 48px; }
+.container { max-width: 1120px; margin: 0 auto; }
+.bg-white { background: var(--white); }
+.bg-pale  { background: var(--blue-pale); }
+.section-divider { height: 3px; background: linear-gradient(to right, var(--blue), #a8d8f5, transparent); }
 
-/* Experience */
-.exp-timeline { display:flex;flex-direction:column; }
-.exp-item { display:grid;grid-template-columns:200px 1fr;gap:48px;padding:40px 0;border-top:1px solid var(--border);opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease; }
-.exp-item.visible { opacity:1;transform:translateY(0); }
-.exp-item:last-child { border-bottom:1px solid var(--border); }
-.exp-date { font-family:var(--font-main);font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;line-height:1.6;margin-bottom:6px; }
-.exp-location { font-size:12px;color:var(--muted); }
-.exp-role { font-family:var(--font-main);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:4px; }
-.exp-company { font-family:var(--font-main);font-size:13px;font-weight:600;color:var(--blue);margin-bottom:18px;display:inline-flex;align-items:center;gap:6px; }
-.exp-company::before { content:'';width:14px;height:2px;background:var(--blue); }
-.exp-bullets { list-style:none;display:flex;flex-direction:column;gap:10px; }
-.exp-bullets li { font-size:14px;color:var(--ink-mid);padding-left:18px;position:relative;line-height:1.65; }
-.exp-bullets li::before { content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--blue); }
+.section-kicker {
+  font-family: var(--font-main); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-kicker::before { content: ''; width: 28px; height: 2px; background: var(--blue); }
+.section-title {
+  font-family: var(--font-main); font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 800; color: var(--ink); line-height: 1.15; margin-bottom: 48px;
+}
+.section-title span { color: var(--blue); }
 
-/* Education */
-.edu-grid { display:grid;grid-template-columns:1fr 1fr;gap:24px; }
-.edu-card { background:white;border:1px solid var(--border);border-radius:8px;padding:36px;border-top:3px solid var(--blue);box-shadow:0 2px 12px rgba(0,0,0,.04);opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease,box-shadow .2s; }
-.edu-card.visible { opacity:1;transform:translateY(0); }
-.edu-card:hover { box-shadow:0 6px 24px rgba(26,127,212,.12);transform:translateY(-3px)!important; }
-.edu-icon { font-size:32px;margin-bottom:18px;display:block; }
-.edu-school { font-family:var(--font-main);font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px; }
-.edu-degree { font-size:14px;color:var(--ink-mid);margin-bottom:10px;line-height:1.5; }
-.edu-dates { font-family:var(--font-main);font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.04em;text-transform:uppercase; }
+/* ══ ABOUT ══ */
+.about-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 72px; align-items: start; }
+.about-text { font-size: 15px; color: var(--ink-mid); line-height: 1.85; margin-bottom: 24px; }
+.about-text strong { color: var(--ink); font-weight: 600; }
+.about-points { display: flex; flex-direction: column; gap: 12px; }
+.about-point {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14px; color: var(--ink-mid); line-height: 1.5;
+}
+.ap-icon {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--blue-light); color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0; margin-top: 1px;
+}
+.lang-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  position: sticky; top: 80px;
+}
+.lang-card-title {
+  font-family: var(--font-main); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 18px;
+}
+.lang-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.lang-row:last-child { border-bottom: none; }
+.lang-name { font-size: 14px; color: var(--ink); }
+.lang-level {
+  font-family: var(--font-main); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px;
+}
+.lang-level.native     { background: #dff5e8; color: #1e7e40; }
+.lang-level.fluent     { background: var(--blue-light); color: var(--blue-dark); }
+.lang-level.conversant { background: #f0eefb; color: #5b47c1; }
 
-/* Projects */
-.project-card { background:white;border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.05);opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease; }
-.project-card.visible { opacity:1;transform:translateY(0); }
-.project-card-header { background:var(--blue);padding:44px 44px 36px;position:relative;overflow:hidden; }
-.project-card-header::before { content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.15) 1px,transparent 1px);background-size:28px 28px; }
-.project-card-header::after { content:'🧬';position:absolute;right:40px;bottom:12px;font-size:72px;opacity:.1; }
-.project-tag { display:inline-block;font-family:var(--font-main);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:4px 14px;margin-bottom:18px;position:relative;z-index:1; }
-.project-title { font-family:var(--font-main);font-size:clamp(24px,3vw,36px);font-weight:800;color:white;line-height:1.15;margin-bottom:8px;position:relative;z-index:1; }
-.project-meta { font-size:13px;color:rgba(255,255,255,.65);position:relative;z-index:1; }
-.project-body { padding:36px 44px; }
-.project-desc { font-size:15px;color:var(--ink-mid);line-height:1.8;margin-bottom:28px; }
-.achievement-box { display:flex;gap:16px;align-items:flex-start;background:var(--blue-light);border-left:4px solid var(--blue);border-radius:0 6px 6px 0;padding:18px 20px; }
-.achievement-icon { font-size:22px;flex-shrink:0; }
-.achievement-label { font-family:var(--font-main);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:4px; }
-.achievement-text { font-size:14px;color:var(--ink-mid); }
-.achievement-text strong { color:var(--ink);font-weight:700; }
+/* ══ EXPERIENCE ══ */
+.exp-timeline { display: flex; flex-direction: column; }
+.exp-item {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 48px; padding: 40px 0;
+  border-top: 1px solid var(--border);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.exp-item.visible { opacity: 1; transform: translateY(0); }
+.exp-item:last-child { border-bottom: 1px solid var(--border); }
+.exp-date {
+  font-family: var(--font-main); font-size: 12px; font-weight: 600;
+  color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase;
+  line-height: 1.6; margin-bottom: 6px;
+}
+.exp-location { font-size: 12px; color: var(--muted); }
+.exp-role { font-family: var(--font-main); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.exp-company {
+  font-family: var(--font-main); font-size: 13px; font-weight: 600;
+  color: var(--blue); margin-bottom: 18px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.exp-company::before { content: ''; width: 14px; height: 2px; background: var(--blue); }
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.exp-bullets li {
+  font-size: 14px; color: var(--ink-mid); padding-left: 18px;
+  position: relative; line-height: 1.65;
+}
+.exp-bullets li::before {
+  content: ''; position: absolute; left: 0; top: 8px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+}
 
-/* Extracurricular roadmap */
-.roadmap-shell { --roadmap-progress:0; }
-.roadmap-headline { display:flex;justify-content:space-between;align-items:center;margin-bottom:10px; }
-.roadmap-guide { font-family:var(--font-main);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted); }
-.roadmap-progress { margin-bottom:14px; }
-.roadmap-progress-meta { display:flex;justify-content:space-between;margin-bottom:7px; }
-.roadmap-edge { font-family:var(--font-main);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted); }
-.roadmap-progress-track { position:relative;height:8px;border-radius:99px;background:#d8e6f2; }
-.roadmap-progress-fill { position:absolute;left:0;top:0;bottom:0;width:calc(var(--roadmap-progress)*100%);border-radius:99px;background:linear-gradient(to right,#8ec0ea,var(--blue));transition:width .15s linear; }
-.roadmap-walker { position:absolute;left:calc(var(--roadmap-progress)*100%);top:50%;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:white;box-shadow:0 4px 14px rgba(21,72,126,.18);display:flex;align-items:center;justify-content:center;transform:translate(-50%,-55%);font-size:14px;z-index:2;animation:walkerStep 1.05s ease-in-out infinite; }
-@keyframes walkerStep { 0%,100%{ transform:translate(-50%,-55%) translateY(0); } 50%{ transform:translate(-50%,-55%) translateY(-2px); } }
-.roadmap { position:relative;display:flex;gap:22px;overflow-x:auto;overflow-y:hidden;padding:34px 10px 24px;scroll-snap-type:x mandatory;scroll-padding-left:10px;scrollbar-width:thin;-webkit-overflow-scrolling:touch;cursor:grab; }
-.roadmap:active { cursor:grabbing; }
-.roadmap::before { content:'';position:absolute;left:10px;right:10px;top:50%;transform:translateY(-50%);height:3px;background:linear-gradient(to right,rgba(26,127,212,.2),rgba(26,127,212,.72),rgba(26,127,212,.22));border-radius:20px; }
-.roadmap-row { position:relative;flex:0 0 min(84vw,332px);min-height:352px;scroll-snap-align:start; }
-.roadmap-row::after { content:'';position:absolute;right:-22px;top:50%;width:22px;height:3px;transform:translateY(-50%);background:rgba(26,127,212,.45); }
-.roadmap-row:last-child::after { display:none; }
-.roadmap-node { position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2; }
-.roadmap-dot { width:18px;height:18px;border-radius:50%;background:white;border:3px solid var(--blue);box-shadow:0 0 0 4px var(--blue-light);transition:background .2s; }
-.roadmap-row:hover .roadmap-dot { background:var(--blue); }
-.roadmap-card { position:absolute;left:0;width:100%;background:white;border:1px solid var(--border);border-radius:10px;padding:18px 18px 15px;box-shadow:0 5px 18px rgba(0,0,0,.07);transition:box-shadow .2s,transform .2s,border-color .2s; }
-.roadmap-row.right .roadmap-card { top:0; }
-.roadmap-row.left  .roadmap-card { bottom:0; }
-.roadmap-card:hover { box-shadow:0 10px 28px rgba(26,127,212,.15);border-color:var(--blue);transform:translateY(-3px); }
-.rm-year { display:inline-flex;align-items:center;padding:4px 10px;margin-bottom:8px;border-radius:20px;background:var(--blue-light);color:var(--blue-dark);font-family:var(--font-main);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase; }
-.rm-period { font-family:var(--font-main);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:4px; }
-.rm-role { font-family:var(--font-main);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px;line-height:1.2; }
-.rm-org { font-family:var(--font-main);font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--muted);margin-bottom:8px; }
-.rm-tags { display:flex;flex-wrap:wrap;gap:5px; }
-.rm-tag { font-family:var(--font-main);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-dark);background:var(--blue-light);border-radius:20px;padding:2px 8px; }
+/* ══ EDUCATION ══ */
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.edu-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 36px;
+  border-top: 3px solid var(--blue);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+}
+.edu-card.visible { opacity: 1; transform: translateY(0); }
+.edu-card:hover { box-shadow: 0 6px 24px rgba(26,127,212,0.12); transform: translateY(-3px) !important; }
+.edu-icon { font-size: 32px; margin-bottom: 18px; display: block; }
+.edu-school { font-family: var(--font-main); font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.edu-degree { font-size: 14px; color: var(--ink-mid); margin-bottom: 10px; line-height: 1.5; }
+.edu-dates { font-family: var(--font-main); font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.04em; text-transform: uppercase; }
 
-/* Skills */
-.skills-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:24px; }
-.skill-card { background:white;border:1px solid var(--border);border-radius:8px;padding:28px;box-shadow:0 2px 10px rgba(0,0,0,.04);opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease,box-shadow .2s; }
-.skill-card.visible { opacity:1;transform:translateY(0); }
-.skill-card:hover { box-shadow:0 6px 24px rgba(26,127,212,.10);transform:translateY(-3px)!important; }
-.skill-card-header { display:flex;align-items:center;gap:12px;margin-bottom:18px; }
-.skill-card-icon { width:42px;height:42px;border-radius:8px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:20px; }
-.skill-card-title { font-family:var(--font-main);font-size:15px;font-weight:700;color:var(--ink); }
-.skill-tags { display:flex;flex-direction:column;gap:8px; }
-.skill-tag { font-size:13px;color:var(--ink-mid);padding:8px 12px;background:var(--blue-pale);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;gap:8px;transition:all .15s; }
-.skill-tag::before { content:'';width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0; }
-.skill-tag:hover { border-color:var(--blue);color:var(--blue);background:var(--blue-light); }
+/* ══ PROJECTS ══ */
+.project-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.project-card.visible { opacity: 1; transform: translateY(0); }
+.project-card-header {
+  background: var(--blue); padding: 44px 44px 36px;
+  position: relative; overflow: hidden;
+}
+.project-card-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.project-card-header::after { content: '🧬'; position: absolute; right: 40px; bottom: 12px; font-size: 72px; opacity: 0.1; }
+.project-tag {
+  display: inline-block;
+  font-family: var(--font-main); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 20px; padding: 4px 14px;
+  margin-bottom: 18px; position: relative; z-index: 1;
+}
+.project-title {
+  font-family: var(--font-main); font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800; color: white; line-height: 1.15;
+  margin-bottom: 8px; position: relative; z-index: 1;
+}
+.project-meta { font-size: 13px; color: rgba(255,255,255,0.65); position: relative; z-index: 1; }
+.project-body { padding: 36px 44px; }
+.project-desc { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 28px; }
+.achievement-box {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--blue-light); border-left: 4px solid var(--blue);
+  border-radius: 0 6px 6px 0; padding: 18px 20px;
+}
+.achievement-icon { font-size: 22px; flex-shrink: 0; }
+.achievement-label {
+  font-family: var(--font-main); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px;
+}
+.achievement-text { font-size: 14px; color: var(--ink-mid); }
+.achievement-text strong { color: var(--ink); font-weight: 700; }
 
-/* Certifications */
-.cert-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px; }
-.cert-card { background:white;border:1px solid var(--border);border-radius:8px;padding:26px;border-bottom:3px solid var(--blue);box-shadow:0 2px 10px rgba(0,0,0,.04);display:flex;flex-direction:column;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease,box-shadow .2s; }
-.cert-card.visible { opacity:1;transform:translateY(0); }
-.cert-card:hover { box-shadow:0 6px 24px rgba(26,127,212,.12);transform:translateY(-3px)!important; }
-.cert-badge { width:46px;height:46px;border-radius:8px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px; }
-.cert-name { font-family:var(--font-main);font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3; }
-.cert-issuer { font-size:13px;color:var(--muted);margin-bottom:16px;flex:1;line-height:1.5; }
-.cert-footer { display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border);margin-top:auto; }
-.cert-year { font-family:var(--font-main);font-size:12px;font-weight:700;color:var(--blue);letter-spacing:.06em;text-transform:uppercase; }
-.cert-status { font-family:var(--font-main);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px; }
-.cert-status.active    { background:#dff5e8;color:#1e7e40; }
-.cert-status.completed { background:var(--blue-light);color:var(--blue-dark); }
+/* ══ EXTRACURRICULAR ══ */
+.extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.extra-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+}
+.extra-card.visible { opacity: 1; transform: translateY(0); }
+.extra-card:hover { box-shadow: 0 6px 24px rgba(26,127,212,0.10); transform: translateY(-3px) !important; }
+.extra-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+.extra-icon {
+  width: 46px; height: 46px; border-radius: 8px;
+  background: var(--blue-light); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+}
+.extra-period {
+  font-family: var(--font-main); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--blue); background: var(--blue-light);
+  border-radius: 20px; padding: 4px 12px; white-space: nowrap;
+}
+.extra-role { font-family: var(--font-main); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.extra-org {
+  font-family: var(--font-main); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+}
+.extra-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+.extra-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.extra-tag {
+  font-family: var(--font-main); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--blue-dark); background: var(--blue-light); border-radius: 20px; padding: 3px 10px;
+}
 
-/* Contact */
-.contact-grid { display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start; }
-.contact-lead { font-size:15px;color:var(--ink-mid);line-height:1.8;margin-bottom:32px; }
-.contact-cards { display:flex;flex-direction:column;gap:12px; }
-.contact-card { display:flex;gap:14px;align-items:center;background:white;border:1px solid var(--border);border-radius:6px;padding:14px 18px;text-decoration:none;color:var(--ink);box-shadow:0 1px 6px rgba(0,0,0,.04);transition:all .2s; }
-.contact-card:hover { border-color:var(--blue);box-shadow:0 4px 16px rgba(26,127,212,.12);transform:translateX(4px); }
-.contact-icon { width:38px;height:38px;border-radius:6px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0; }
-.contact-label { font-family:var(--font-main);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px; }
-.contact-value { font-size:14px;color:var(--ink); }
-.contact-form { display:flex;flex-direction:column;gap:14px; }
-.form-group { display:flex;flex-direction:column;gap:5px; }
-.form-label { font-family:var(--font-main);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted); }
-.form-input { font-family:var(--font-body);font-size:14px;color:var(--ink);background:white;border:1px solid var(--border);border-radius:4px;padding:11px 14px;outline:none;transition:border-color .2s,box-shadow .2s; }
-.form-input:focus { border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,127,212,.08); }
-.form-input::placeholder { color:#b0bec8; }
-textarea.form-input { resize:vertical;min-height:110px; }
-.form-submit { display:flex;align-items:center;justify-content:center;gap:8px;background:var(--blue);color:white;font-family:var(--font-main);font-size:13px;font-weight:700;padding:13px 28px;border-radius:4px;border:none;cursor:pointer;transition:all .2s; }
-.form-submit:hover { background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,127,212,.3); }
+/* ══ SKILLS ══ */
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.skill-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 28px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+}
+.skill-card.visible { opacity: 1; transform: translateY(0); }
+.skill-card:hover { box-shadow: 0 6px 24px rgba(26,127,212,0.10); transform: translateY(-3px) !important; }
+.skill-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.skill-card-icon { width: 42px; height: 42px; border-radius: 8px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.skill-card-title { font-family: var(--font-main); font-size: 15px; font-weight: 700; color: var(--ink); }
+.skill-tags { display: flex; flex-direction: column; gap: 8px; }
+.skill-tag {
+  font-size: 13px; color: var(--ink-mid); padding: 8px 12px;
+  background: var(--blue-pale); border: 1px solid var(--border); border-radius: 4px;
+  display: flex; align-items: center; gap: 8px; transition: all 0.15s;
+}
+.skill-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.skill-tag:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
 
-/* Footer */
-footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px; }
-.footer-brand .footer-name { font-family:var(--font-main);font-size:20px;font-weight:700;color:white; }
-.footer-brand .footer-sub { font-family:var(--font-main);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px; }
-.footer-links { display:flex;gap:24px;flex-wrap:wrap; }
-.footer-links a { font-family:var(--font-main);font-size:12px;font-weight:600;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s; }
-.footer-links a:hover { color:white; }
-.footer-copy { font-family:var(--font-main);font-size:11px;color:rgba(255,255,255,.3); }
+/* ══ CERTIFICATIONS ══ */
+.cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cert-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 26px;
+  border-bottom: 3px solid var(--blue);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  display: flex; flex-direction: column;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+}
+.cert-card.visible { opacity: 1; transform: translateY(0); }
+.cert-card:hover { box-shadow: 0 6px 24px rgba(26,127,212,0.12); transform: translateY(-3px) !important; }
+.cert-badge { width: 46px; height: 46px; border-radius: 8px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+.cert-name { font-family: var(--font-main); font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; line-height: 1.3; }
+.cert-issuer { font-size: 13px; color: var(--muted); margin-bottom: 16px; flex: 1; line-height: 1.5; }
+.cert-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border); margin-top: auto; }
+.cert-year { font-family: var(--font-main); font-size: 12px; font-weight: 700; color: var(--blue); letter-spacing: 0.06em; text-transform: uppercase; }
+.cert-status { font-family: var(--font-main); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+.cert-status.active     { background: #dff5e8; color: #1e7e40; }
+.cert-status.completed  { background: var(--blue-light); color: var(--blue-dark); }
 
-/* Scroll reveal animations */
-@keyframes fadeUp { from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);} }
-.hero-label { animation:fadeUp .6s ease-out .1s both; }
-.hero-name  { animation:fadeUp .6s ease-out .2s both; }
-.hero-title { animation:fadeUp .6s ease-out .3s both; }
-.hero-desc  { animation:fadeUp .6s ease-out .4s both; }
-.hero-btns  { animation:fadeUp .6s ease-out .5s both; }
+/* ══ CONTACT ══ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.contact-lead { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 32px; }
+.contact-cards { display: flex; flex-direction: column; gap: 12px; }
+.contact-card {
+  display: flex; gap: 14px; align-items: center;
+  background: white; border: 1px solid var(--border);
+  border-radius: 6px; padding: 14px 18px;
+  text-decoration: none; color: var(--ink);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  transition: all 0.2s;
+}
+.contact-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(26,127,212,0.12); transform: translateX(4px); }
+.contact-icon { width: 38px; height: 38px; border-radius: 6px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+.contact-label { font-family: var(--font-main); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.contact-value { font-size: 14px; color: var(--ink); }
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-family: var(--font-main); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.form-input {
+  font-family: var(--font-body); font-size: 14px; color: var(--ink);
+  background: white; border: 1px solid var(--border); border-radius: 4px;
+  padding: 11px 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,127,212,0.08); }
+.form-input::placeholder { color: #b0bec8; }
+textarea.form-input { resize: vertical; min-height: 110px; }
+.form-submit {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--blue); color: white;
+  font-family: var(--font-main); font-size: 13px; font-weight: 700;
+  padding: 13px 28px; border-radius: 4px; border: none; cursor: pointer; transition: all 0.2s;
+}
+.form-submit:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,127,212,0.3); }
 
-/* SVG float animations */
-.svg-flask,.svg-tubes,.svg-micro,.svg-beaker,.svg-ph,.svg-moisture,.svg-wheat,.svg-color,.svg-molecule,.svg-noodle,.svg-brix,.svg-sun,.svg-o2 { transform-box:fill-box;transform-origin:center center; }
-@keyframes floatUp    { 0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);} }
-@keyframes floatUpSm  { 0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);} }
-@keyframes floatRock  { 0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-12px) rotate(2deg);} }
-@keyframes floatRockR { 0%,100%{transform:translateY(0) rotate(2deg);}50%{transform:translateY(-11px) rotate(-2deg);} }
-@keyframes bubbleRise { 0%{transform:translateY(0);opacity:.55;}100%{transform:translateY(-50px);opacity:0;} }
-@keyframes steamPuff  { 0%,100%{opacity:.25;transform:translateY(0);}50%{opacity:.65;transform:translateY(-5px);} }
-@keyframes glowPulse  { 0%,100%{opacity:.14;}50%{opacity:.30;} }
-.svg-flask    { animation:floatRock  5s   ease-in-out infinite; }
-.svg-tubes    { animation:floatUpSm  4s   ease-in-out infinite -1.3s; }
-.svg-micro    { animation:floatUp    6.2s ease-in-out infinite -2.5s; }
-.svg-beaker   { animation:floatRockR 5.5s ease-in-out infinite -.9s; }
-.svg-ph       { animation:floatUpSm  4.7s ease-in-out infinite -3.2s; }
-.svg-moisture { animation:floatUp    7s   ease-in-out infinite -1.7s; }
-.svg-wheat    { animation:floatRock  6.3s ease-in-out infinite -.6s; }
-.svg-color    { animation:floatUpSm  5.1s ease-in-out infinite -2.8s; }
-.svg-molecule { animation:floatRockR 8s   ease-in-out infinite -1.4s; }
-.svg-noodle   { animation:floatUp    5.4s ease-in-out infinite -3.7s; }
-.svg-brix     { animation:floatRock  4.6s ease-in-out infinite -2.2s; }
-.svg-sun      { animation:floatUpSm  6.6s ease-in-out infinite -.4s; }
-.svg-o2       { animation:floatUp    5.8s ease-in-out infinite -4.1s; }
-.svg-b1       { animation:bubbleRise 3.2s ease-out infinite; }
-.svg-b2       { animation:bubbleRise 3.2s ease-out infinite -1.1s; }
-.svg-b3       { animation:bubbleRise 3.2s ease-out infinite -2.2s; }
-.svg-s1       { animation:steamPuff  2.4s ease-in-out infinite; }
-.svg-s2       { animation:steamPuff  2.4s ease-in-out infinite -.8s; }
-.svg-s3       { animation:steamPuff  2.4s ease-in-out infinite -1.6s; }
+/* ══ FOOTER ══ */
+footer {
+  background: var(--ink); padding: 40px 48px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+}
+.footer-brand .footer-name { font-family: var(--font-main); font-size: 20px; font-weight: 700; color: white; }
+.footer-brand .footer-sub { font-family: var(--font-main); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-family: var(--font-main); font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: white; }
+.footer-copy { font-family: var(--font-main); font-size: 11px; color: rgba(255,255,255,0.3); }
 
-/* Responsive */
-@media (max-width:900px) {
-  nav { padding:0 20px; }
-  .nav-links { display:none; }
-  .nav-hamburger { display:flex; }
-  section { padding:60px 20px; }
-  #hero { padding:90px 20px 72px;min-height:auto; }
-  .about-grid { grid-template-columns:1fr;gap:36px; }
-  .lang-card { position:static; }
-  .exp-item { grid-template-columns:1fr;gap:10px;padding:32px 0; }
-  .edu-grid,.extra-grid,.skills-grid,.cert-grid { grid-template-columns:1fr; }
-  .contact-grid { grid-template-columns:1fr;gap:40px; }
-  footer { padding:32px 20px;flex-direction:column;align-items:flex-start; }
-  .lab-scene { width:320px; height:280px; perspective:600px; }
-  .scientist { left:-50px; width:60px; height:160px; }
-  .burette-stand { width:130px; height:220px; bottom:12px; }
-  .flask { width:80px; height:100px; }
-  .intro-title { font-size:16px; }
+/* ══ ANIMATIONS ══ */
+@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+.hero-label  { animation: fadeUp 0.6s ease-out 0.1s both; }
+.hero-name   { animation: fadeUp 0.6s ease-out 0.2s both; }
+.hero-title  { animation: fadeUp 0.6s ease-out 0.3s both; }
+.hero-desc   { animation: fadeUp 0.6s ease-out 0.4s both; }
+.hero-btns   { animation: fadeUp 0.6s ease-out 0.5s both; }
+
+/* ══ SVG FLOATING ANIMATIONS ══ */
+/* transform-box:fill-box makes CSS transform-origin work correctly on SVG elements */
+.svg-flask, .svg-tubes, .svg-micro, .svg-beaker, .svg-ph,
+.svg-moisture, .svg-wheat, .svg-color, .svg-molecule,
+.svg-noodle, .svg-brix, .svg-sun, .svg-o2 {
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+@keyframes floatUp {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes floatUpSm {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-9px); }
+}
+@keyframes floatRock {
+  0%,100% { transform: translateY(0px) rotate(-2deg); }
+  50%      { transform: translateY(-12px) rotate(2deg); }
+}
+@keyframes floatRockR {
+  0%,100% { transform: translateY(0px) rotate(2deg); }
+  50%      { transform: translateY(-11px) rotate(-2deg); }
+}
+@keyframes bubbleRise {
+  0%   { transform: translateY(0);    opacity: 0.55; }
+  100% { transform: translateY(-50px); opacity: 0; }
+}
+@keyframes steamPuff {
+  0%,100% { opacity: 0.25; transform: translateY(0); }
+  50%      { opacity: 0.65; transform: translateY(-5px); }
+}
+@keyframes glowPulse {
+  0%,100% { opacity: 0.14; }
+  50%      { opacity: 0.30; }
+}
+
+.svg-flask    { animation: floatRock  5s   ease-in-out infinite;                will-change: transform; }
+.svg-tubes    { animation: floatUpSm  4s   ease-in-out infinite -1.3s;          will-change: transform; }
+.svg-micro    { animation: floatUp    6.2s ease-in-out infinite -2.5s;          will-change: transform; }
+.svg-beaker   { animation: floatRockR 5.5s ease-in-out infinite -0.9s;          will-change: transform; }
+.svg-ph       { animation: floatUpSm  4.7s ease-in-out infinite -3.2s;          will-change: transform; }
+.svg-moisture { animation: floatUp    7s   ease-in-out infinite -1.7s;          will-change: transform; }
+.svg-wheat    { animation: floatRock  6.3s ease-in-out infinite -0.6s;          will-change: transform; }
+.svg-color    { animation: floatUpSm  5.1s ease-in-out infinite -2.8s;          will-change: transform; }
+.svg-molecule { animation: floatRockR 8s   ease-in-out infinite -1.4s;          will-change: transform; }
+.svg-noodle   { animation: floatUp    5.4s ease-in-out infinite -3.7s;          will-change: transform; }
+.svg-brix     { animation: floatRock  4.6s ease-in-out infinite -2.2s;          will-change: transform; }
+.svg-sun      { animation: floatUpSm  6.6s ease-in-out infinite -0.4s;          will-change: transform; }
+.svg-o2       { animation: floatUp    5.8s ease-in-out infinite -4.1s;          will-change: transform; }
+.svg-dots     { animation: glowPulse  4s   ease-in-out infinite; }
+.svg-b1       { animation: bubbleRise 3.2s ease-out infinite; }
+.svg-b2       { animation: bubbleRise 3.2s ease-out infinite -1.1s; }
+.svg-b3       { animation: bubbleRise 3.2s ease-out infinite -2.2s; }
+.svg-s1       { animation: steamPuff  2.4s ease-in-out infinite; }
+.svg-s2       { animation: steamPuff  2.4s ease-in-out infinite -0.8s; }
+.svg-s3       { animation: steamPuff  2.4s ease-in-out infinite -1.6s; }
+
+/* ══ ROADMAP (SWIPE JOURNEY) ══ */
+.roadmap-shell {
+  --roadmap-progress: 0;
+}
+.roadmap-headline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.roadmap-guide {
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.roadmap-progress {
+  margin-bottom: 14px;
+}
+.roadmap-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+.roadmap-edge {
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.roadmap-progress-track {
+  position: relative;
+  height: 8px;
+  border-radius: 99px;
+  background: #d8e6f2;
+}
+.roadmap-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: calc(var(--roadmap-progress) * 100%);
+  border-radius: 99px;
+  background: linear-gradient(to right, #8ec0ea, var(--blue));
+  transition: width 0.15s linear;
+}
+.roadmap-walker {
+  position: absolute;
+  left: calc(var(--roadmap-progress) * 100%);
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: white;
+  box-shadow: 0 4px 14px rgba(21,72,126,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -55%);
+  font-size: 14px;
+  z-index: 2;
+  animation: walkerStep 1.05s ease-in-out infinite;
+}
+@keyframes walkerStep {
+  0%, 100% { transform: translate(-50%, -55%) translateY(0); }
+  50% { transform: translate(-50%, -55%) translateY(-2px); }
+}
+
+.roadmap {
+  position: relative;
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 34px 10px 24px;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 10px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+.roadmap:active { cursor: grabbing; }
+.roadmap::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 3px;
+  background: linear-gradient(to right, rgba(26,127,212,0.2), rgba(26,127,212,0.72), rgba(26,127,212,0.22));
+  border-radius: 20px;
+}
+.roadmap-year-label,
+.roadmap-empty { display: none; }
+.roadmap-row {
+  position: relative;
+  flex: 0 0 min(84vw, 332px);
+  min-height: 352px;
+  scroll-snap-align: start;
+}
+.roadmap-row::after {
+  content: '';
+  position: absolute;
+  right: -22px;
+  top: 50%;
+  width: 22px;
+  height: 3px;
+  transform: translateY(-50%);
+  background: rgba(26,127,212,0.45);
+}
+.roadmap-row:last-child::after { display: none; }
+.roadmap-node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.roadmap-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--blue);
+  box-shadow: 0 0 0 4px var(--blue-light);
+  transition: background 0.2s;
+}
+.roadmap-row:hover .roadmap-dot { background: var(--blue); }
+.roadmap-card {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 18px 15px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+}
+.roadmap-row.right .roadmap-card { top: 0; }
+.roadmap-row.left .roadmap-card { bottom: 0; }
+.roadmap-card:hover {
+  box-shadow: 0 10px 28px rgba(26,127,212,0.15);
+  border-color: var(--blue);
+  transform: translateY(-3px);
+}
+.roadmap-card.left,
+.roadmap-card.right { text-align: left; transform-origin: center; }
+.rm-year {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  margin-bottom: 8px;
+  border-radius: 20px;
+  background: var(--blue-light);
+  color: var(--blue-dark);
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.rm-period {
+  font-family: var(--font-main); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 4px;
+}
+.rm-role {
+  font-family: var(--font-main); font-size: 15px; font-weight: 700;
+  color: var(--ink); margin-bottom: 2px; line-height: 1.2;
+}
+.rm-org {
+  font-family: var(--font-main); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--muted); margin-bottom: 8px;
+}
+.rm-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.rm-tag {
+  font-family: var(--font-main); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--blue-dark); background: var(--blue-light);
+  border-radius: 20px; padding: 2px 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roadmap-walker { animation: none; }
+  .roadmap-progress-fill,
+  .roadmap-walker { transition: none; }
+}
+
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  section { padding: 60px 20px; }
+  #hero { padding: 90px 20px 72px; min-height: auto; }
+  .roadmap-guide { font-size: 10px; letter-spacing: 0.08em; }
+  .roadmap { gap: 16px; padding: 26px 6px 16px; scroll-padding-left: 6px; }
+  .roadmap::before { left: 6px; right: 6px; }
+  .roadmap-row { flex-basis: min(88vw, 300px); min-height: 320px; }
+  .roadmap-row::after { right: -16px; width: 16px; }
+  .roadmap-card { padding: 16px 14px 13px; }
+  .roadmap-progress { margin-bottom: 10px; }
+  .roadmap-walker { width: 26px; height: 26px; font-size: 13px; }
+  .hero-stats { flex-wrap: wrap; }
+  .stat-item { min-width: 50%; }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .lang-card { position: static; }
+  .exp-item { grid-template-columns: 1fr; gap: 10px; padding: 32px 0; }
+  .edu-grid, .extra-grid, .skills-grid, .cert-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
 }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════
-  INTRO OVERLAY
-════════════════════════════════════════════════ -->
-<div id="intro-overlay">
-  <canvas id="particle-canvas"></canvas>
-  <div id="endpoint-flash"></div>
-  <div class="indicator-bg" id="indicator-bg"></div>
-
-  <div class="lab-scene" id="labScene">
-
-    <!-- burette stand -->
-    <div class="burette-stand">
-      <div class="stand-rod"></div>
-      <div class="clamp-arm"></div>
-      <div class="burette" id="buretteEl">
-        <div class="burette-body">
-          <div class="burette-liquid" id="burette-liquid"></div>
-          <div class="burette-ticks"></div>
-        </div>
-        <div class="burette-tip"></div>
-        <div class="drip" id="drip"></div>
-      </div>
-    </div>
-
-    <!-- conical flask -->
-    <div class="flask" id="flaskEl">
-      <div class="flask-neck"></div>
-      <div class="flask-body">
-        <div class="flask-solution" id="flask-solution">
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-          <div class="bubble"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- scientist figure -->
-    <div class="scientist">
-      <div class="sci-shoes"></div>
-      <div class="sci-legs"></div>
-      <div class="sci-body"></div>
-      <div class="sci-head"></div>
-      <div class="sci-goggles"></div>
-      <div class="sci-arm-right"></div>
-      <div class="sci-arm-left"></div>
-    </div>
-
-    <!-- side beaker -->
-    <div class="side-beaker">
-      <div class="side-beaker-body">
-        <div class="side-beaker-liquid" id="side-beaker-liq"></div>
-      </div>
-    </div>
-
-    <!-- lab table shadow -->
-    <div class="lab-table"></div>
-  </div>
-
-  <div class="intro-text">
-    <div class="intro-label">Food Science &amp; Technology</div>
-    <div class="intro-title" id="intro-title">Edric Fendy</div>
-    <div class="intro-cta" id="intro-cta" onclick="triggerTransition()">Enter Portfolio ↓</div>
-  </div>
-
-  <button class="intro-skip" onclick="triggerTransition()">Skip intro ×</button>
-</div>
-
-<!-- ════════════════════════════════════════════════
-  MAIN PAGE
-════════════════════════════════════════════════ -->
+<!-- ══ NAV ══ -->
 <nav>
   <a href="#hero" class="nav-brand">
     <div class="nav-logo">EF</div>
@@ -725,14 +722,26 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
     <a href="#contact">Contact</a>
   </div>
   <a href="#contact" class="nav-cta">Get in Touch</a>
-  <button class="nav-hamburger" onclick="toggleMenu(this)"><span></span><span></span><span></span></button>
+  <button class="nav-hamburger" onclick="toggleMenu(this)">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
+<!-- ══ HERO ══ -->
 <section id="hero">
+  <!-- Food Science SVG Background -->
   <div class="hero-sci-bg" aria-hidden="true">
     <svg id="hero-svg-bg" viewBox="0 0 1440 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <defs><filter id="glow"><feGaussianBlur stdDeviation="2.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-      <g class="svg-flask"><g transform="translate(60,60)" opacity="0.22" filter="url(#glow)">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- ── Erlenmeyer Flask (left) ── -->
+      <g class="svg-flask">
+      <g transform="translate(60,60)" opacity="0.22" filter="url(#glow)">
         <rect x="28" y="0" width="24" height="8" rx="2" fill="white"/>
         <rect x="33" y="8" width="14" height="50" fill="white"/>
         <path d="M33 58 L8 120 Q4 135 40 135 Q76 135 72 120 Z" fill="none" stroke="white" stroke-width="2.5"/>
@@ -740,8 +749,12 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
         <circle class="svg-b1" cx="30" cy="105" r="3" fill="rgba(255,255,255,0.4)"/>
         <circle class="svg-b2" cx="50" cy="112" r="2" fill="rgba(255,255,255,0.3)"/>
         <circle class="svg-b3" cx="38" cy="98" r="4" fill="rgba(255,255,255,0.2)"/>
-      </g></g>
-      <g class="svg-tubes"><g transform="translate(170,30)" opacity="0.2">
+      </g>
+      </g>
+
+      <!-- ── Test Tubes cluster ── -->
+      <g class="svg-tubes">
+      <g transform="translate(170,30)" opacity="0.2">
         <rect x="0" y="0" width="14" height="55" rx="7" fill="none" stroke="white" stroke-width="2"/>
         <ellipse cx="7" cy="52" rx="5" ry="3" fill="rgba(255,255,255,0.35)"/>
         <rect x="22" y="10" width="14" height="60" rx="7" fill="none" stroke="white" stroke-width="2"/>
@@ -749,8 +762,12 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
         <rect x="44" y="5" width="14" height="50" rx="7" fill="none" stroke="white" stroke-width="2"/>
         <ellipse cx="51" cy="52" rx="5" ry="3" fill="rgba(255,255,255,0.35)"/>
         <rect x="-4" y="-6" width="66" height="6" rx="2" fill="rgba(255,255,255,0.3)"/>
-      </g></g>
-      <g class="svg-micro"><g transform="translate(1250,40)" opacity="0.2" filter="url(#glow)">
+      </g>
+      </g>
+
+      <!-- ── Microscope (right side) ── -->
+      <g class="svg-micro">
+      <g transform="translate(1250,40)" opacity="0.2" filter="url(#glow)">
         <rect x="38" y="0" width="12" height="28" rx="4" fill="white"/>
         <path d="M44 28 Q44 60 30 70" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
         <rect x="18" y="68" width="24" height="36" rx="4" fill="white"/>
@@ -761,30 +778,112 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
         <rect x="4" y="155" width="52" height="8" rx="4" fill="white"/>
         <circle cx="56" cy="88" r="5" fill="none" stroke="white" stroke-width="2"/>
         <circle cx="56" cy="102" r="5" fill="none" stroke="white" stroke-width="2"/>
-      </g></g>
-      <g class="svg-molecule"><g transform="translate(900,30)" opacity="0.18">
-        <line x1="40" y1="40" x2="80" y2="20" stroke="white" stroke-width="1.5"/>
-        <line x1="80" y1="20" x2="120" y2="40" stroke="white" stroke-width="1.5"/>
-        <line x1="120" y1="40" x2="120" y2="80" stroke="white" stroke-width="1.5"/>
-        <line x1="120" y1="80" x2="80" y2="100" stroke="white" stroke-width="1.5"/>
-        <line x1="80" y1="100" x2="40" y2="80" stroke="white" stroke-width="1.5"/>
-        <line x1="40" y1="80" x2="40" y2="40" stroke="white" stroke-width="1.5"/>
-        <circle cx="40" cy="40" r="6" fill="white"/>
-        <circle cx="80" cy="20" r="6" fill="white"/>
-        <circle cx="120" cy="40" r="6" fill="white"/>
-        <circle cx="120" cy="80" r="6" fill="white"/>
-        <circle cx="80" cy="100" r="6" fill="white"/>
-        <circle cx="40" cy="80" r="6" fill="white"/>
-      </g></g>
-      <g class="svg-wheat"><g transform="translate(750,340)" opacity="0.16">
+      </g>
+      </g>
+
+      <!-- ── Beaker (center-right) ── -->
+      <g class="svg-beaker">
+      <g transform="translate(1100,80)" opacity="0.18">
+        <rect x="0" y="0" width="70" height="10" rx="2" fill="white"/>
+        <path d="M60 0 L75 -12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M10 10 L0 90 Q0 110 35 110 Q70 110 70 90 L60 10 Z" fill="none" stroke="white" stroke-width="2.5"/>
+        <path d="M8 75 Q35 65 62 75" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="62" y1="50" x2="68" y2="50" stroke="white" stroke-width="1.5"/>
+        <line x1="63" y1="65" x2="68" y2="65" stroke="white" stroke-width="1.5"/>
+        <line x1="63" y1="80" x2="68" y2="80" stroke="white" stroke-width="1.5"/>
+      </g>
+      </g>
+
+      <!-- ── pH Meter (bottom left) ── -->
+      <g class="svg-ph">
+      <g transform="translate(80,300)" opacity="0.18">
+        <rect x="0" y="0" width="54" height="90" rx="6" fill="none" stroke="white" stroke-width="2"/>
+        <rect x="6" y="8" width="42" height="28" rx="3" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.5"/>
+        <text x="27" y="26" text-anchor="middle" fill="white" font-size="11" font-family="monospace" font-weight="700">pH 6.8</text>
+        <circle cx="16" cy="52" r="5" fill="none" stroke="white" stroke-width="1.5"/>
+        <circle cx="27" cy="52" r="5" fill="none" stroke="white" stroke-width="1.5"/>
+        <circle cx="38" cy="52" r="5" fill="none" stroke="white" stroke-width="1.5"/>
+        <rect x="18" y="64" width="18" height="6" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <line x1="27" y1="90" x2="27" y2="140" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="27" cy="143" rx="4" ry="6" fill="none" stroke="white" stroke-width="1.5"/>
+      </g>
+      </g>
+
+      <!-- ── Moisture Analyzer (top center) ── -->
+      <g class="svg-moisture">
+      <g transform="translate(560,25)" opacity="0.15">
+        <rect x="0" y="40" width="120" height="60" rx="5" fill="none" stroke="white" stroke-width="2"/>
+        <rect x="8" y="48" width="68" height="36" rx="3" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
+        <text x="42" y="65" text-anchor="middle" fill="white" font-size="9" font-family="monospace">0.52% MC</text>
+        <text x="42" y="77" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="8" font-family="monospace">MOISTURE</text>
+        <path d="M10 40 Q60 10 110 40" fill="none" stroke="white" stroke-width="2"/>
+        <ellipse cx="60" cy="40" rx="30" ry="6" fill="none" stroke="white" stroke-width="1.5"/>
+        <rect x="84" y="52" width="28" height="36" rx="3" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <circle cx="92" cy="62" r="3" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="102" cy="62" r="3" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="92" cy="74" r="3" fill="rgba(255,255,255,0.3)"/>
+        <circle cx="102" cy="74" r="3" fill="rgba(255,255,255,0.3)"/>
+      </g>
+      </g>
+
+      <!-- ── Wheat / Grain ── -->
+      <g class="svg-wheat">
+      <g transform="translate(750,340)" opacity="0.16">
         <line x1="20" y1="120" x2="20" y2="0" stroke="white" stroke-width="2" stroke-linecap="round"/>
         <ellipse cx="20" cy="15" rx="7" ry="12" fill="none" stroke="white" stroke-width="1.5"/>
         <ellipse cx="10" cy="35" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-20,10,35)"/>
         <ellipse cx="30" cy="35" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(20,30,35)"/>
         <ellipse cx="8" cy="58" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-25,8,58)"/>
         <ellipse cx="32" cy="58" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(25,32,58)"/>
-      </g></g>
-      <g class="svg-noodle"><g transform="translate(600,370)" opacity="0.16">
+        <ellipse cx="10" cy="80" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-20,10,80)"/>
+        <ellipse cx="30" cy="80" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(20,30,80)"/>
+        <line x1="20" y1="3" x2="20" y2="-15" stroke="white" stroke-width="1" stroke-linecap="round"/>
+        <line x1="10" y1="25" x2="2" y2="10" stroke="white" stroke-width="1" stroke-linecap="round"/>
+        <line x1="30" y1="25" x2="38" y2="10" stroke="white" stroke-width="1" stroke-linecap="round"/>
+      </g>
+      </g>
+
+      <!-- ── Colorimeter (bottom right) ── -->
+      <g class="svg-color">
+      <g transform="translate(1320,300)" opacity="0.17">
+        <rect x="0" y="20" width="80" height="110" rx="8" fill="none" stroke="white" stroke-width="2"/>
+        <circle cx="40" cy="20" r="14" fill="none" stroke="white" stroke-width="2"/>
+        <circle cx="40" cy="20" r="8" fill="rgba(255,255,255,0.15)"/>
+        <rect x="10" y="40" width="60" height="32" rx="4" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
+        <text x="40" y="58" text-anchor="middle" fill="white" font-size="10" font-family="monospace">ΔE 2.34</text>
+        <rect x="12" y="82" width="56" height="8" rx="3" fill="rgba(255,255,255,0.2)"/>
+        <rect x="12" y="96" width="56" height="8" rx="3" fill="rgba(255,255,255,0.2)"/>
+        <rect x="8" y="126" width="64" height="8" rx="3" fill="rgba(255,255,255,0.3)"/>
+      </g>
+      </g>
+
+      <!-- ── Molecule (amino acid) ── -->
+      <g class="svg-molecule">
+      <g transform="translate(900,30)" opacity="0.18">
+        <line x1="40" y1="40" x2="80" y2="20" stroke="white" stroke-width="1.5"/>
+        <line x1="80" y1="20" x2="120" y2="40" stroke="white" stroke-width="1.5"/>
+        <line x1="120" y1="40" x2="120" y2="80" stroke="white" stroke-width="1.5"/>
+        <line x1="120" y1="80" x2="80" y2="100" stroke="white" stroke-width="1.5"/>
+        <line x1="80" y1="100" x2="40" y2="80" stroke="white" stroke-width="1.5"/>
+        <line x1="40" y1="80" x2="40" y2="40" stroke="white" stroke-width="1.5"/>
+        <line x1="80" y1="20" x2="80" y2="100" stroke="white" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="122" y1="42" x2="122" y2="78" stroke="white" stroke-width="1"/>
+        <line x1="40" y1="60" x2="10" y2="60" stroke="white" stroke-width="1.5"/>
+        <text x="2" y="64" fill="white" font-size="10" font-family="sans-serif" font-weight="600">NH₂</text>
+        <line x1="120" y1="60" x2="148" y2="60" stroke="white" stroke-width="1.5"/>
+        <text x="150" y="64" fill="white" font-size="10" font-family="sans-serif" font-weight="600">COOH</text>
+        <circle cx="40" cy="40" r="6" fill="white"/><text x="37" y="44" fill="#1a7fd4" font-size="8" font-weight="700">C</text>
+        <circle cx="80" cy="20" r="6" fill="white"/><text x="77" y="24" fill="#1a7fd4" font-size="8" font-weight="700">C</text>
+        <circle cx="120" cy="40" r="6" fill="white"/><text x="117" y="44" fill="#1a7fd4" font-size="8" font-weight="700">O</text>
+        <circle cx="120" cy="80" r="6" fill="white"/><text x="117" y="84" fill="#1a7fd4" font-size="8" font-weight="700">C</text>
+        <circle cx="80" cy="100" r="6" fill="white"/><text x="77" y="104" fill="#1a7fd4" font-size="8" font-weight="700">N</text>
+        <circle cx="40" cy="80" r="6" fill="white"/><text x="37" y="84" fill="#1a7fd4" font-size="8" font-weight="700">H</text>
+      </g>
+      </g>
+
+      <!-- ── Noodle bowl ── -->
+      <g class="svg-noodle">
+      <g transform="translate(600,370)" opacity="0.16">
         <path d="M10 30 Q10 90 100 90 Q190 90 190 30 Z" fill="none" stroke="white" stroke-width="2.5"/>
         <ellipse cx="100" cy="30" rx="90" ry="20" fill="none" stroke="white" stroke-width="2"/>
         <path class="svg-s1" d="M60 28 Q55 10 60 0 Q65 -10 60 -20" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
@@ -792,18 +891,84 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
         <path class="svg-s3" d="M140 28 Q135 10 140 0 Q145 -10 140 -20" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M35 45 Q55 35 75 48 Q95 60 115 48 Q135 35 155 45" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M30 60 Q50 50 70 62 Q90 74 110 62 Q130 50 150 60" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M38 74 Q58 64 78 76 Q98 88 118 76 Q138 64 158 74" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
         <line x1="80" y1="10" x2="60" y2="90" stroke="white" stroke-width="2" stroke-linecap="round"/>
         <line x1="90" y1="10" x2="120" y2="90" stroke="white" stroke-width="2" stroke-linecap="round"/>
-      </g></g>
+      </g>
+      </g>
+
+      <!-- ── Brix Refractometer ── -->
+      <g class="svg-brix">
+      <g transform="translate(240,250)" opacity="0.17">
+        <rect x="10" y="0" width="22" height="100" rx="10" fill="none" stroke="white" stroke-width="2"/>
+        <ellipse cx="21" cy="0" rx="11" ry="6" fill="none" stroke="white" stroke-width="1.5"/>
+        <path d="M10 100 L6 118 L36 118 L32 100 Z" fill="none" stroke="white" stroke-width="2"/>
+        <rect x="6" y="118" width="30" height="6" rx="2" fill="rgba(255,255,255,0.3)"/>
+        <line x1="32" y1="30" x2="38" y2="30" stroke="white" stroke-width="1.2"/>
+        <line x1="33" y1="45" x2="38" y2="45" stroke="white" stroke-width="1.2"/>
+        <line x1="33" y1="60" x2="38" y2="60" stroke="white" stroke-width="1.2"/>
+        <line x1="32" y1="75" x2="38" y2="75" stroke="white" stroke-width="1.2"/>
+        <text x="40" y="49" fill="white" font-size="8" font-family="monospace">°Bx</text>
+      </g>
+      </g>
+
+      <!-- ── Sunflower microgreen ── -->
+      <g class="svg-sun">
+      <g transform="translate(1140,340)" opacity="0.18">
+        <path d="M10 80 L5 110 L65 110 L60 80 Z" fill="none" stroke="white" stroke-width="2"/>
+        <ellipse cx="35" cy="80" rx="25" ry="7" fill="none" stroke="white" stroke-width="1.5"/>
+        <ellipse cx="35" cy="80" rx="22" ry="5" fill="rgba(255,255,255,0.15)"/>
+        <line x1="35" y1="78" x2="35" y2="30" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="22" y1="80" x2="18" y2="38" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="48" y1="80" x2="52" y2="38" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="35" cy="26" r="10" fill="none" stroke="white" stroke-width="2"/>
+        <circle cx="35" cy="26" r="5" fill="rgba(255,255,255,0.3)"/>
+        <ellipse cx="35" cy="13" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5"/>
+        <ellipse cx="35" cy="39" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5"/>
+        <ellipse cx="22" cy="26" rx="7" ry="4" fill="none" stroke="white" stroke-width="1.5"/>
+        <ellipse cx="48" cy="26" rx="7" ry="4" fill="none" stroke="white" stroke-width="1.5"/>
+        <ellipse cx="26" cy="17" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-45,26,17)"/>
+        <ellipse cx="44" cy="17" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5" transform="rotate(45,44,17)"/>
+        <ellipse cx="26" cy="35" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5" transform="rotate(45,26,35)"/>
+        <ellipse cx="44" cy="35" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-45,44,35)"/>
+        <path d="M18 38 Q8 28 14 20" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M52 38 Q62 28 56 20" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      </g>
+
+      <!-- ── Oxygen Analyzer ── -->
+      <g class="svg-o2">
+      <g transform="translate(1370,60)" opacity="0.16">
+        <rect x="0" y="0" width="58" height="80" rx="6" fill="none" stroke="white" stroke-width="2"/>
+        <rect x="6" y="8" width="46" height="28" rx="3" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
+        <text x="29" y="22" text-anchor="middle" fill="white" font-size="9" font-family="monospace">O₂</text>
+        <text x="29" y="32" text-anchor="middle" fill="white" font-size="9" font-family="monospace">20.9%</text>
+        <circle cx="18" cy="54" r="5" fill="none" stroke="white" stroke-width="1.5"/>
+        <circle cx="29" cy="54" r="5" fill="none" stroke="white" stroke-width="1.5"/>
+        <circle cx="40" cy="54" r="5" fill="none" stroke="white" stroke-width="1.5"/>
+        <rect x="8" y="66" width="42" height="6" rx="3" fill="rgba(255,255,255,0.25)"/>
+        <path d="M29 80 Q29 110 10 120" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="8" cy="123" r="4" fill="none" stroke="white" stroke-width="1.5"/>
+      </g>
+      </g>
+
+      <!-- ── scattered dots (constellation-like connectors) ── -->
       <g opacity="0.12">
         <circle cx="400" cy="80" r="2" fill="white"/>
         <circle cx="480" cy="150" r="1.5" fill="white"/>
         <circle cx="350" cy="200" r="2" fill="white"/>
+        <circle cx="500" cy="280" r="1.5" fill="white"/>
         <circle cx="700" cy="100" r="2" fill="white"/>
         <circle cx="820" cy="200" r="1.5" fill="white"/>
+        <circle cx="680" cy="300" r="2" fill="white"/>
+        <circle cx="1000" cy="150" r="1.5" fill="white"/>
+        <circle cx="1060" cy="260" r="2" fill="white"/>
         <line x1="400" y1="80" x2="480" y2="150" stroke="white" stroke-width="0.8"/>
         <line x1="480" y1="150" x2="350" y2="200" stroke="white" stroke-width="0.8"/>
+        <line x1="350" y1="200" x2="500" y2="280" stroke="white" stroke-width="0.8"/>
         <line x1="700" y1="100" x2="820" y2="200" stroke="white" stroke-width="0.8"/>
+        <line x1="820" y1="200" x2="680" y2="300" stroke="white" stroke-width="0.8"/>
+        <line x1="1000" y1="150" x2="1060" y2="260" stroke="white" stroke-width="0.8"/>
       </g>
     </svg>
   </div>
@@ -811,17 +976,20 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
     <div class="hero-label">Food Science &amp; Technology Professional</div>
     <h1 class="hero-name">Edric Fendy</h1>
     <p class="hero-title">R&amp;D Specialist · QA/QC Expert · Food Safety Enthusiast</p>
-    <p class="hero-desc">Bachelor's graduate from <strong>Monash University</strong> with hands-on experience in Research &amp; Development, Quality Assurance, and Food Certification at leading food companies across the region.</p>
+    <p class="hero-desc">
+      Bachelor's graduate from <strong>Monash University</strong> with hands-on experience in Research &amp; Development, Quality Assurance, and Food Certification at leading food companies across the region.
+    </p>
     <div class="hero-btns">
       <a href="#contact" class="btn-white">Get in Touch</a>
       <a href="#experience" class="btn-outline-white">View Experience</a>
     </div>
   </div>
+
 </section>
 
 <div class="section-divider"></div>
 
-<!-- About -->
+<!-- ══ ABOUT ══ -->
 <section id="about" class="bg-white">
   <div class="container">
     <div class="section-kicker">About Me</div>
@@ -829,7 +997,7 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
       <div>
         <h2 class="section-title">Aspiring Food <span>Scientist</span></h2>
         <p class="about-text">A <strong>Bachelor's graduate in Food Science &amp; Technology from Monash University</strong>, with hands-on experience across Research &amp; Development, Quality Assurance/Quality Control, and Food Certification through internships at leading food companies.</p>
-        <p class="about-text">Proven ability in <strong>laboratory analysis, compliance management, and new product development</strong> — with a passion for innovation and food safety.</p>
+        <p class="about-text">Proven ability in <strong>laboratory analysis, compliance management, and new product development</strong> — with a passion for innovation and food safety. I bring a detail-oriented mindset and a drive to make food products safer, healthier, and more marketable.</p>
         <div class="about-points">
           <div class="about-point"><div class="ap-icon">🔬</div>3 industry internships across R&amp;D, QA/QC, and certification</div>
           <div class="about-point"><div class="ap-icon">🏆</div>Awarded 'Most Marketable Idea' for product development project</div>
@@ -853,14 +1021,18 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
 
 <div class="section-divider"></div>
 
-<!-- Experience -->
+<!-- ══ EXPERIENCE ══ -->
 <section id="experience" class="bg-pale">
   <div class="container">
     <div class="section-kicker">Work Experience</div>
     <h2 class="section-title">Professional <span>Journey</span></h2>
     <div class="exp-timeline">
+
       <div class="exp-item">
-        <div class="exp-meta"><div class="exp-date">Nov 2024 — Feb 2025</div><div class="exp-location">📍 Subang Jaya, Selangor, Malaysia</div></div>
+        <div class="exp-meta">
+          <div class="exp-date">Nov 2024 — Feb 2025</div>
+          <div class="exp-location">📍 Subang Jaya, Selangor, Malaysia</div>
+        </div>
         <div class="exp-body">
           <div class="exp-role">R&D Specialist Intern</div>
           <div class="exp-company">Mamee-Double Decker</div>
@@ -871,8 +1043,12 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
           </ul>
         </div>
       </div>
+
       <div class="exp-item">
-        <div class="exp-meta"><div class="exp-date">Dec 2023 — Feb 2024</div><div class="exp-location">📍 Petaling Jaya, Selangor, Malaysia</div></div>
+        <div class="exp-meta">
+          <div class="exp-date">Dec 2023 — Feb 2024</div>
+          <div class="exp-location">📍 Petaling Jaya, Selangor, Malaysia</div>
+        </div>
         <div class="exp-body">
           <div class="exp-role">QA/QC Specialist Intern</div>
           <div class="exp-company">Amazin Graze</div>
@@ -883,8 +1059,12 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
           </ul>
         </div>
       </div>
+
       <div class="exp-item">
-        <div class="exp-meta"><div class="exp-date">Dec 2022 — Feb 2023</div><div class="exp-location">📍 Kuala Lumpur, Malaysia</div></div>
+        <div class="exp-meta">
+          <div class="exp-date">Dec 2022 — Feb 2023</div>
+          <div class="exp-location">📍 Kuala Lumpur, Malaysia</div>
+        </div>
         <div class="exp-body">
           <div class="exp-role">Food Certification Intern</div>
           <div class="exp-company">Interfinite</div>
@@ -894,13 +1074,14 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
           </ul>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- Education -->
+<!-- ══ EDUCATION ══ -->
 <section id="education" class="bg-white">
   <div class="container">
     <div class="section-kicker">Education</div>
@@ -918,7 +1099,7 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
 
 <div class="section-divider"></div>
 
-<!-- Projects -->
+<!-- ══ PROJECTS ══ -->
 <section id="projects" class="bg-pale">
   <div class="container">
     <div class="section-kicker">Featured Projects</div>
@@ -945,64 +1126,230 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
 
 <div class="section-divider"></div>
 
-<!-- Extracurricular -->
+<!-- ══ EXTRACURRICULAR ══ -->
 <section id="extracurricular" class="bg-white">
   <div class="container">
     <div class="section-kicker">Extracurricular Activities</div>
     <h2 class="section-title">Beyond the <span>Laboratory</span></h2>
+
     <div class="roadmap-shell">
-      <div class="roadmap-headline"><p class="roadmap-guide">Swipe through the journey: oldest to latest</p></div>
+      <div class="roadmap-headline">
+        <p class="roadmap-guide">Swipe through the journey: oldest to latest</p>
+      </div>
       <div class="roadmap-progress" aria-hidden="true">
-        <div class="roadmap-progress-meta"><span class="roadmap-edge">Oldest</span><span class="roadmap-edge">Latest</span></div>
-        <div class="roadmap-progress-track"><div class="roadmap-progress-fill"></div><div class="roadmap-walker">🚶</div></div>
+        <div class="roadmap-progress-meta">
+          <span class="roadmap-edge">Oldest</span>
+          <span class="roadmap-edge">Latest</span>
+        </div>
+        <div class="roadmap-progress-track">
+          <div class="roadmap-progress-fill"></div>
+          <div class="roadmap-walker">🚶</div>
+        </div>
       </div>
+
       <div class="roadmap" id="roadmapSwipe">
-        <div class="roadmap-row right"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div class="roadmap-card right"><div class="rm-year">2023</div><div class="rm-period">Jan 2023 – Dec 2023 · 1 yr</div><div class="rm-role">💃 Publicity Officer</div><div class="rm-org">Monash Dance Fusion Club</div><div class="rm-tags"><span class="rm-tag">Social Media</span><span class="rm-tag">Publicity</span><span class="rm-tag">Creative Design</span></div></div></div>
-        <div class="roadmap-row left"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div class="roadmap-card left"><div class="rm-year">2023</div><div class="rm-period">Jul 2023 – Dec 2023 · 6 mos</div><div class="rm-role">🌿 Publicity Officer</div><div class="rm-org">Monash Health Ambassador</div><div class="rm-tags"><span class="rm-tag">Health &amp; Wellness</span><span class="rm-tag">Publicity</span></div></div></div>
-        <div class="roadmap-row right"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div class="roadmap-card right"><div class="rm-year">2023</div><div class="rm-period">Jul 2023 – Dec 2023 · 6 mos</div><div class="rm-role">♻️ Publicity Officer</div><div class="rm-org">Monash Green Representative Network</div><div class="rm-tags"><span class="rm-tag">Sustainability</span><span class="rm-tag">Advocacy</span></div></div></div>
-        <div class="roadmap-row left"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div class="roadmap-card left"><div class="rm-year">2024</div><div class="rm-period">Jan 2024 – Jun 2024 · 6 mos</div><div class="rm-role">🎯 Event Coordinator</div><div class="rm-org">Monash Career Peer</div><div class="rm-tags"><span class="rm-tag">Event Management</span><span class="rm-tag">Leadership</span></div></div></div>
-        <div class="roadmap-row right"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div class="roadmap-card right"><div class="rm-year">2024</div><div class="rm-period">Jul 2024 – Dec 2024 · 6 mos</div><div class="rm-role">📊 Publicity Officer</div><div class="rm-org">Monash Accounting &amp; Finance Club</div><div class="rm-tags"><span class="rm-tag">Marketing</span><span class="rm-tag">Content Creation</span></div></div></div>
-        <div class="roadmap-row left"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div class="roadmap-card left"><div class="rm-year">2024</div><div class="rm-period">Jul 2024 – Dec 2024 · 6 mos</div><div class="rm-role">🔭 Publicity Officer</div><div class="rm-org">Monash Science Club</div><div class="rm-tags"><span class="rm-tag">Publicity</span><span class="rm-tag">Science Outreach</span></div></div></div>
-        <div class="roadmap-row right"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div class="roadmap-card right"><div class="rm-year">2025</div><div class="rm-period">Jan 2025 – May 2025 · 5 mos</div><div class="rm-role">📣 Publicity Officer</div><div class="rm-org">Monash University Volunteer Program</div><div class="rm-tags"><span class="rm-tag">Publicity</span><span class="rm-tag">Communications</span></div></div></div>
-        <div class="roadmap-row left"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div class="roadmap-card left"><div class="rm-year">Ongoing</div><div class="rm-period">Monash University Volunteer Program</div><div class="rm-role">🤝 Community Volunteer</div><div class="rm-org">Kechara Soup Kitchen · Social Services</div><div class="rm-tags"><span class="rm-tag">Community Service</span><span class="rm-tag">Social Impact</span></div></div></div>
-      </div>
+        <div class="roadmap-row right">
+          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
+          <div class="roadmap-card right">
+            <div class="rm-year">2023</div>
+            <div class="rm-period">Jan 2023 – Dec 2023 · 1 yr</div>
+            <div class="rm-role">💃 Publicity Officer</div>
+            <div class="rm-org">Monash Dance Fusion Club</div>
+            <div class="rm-tags">
+              <span class="rm-tag">Social Media</span>
+              <span class="rm-tag">Publicity</span>
+              <span class="rm-tag">Creative Design</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-row left">
+          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
+          <div class="roadmap-card left">
+            <div class="rm-year">2023</div>
+            <div class="rm-period">Jul 2023 – Dec 2023 · 6 mos</div>
+            <div class="rm-role">🌿 Publicity Officer</div>
+            <div class="rm-org">Monash Health Ambassador</div>
+            <div class="rm-tags">
+              <span class="rm-tag">Health &amp; Wellness</span>
+              <span class="rm-tag">Publicity</span>
+              <span class="rm-tag">Awareness</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-row right">
+          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
+          <div class="roadmap-card right">
+            <div class="rm-year">2023</div>
+            <div class="rm-period">Jul 2023 – Dec 2023 · 6 mos</div>
+            <div class="rm-role">♻️ Publicity Officer</div>
+            <div class="rm-org">Monash Green Representative Network</div>
+            <div class="rm-tags">
+              <span class="rm-tag">Sustainability</span>
+              <span class="rm-tag">Publicity</span>
+              <span class="rm-tag">Advocacy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-row left">
+          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
+          <div class="roadmap-card left">
+            <div class="rm-year">2024</div>
+            <div class="rm-period">Jan 2024 – Jun 2024 · 6 mos</div>
+            <div class="rm-role">🎯 Event Coordinator</div>
+            <div class="rm-org">Monash Career Peer</div>
+            <div class="rm-tags">
+              <span class="rm-tag">Event Management</span>
+              <span class="rm-tag">Career Development</span>
+              <span class="rm-tag">Leadership</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-row right">
+          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
+          <div class="roadmap-card right">
+            <div class="rm-year">2024</div>
+            <div class="rm-period">Jul 2024 – Dec 2024 · 6 mos</div>
+            <div class="rm-role">📊 Publicity Officer</div>
+            <div class="rm-org">Monash Accounting &amp; Finance Club</div>
+            <div class="rm-tags">
+              <span class="rm-tag">Marketing</span>
+              <span class="rm-tag">Content Creation</span>
+              <span class="rm-tag">Club Activities</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-row left">
+          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
+          <div class="roadmap-card left">
+            <div class="rm-year">2024</div>
+            <div class="rm-period">Jul 2024 – Dec 2024 · 6 mos</div>
+            <div class="rm-role">🔭 Publicity Officer</div>
+            <div class="rm-org">Monash Science Club</div>
+            <div class="rm-tags">
+              <span class="rm-tag">Publicity</span>
+              <span class="rm-tag">Science Outreach</span>
+              <span class="rm-tag">Design</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-row right">
+          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
+          <div class="roadmap-card right">
+            <div class="rm-year">2025</div>
+            <div class="rm-period">Jan 2025 – May 2025 · 5 mos</div>
+            <div class="rm-role">📣 Publicity Officer</div>
+            <div class="rm-org">Monash University Volunteer Program</div>
+            <div class="rm-tags">
+              <span class="rm-tag">Publicity</span>
+              <span class="rm-tag">Volunteering</span>
+              <span class="rm-tag">Communications</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-row left">
+          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
+          <div class="roadmap-card left">
+            <div class="rm-year">Ongoing</div>
+            <div class="rm-period">Monash University Volunteer Program</div>
+            <div class="rm-role">🤝 Community Volunteer</div>
+            <div class="rm-org">Kechara Soup Kitchen · Social Services</div>
+            <div class="rm-tags">
+              <span class="rm-tag">Community Service</span>
+              <span class="rm-tag">Social Impact</span>
+              <span class="rm-tag">Volunteering</span>
+            </div>
+          </div>
+        </div>
+      </div><!-- /roadmap -->
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- Skills -->
+<!-- ══ SKILLS ══ -->
 <section id="skills" class="bg-pale">
   <div class="container">
     <div class="section-kicker">Skills &amp; Expertise</div>
     <h2 class="section-title">Core <span>Competencies</span></h2>
     <div class="skills-grid">
-      <div class="skill-card"><div class="skill-card-header"><div class="skill-card-icon">⌨️</div><div class="skill-card-title">Technical Skills</div></div><div class="skill-tags"><div class="skill-tag">Microsoft Office Suite</div><div class="skill-tag">Adobe Photoshop</div><div class="skill-tag">Canva</div><div class="skill-tag">Web Development</div><div class="skill-tag">Python</div></div></div>
-      <div class="skill-card"><div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Laboratory Equipment</div></div><div class="skill-tags"><div class="skill-tag">Moisture Analyzers</div><div class="skill-tag">Oxygen Analyzers</div><div class="skill-tag">pH Meters</div><div class="skill-tag">Colorimeter</div><div class="skill-tag">Brix-Salinity Meters</div></div></div>
-      <div class="skill-card"><div class="skill-card-header"><div class="skill-card-icon">🛡️</div><div class="skill-card-title">Compliance &amp; Standards</div></div><div class="skill-tags"><div class="skill-tag">GMP (Good Manufacturing Practice)</div><div class="skill-tag">HACCP</div><div class="skill-tag">Halal Certification</div><div class="skill-tag">Food Safety Management</div></div></div>
+      <div class="skill-card">
+        <div class="skill-card-header"><div class="skill-card-icon">⌨️</div><div class="skill-card-title">Technical Skills</div></div>
+        <div class="skill-tags">
+          <div class="skill-tag">Microsoft Office Suite</div>
+          <div class="skill-tag">Adobe Photoshop</div>
+          <div class="skill-tag">Canva</div>
+          <div class="skill-tag">Web Development</div>
+          <div class="skill-tag">Python</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Laboratory Equipment</div></div>
+        <div class="skill-tags">
+          <div class="skill-tag">Moisture Analyzers</div>
+          <div class="skill-tag">Oxygen Analyzers</div>
+          <div class="skill-tag">pH Meters</div>
+          <div class="skill-tag">Colorimeter</div>
+          <div class="skill-tag">Brix-Salinity Meters</div>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header"><div class="skill-card-icon">🛡️</div><div class="skill-card-title">Compliance &amp; Standards</div></div>
+        <div class="skill-tags">
+          <div class="skill-tag">GMP (Good Manufacturing Practice)</div>
+          <div class="skill-tag">HACCP</div>
+          <div class="skill-tag">Halal Certification</div>
+          <div class="skill-tag">Food Safety Management</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- Certifications -->
+<!-- ══ CERTIFICATIONS ══ -->
 <section id="certifications" class="bg-white">
   <div class="container">
     <div class="section-kicker">Certifications</div>
     <h2 class="section-title">Credentials &amp; <span>Training</span></h2>
     <div class="cert-grid">
-      <div class="cert-card"><div class="cert-badge">📜</div><div class="cert-name">Add Certification Name</div><div class="cert-issuer">Issuing Organization · Platform or Institution</div><div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status active">Active</div></div></div>
-      <div class="cert-card"><div class="cert-badge">🛡️</div><div class="cert-name">Add Certification Name</div><div class="cert-issuer">Issuing Organization · Platform or Institution</div><div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status active">Active</div></div></div>
-      <div class="cert-card"><div class="cert-badge">🔬</div><div class="cert-name">Add Certification Name</div><div class="cert-issuer">Issuing Organization · Platform or Institution</div><div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status completed">Completed</div></div></div>
+
+      <div class="cert-card">
+        <div class="cert-badge">📜</div>
+        <div class="cert-name">Add Certification Name</div>
+        <div class="cert-issuer">Issuing Organization · Platform or Institution</div>
+        <div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status active">Active</div></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-badge">🛡️</div>
+        <div class="cert-name">Add Certification Name</div>
+        <div class="cert-issuer">Issuing Organization · Platform or Institution</div>
+        <div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status active">Active</div></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-badge">🔬</div>
+        <div class="cert-name">Add Certification Name</div>
+        <div class="cert-issuer">Issuing Organization · Platform or Institution</div>
+        <div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status completed">Completed</div></div>
+      </div>
+
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- Contact -->
+<!-- ══ CONTACT ══ -->
 <section id="contact" class="bg-pale">
   <div class="container">
     <div class="section-kicker">Get In Touch</div>
@@ -1011,10 +1358,22 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
       <div>
         <p class="contact-lead">Feel free to reach out for collaborations, opportunities, or just a friendly chat about food science and innovation!</p>
         <div class="contact-cards">
-          <a href="mailto:edricfendy45@gmail.com" class="contact-card"><div class="contact-icon">✉️</div><div><div class="contact-label">Email</div><div class="contact-value">edricfendy45@gmail.com</div></div></a>
-          <a href="tel:+60147118560" class="contact-card"><div class="contact-icon">📞</div><div><div class="contact-label">Phone</div><div class="contact-value">+60 14-7118560</div></div></a>
-          <a href="https://www.linkedin.com/in/edric-fendy-71b0a6240/" target="_blank" class="contact-card"><div class="contact-icon">🔗</div><div><div class="contact-label">LinkedIn</div><div class="contact-value">Connect with me</div></div></a>
-          <div class="contact-card"><div class="contact-icon">📍</div><div><div class="contact-label">Location</div><div class="contact-value">Indonesia</div></div></div>
+          <a href="mailto:edricfendy45@gmail.com" class="contact-card">
+            <div class="contact-icon">✉️</div>
+            <div><div class="contact-label">Email</div><div class="contact-value">edricfendy45@gmail.com</div></div>
+          </a>
+          <a href="tel:+60147118560" class="contact-card">
+            <div class="contact-icon">📞</div>
+            <div><div class="contact-label">Phone</div><div class="contact-value">+60 14-7118560</div></div>
+          </a>
+          <a href="https://www.linkedin.com/in/edric-fendy-71b0a6240/" target="_blank" class="contact-card">
+            <div class="contact-icon">🔗</div>
+            <div><div class="contact-label">LinkedIn</div><div class="contact-value">Connect with me</div></div>
+          </a>
+          <div class="contact-card">
+            <div class="contact-icon">📍</div>
+            <div><div class="contact-label">Location</div><div class="contact-value">Indonesia</div></div>
+          </div>
         </div>
       </div>
       <div>
@@ -1030,173 +1389,54 @@ footer { background:var(--ink);padding:40px 48px;display:flex;align-items:center
   </div>
 </section>
 
+<!-- ══ FOOTER ══ -->
 <footer>
-  <div class="footer-brand"><div class="footer-name">Edric Fendy</div><div class="footer-sub">Food Science &amp; Technology Professional</div></div>
-  <div class="footer-links"><a href="#about">About</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#extracurricular">Activities</a><a href="#certifications">Certifications</a><a href="#contact">Contact</a></div>
+  <div class="footer-brand">
+    <div class="footer-name">Edric Fendy</div>
+    <div class="footer-sub">Food Science &amp; Technology Professional</div>
+  </div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#extracurricular">Activities</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact">Contact</a>
+  </div>
   <div class="footer-copy">© 2025 Edric Fendy</div>
 </footer>
 
 <script>
-/* ══════════════════════════════
-   PARTICLE CANVAS
-══════════════════════════════ */
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let animFrame;
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-function spawnParticles(x, y, color, count) {
-  for (let i = 0; i < count; i++) {
-    const angle = Math.random() * Math.PI * 2;
-    const speed = 1.5 + Math.random() * 4;
-    particles.push({
-      x, y,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed - 2,
-      r: 2 + Math.random() * 4,
-      alpha: 1,
-      color,
-      gravity: 0.08
-    });
-  }
-}
-
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles = particles.filter(p => p.alpha > 0.02);
-  particles.forEach(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-    p.vy += p.gravity;
-    p.alpha -= 0.018;
-    ctx.save();
-    ctx.globalAlpha = p.alpha;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = p.color;
-    ctx.fill();
-    ctx.restore();
-  });
-  animFrame = requestAnimationFrame(animateParticles);
-}
-animateParticles();
-
-/* ══════════════════════════════
-   TITRATION SEQUENCE
-══════════════════════════════ */
-const overlay      = document.getElementById('intro-overlay');
-const burLiquid    = document.getElementById('burette-liquid');
-const flaskSol     = document.getElementById('flask-solution');
-const indicatorBg  = document.getElementById('indicator-bg');
-const endFlash     = document.getElementById('endpoint-flash');
-const introCta     = document.getElementById('intro-cta');
-let   transitioned = false;
-
-// Step 1: burette drips — liquid drops
-setTimeout(() => {
-  burLiquid.style.height = '45%';
-}, 1200);
-
-// Step 2: solution starts changing colour
-setTimeout(() => {
-  flaskSol.classList.add('turning-blue');
-}, 2800);
-
-// Step 3: endpoint reached — burst of particles + flash
-setTimeout(() => {
-  flaskSol.classList.add('blue-done');
-  indicatorBg.classList.add('glow');
-  burLiquid.style.height = '20%';
-
-  // flash
-  endFlash.classList.add('flash');
-  setTimeout(() => endFlash.classList.remove('flash'), 180);
-
-  // particle burst from flask centre
-  const rect = document.getElementById('flaskEl').getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-  spawnParticles(cx, cy, '#1a7fd4', 28);
-  spawnParticles(cx, cy, '#80d8ff', 18);
-  spawnParticles(cx, cy, '#ffffff', 12);
-
-  // show CTA
-  introCta.style.animationPlayState = 'running';
-}, 4200);
-
-// Auto-transition after 6.5s
-setTimeout(() => {
-  if (!transitioned) triggerTransition();
-}, 6800);
-
-/* ══════════════════════════════
-   TRANSITION TO PORTFOLIO
-══════════════════════════════ */
-function triggerTransition() {
-  if (transitioned) return;
-  transitioned = true;
-
-  // one last particle burst
-  const cx = window.innerWidth / 2;
-  const cy = window.innerHeight / 2;
-  for (let i = 0; i < 5; i++) {
-    setTimeout(() => spawnParticles(cx, cy, '#1a7fd4', 12), i * 80);
-  }
-
-  overlay.classList.add('fade-out');
-  document.body.style.overflow = '';
-
-  setTimeout(() => {
-    overlay.style.display = 'none';
-    cancelAnimationFrame(animFrame);
-  }, 1200);
-}
-
-document.body.style.overflow = 'hidden';
-
-/* ══════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════ */
+/* ── Scroll reveal ── */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.exp-item,.edu-card,.skill-card,.project-card,.roadmap-row,.cert-card').forEach(el => observer.observe(el));
-document.querySelectorAll('.edu-card').forEach((el,i)   => el.style.transitionDelay = (i*.12)+'s');
-document.querySelectorAll('.skill-card').forEach((el,i) => el.style.transitionDelay = (i*.10)+'s');
-document.querySelectorAll('.exp-item').forEach((el,i)   => el.style.transitionDelay = (i*.10)+'s');
-document.querySelectorAll('.roadmap-row').forEach((el,i) => el.style.transitionDelay = (i*.1)+'s');
-document.querySelectorAll('.cert-card').forEach((el,i)  => el.style.transitionDelay = (i*.10)+'s');
+document.querySelectorAll('.edu-card').forEach((el,i)  => el.style.transitionDelay=(i*.12)+'s');
+document.querySelectorAll('.skill-card').forEach((el,i) => el.style.transitionDelay=(i*.10)+'s');
+document.querySelectorAll('.exp-item').forEach((el,i)   => el.style.transitionDelay=(i*.10)+'s');
+document.querySelectorAll('.roadmap-row').forEach((el,i) => el.style.transitionDelay=(i*.1)+'s');
+document.querySelectorAll('.cert-card').forEach((el,i)  => el.style.transitionDelay=(i*.10)+'s');
 
-/* ══════════════════════════════
-   ACTIVE NAV
-══════════════════════════════ */
+/* ── Active nav ── */
 const sections = document.querySelectorAll('section[id]');
 const navLinks  = document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-  navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#'+current ? 'var(--blue)' : ''; });
+  navLinks.forEach(a => { a.style.color = a.getAttribute('href')==='#'+current ? 'var(--blue)' : ''; });
 });
 
-/* ══════════════════════════════
-   ROADMAP PROGRESS WALKER
-══════════════════════════════ */
+/* ── Swipe roadmap walker ── */
 const roadmapScroller = document.getElementById('roadmapSwipe');
-const roadmapShell    = document.querySelector('.roadmap-shell');
+const roadmapShell = document.querySelector('.roadmap-shell');
 function updateRoadmapProgress() {
   if (!roadmapScroller || !roadmapShell) return;
   const maxScroll = roadmapScroller.scrollWidth - roadmapScroller.clientWidth;
   const ratio = maxScroll > 0 ? roadmapScroller.scrollLeft / maxScroll : 0;
   roadmapShell.style.setProperty('--roadmap-progress', ratio.toFixed(4));
 }
-if (roadmapScroller) {
+if (roadmapScroller && roadmapShell) {
   updateRoadmapProgress();
   roadmapScroller.addEventListener('scroll', updateRoadmapProgress, { passive: true });
   window.addEventListener('resize', updateRoadmapProgress);
@@ -1208,9 +1448,7 @@ if (roadmapScroller) {
   }, { passive: false });
 }
 
-/* ══════════════════════════════
-   FORM
-══════════════════════════════ */
+/* ── Form ── */
 function handleSend(btn) {
   btn.textContent = '✓ Sent!';
   btn.style.background = '#1e7e40';
