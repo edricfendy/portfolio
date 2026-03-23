@@ -13,9 +13,6 @@
   --blue-dark:  #1468b0;
   --blue-light: #e8f4fd;
   --blue-pale:  #f4f8fc;
-  --wine-red:   #7f1d41;
-  --wine-pale:  #faeef3;
-  --pure-blue:  #0a6fff;
   --white:      #ffffff;
   --ink:        #1a2535;
   --ink-mid:    #3a4a5c;
@@ -150,225 +147,6 @@ section { padding: 80px 48px; }
   font-weight: 800; color: var(--ink); line-height: 1.15; margin-bottom: 48px;
 }
 .section-title span { color: var(--blue); }
-
-/* ══ TITRATION STORY ══ */
-#titration-story {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
-}
-#titration-story::before {
-  content: '';
-  position: absolute;
-  top: -140px;
-  right: -80px;
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(127,29,65,0.14), rgba(127,29,65,0));
-  pointer-events: none;
-}
-#titration-story::after {
-  content: '';
-  position: absolute;
-  left: -100px;
-  bottom: -140px;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(10,111,255,0.12), rgba(10,111,255,0));
-  pointer-events: none;
-}
-.titration-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 46px;
-  align-items: center;
-}
-.titration-kicker {
-  font-family: var(--font-main); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--wine-red); margin-bottom: 14px;
-  display: flex; align-items: center; gap: 10px;
-}
-.titration-kicker::before { content: ''; width: 28px; height: 2px; background: var(--wine-red); }
-.titration-title {
-  font-family: var(--font-main); font-size: clamp(30px, 4vw, 42px);
-  font-weight: 800; color: var(--ink); line-height: 1.18; margin-bottom: 16px;
-}
-.titration-title span { color: var(--wine-red); }
-.titration-lead {
-  font-size: 15px;
-  color: var(--ink-mid);
-  line-height: 1.8;
-}
-.titration-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 22px 0 24px;
-}
-.titration-list li {
-  background: white;
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--wine-red);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 14px;
-  color: var(--ink-mid);
-  line-height: 1.65;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-}
-.titration-list li strong { color: var(--ink); font-weight: 700; }
-.titration-bridge {
-  font-size: 14px;
-  color: var(--ink-mid);
-  line-height: 1.75;
-  margin-bottom: 18px;
-}
-.titration-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  font-family: var(--font-main);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--pure-blue);
-  border: 1px solid rgba(10,111,255,0.3);
-  border-radius: 999px;
-  padding: 8px 14px;
-  transition: all 0.2s;
-}
-.titration-link:hover {
-  background: rgba(10,111,255,0.08);
-  border-color: var(--pure-blue);
-  transform: translateY(-1px);
-}
-.titration-visual {
-  position: relative;
-  background: linear-gradient(145deg, #ffffff 0%, #eff6ff 100%);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px 24px 18px;
-  box-shadow: 0 14px 36px rgba(18,54,97,0.12);
-  overflow: hidden;
-}
-.titration-visual::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(10,111,255,0.12) 1px, transparent 1px);
-  background-size: 18px 18px;
-  opacity: 0.25;
-}
-.titration-label-row {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-}
-.state-chip {
-  font-family: var(--font-main);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 20px;
-  padding: 5px 10px;
-}
-.state-chip.red {
-  background: var(--wine-pale);
-  color: var(--wine-red);
-  border: 1px solid rgba(127,29,65,0.25);
-}
-.state-chip.blue {
-  background: rgba(10,111,255,0.12);
-  color: var(--pure-blue);
-  border: 1px solid rgba(10,111,255,0.24);
-}
-.state-arrow {
-  font-family: var(--font-main);
-  font-size: 14px;
-  color: var(--muted);
-  font-weight: 700;
-}
-.titration-apparatus {
-  position: relative;
-  z-index: 1;
-}
-.titration-burette {
-  width: 18px;
-  height: 122px;
-  margin: 0 auto;
-  border: 2px solid #8eaed2;
-  border-radius: 10px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(222,235,247,0.8));
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.55);
-}
-.titration-drop {
-  width: 10px;
-  height: 14px;
-  margin: -4px auto 0;
-  background: var(--pure-blue);
-  border-radius: 60% 60% 70% 70%;
-  opacity: 0;
-  animation: edtaDrop 3.2s ease-in-out infinite;
-}
-.titration-svg {
-  display: block;
-  width: 100%;
-  max-width: 260px;
-  margin: 6px auto 0;
-  overflow: visible;
-}
-.titration-glass {
-  fill: rgba(255,255,255,0.45);
-  stroke: #8eaed2;
-  stroke-width: 4;
-}
-.titration-liquid-red {
-  fill: var(--wine-red);
-  opacity: 0.88;
-}
-.titration-liquid-blue {
-  fill: var(--pure-blue);
-  transform-origin: left center;
-  transform-box: fill-box;
-  animation: chelateShift 6s ease-in-out infinite;
-}
-.titration-bubble {
-  fill: rgba(255,255,255,0.7);
-  animation: titrationBubble 2.6s ease-out infinite;
-}
-.titration-bubble.b2 { animation-delay: 0.7s; }
-.titration-bubble.b3 { animation-delay: 1.4s; }
-.titration-reaction {
-  position: relative;
-  z-index: 1;
-  margin-top: 8px;
-  text-align: center;
-  font-family: var(--font-main);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.titration-reaction strong {
-  color: var(--pure-blue);
-  letter-spacing: 0.1em;
-}
-.titration-divider {
-  background: linear-gradient(to right, var(--wine-red), #d87a95, var(--pure-blue), transparent);
-}
 
 /* ══ ABOUT ══ */
 .about-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 72px; align-items: start; }
@@ -679,20 +457,6 @@ footer {
   0%,100% { opacity: 0.25; transform: translateY(0); }
   50%      { opacity: 0.65; transform: translateY(-5px); }
 }
-@keyframes chelateShift {
-  0%, 20% { transform: scaleX(0); }
-  62%, 100% { transform: scaleX(1); }
-}
-@keyframes edtaDrop {
-  0%, 18% { transform: translateY(0); opacity: 0; }
-  28% { opacity: 0.95; }
-  72% { transform: translateY(126px); opacity: 0.9; }
-  100% { transform: translateY(126px); opacity: 0; }
-}
-@keyframes titrationBubble {
-  0% { transform: translateY(0); opacity: 0.6; }
-  100% { transform: translateY(-28px); opacity: 0; }
-}
 @keyframes glowPulse {
   0%,100% { opacity: 0.14; }
   50%      { opacity: 0.30; }
@@ -909,10 +673,6 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .titration-drop,
-  .titration-liquid-blue,
-  .titration-bubble { animation: none; }
-  .titration-liquid-blue { transform: scaleX(1); }
   .roadmap-walker { animation: none; }
   .roadmap-progress-fill,
   .roadmap-walker { transition: none; }
@@ -924,10 +684,6 @@ footer {
   .nav-hamburger { display: flex; }
   section { padding: 60px 20px; }
   #hero { padding: 90px 20px 72px; min-height: auto; }
-  .titration-grid { grid-template-columns: 1fr; gap: 30px; }
-  .titration-visual { padding: 20px 18px 14px; }
-  .titration-burette { height: 110px; }
-  .titration-svg { max-width: 230px; }
   .roadmap-guide { font-size: 10px; letter-spacing: 0.08em; }
   .roadmap { gap: 16px; padding: 26px 6px 16px; scroll-padding-left: 6px; }
   .roadmap::before { left: 6px; right: 6px; }
@@ -1232,59 +988,6 @@ footer {
 </section>
 
 <div class="section-divider"></div>
-
-<!-- ══ TITRATION STORY ══ -->
-<section id="titration-story" class="bg-white">
-  <div class="container">
-    <div class="titration-grid">
-      <div>
-        <div class="titration-kicker">Lab Highlight</div>
-        <h2 class="titration-title">EDTA Titration Color Change: <span>Wine Red to Pure Blue</span></h2>
-        <p class="titration-lead">
-          A method I always enjoy in analytical chemistry is EDTA complexometric titration, where the endpoint is shown by a clear and reliable indicator color shift.
-        </p>
-        <ul class="titration-list">
-          <li><strong>Example:</strong> Determination of calcium (Ca<sup>2+</sup>) and magnesium (Mg<sup>2+</sup>) hardness in water.</li>
-          <li><strong>Process:</strong> The indicator first binds with Mg<sup>2+</sup>, creating a wine-red complex.</li>
-          <li>As EDTA titrant is added, it binds to metal ions and releases the dye from the complex.</li>
-          <li>When all Ca<sup>2+</sup> and Mg<sup>2+</sup> are fully chelated, the endpoint appears as a pure blue color.</li>
-        </ul>
-        <p class="titration-bridge">
-          That precision-first lab mindset continues into my bio below, where I apply the same approach in QA/QC, product development, and food safety work.
-        </p>
-        <a class="titration-link" href="#about">Continue to Bio &rarr;</a>
-      </div>
-
-      <div class="titration-visual">
-        <div class="titration-label-row">
-          <span class="state-chip red">Start: Wine Red</span>
-          <span class="state-arrow">&rarr;</span>
-          <span class="state-chip blue">Endpoint: Pure Blue</span>
-        </div>
-        <div class="titration-apparatus" aria-hidden="true">
-          <div class="titration-burette"></div>
-          <div class="titration-drop"></div>
-          <svg class="titration-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <clipPath id="titrationFlaskClip">
-                <path d="M98 24 H142 V52 L194 196 H46 L98 52 Z"></path>
-              </clipPath>
-            </defs>
-            <path class="titration-glass" d="M98 24 H142 V52 L194 196 H46 L98 52 Z"></path>
-            <rect class="titration-liquid-red" x="46" y="102" width="148" height="94" clip-path="url(#titrationFlaskClip)"></rect>
-            <rect class="titration-liquid-blue" x="46" y="102" width="148" height="94" clip-path="url(#titrationFlaskClip)"></rect>
-            <circle class="titration-bubble b1" cx="88" cy="170" r="4" clip-path="url(#titrationFlaskClip)"></circle>
-            <circle class="titration-bubble b2" cx="121" cy="176" r="3" clip-path="url(#titrationFlaskClip)"></circle>
-            <circle class="titration-bubble b3" cx="150" cy="168" r="4" clip-path="url(#titrationFlaskClip)"></circle>
-          </svg>
-        </div>
-        <p class="titration-reaction">Ca<sup>2+</sup> + Mg<sup>2+</sup> + EDTA <strong>&rarr; Chelated Complex</strong></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider titration-divider"></div>
 
 <!-- ══ ABOUT ══ -->
 <section id="about" class="bg-white">
