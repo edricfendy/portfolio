@@ -79,7 +79,6 @@ nav {
   display: flex; align-items: center;
   padding: 110px 48px 100px;
 }
-/* ══ SVG BACKGROUND ══ */
 .hero-sci-bg {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -122,11 +121,6 @@ nav {
   text-decoration: none; cursor: pointer; background: transparent; transition: all 0.2s;
 }
 .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: white; }
-
-.hero-stats,
-.stat-item,
-.stat-num,
-.stat-label { display: none; }
 
 /* ══ SECTION BASE ══ */
 section { padding: 80px 48px; }
@@ -289,44 +283,25 @@ section { padding: 80px 48px; }
 .achievement-text { font-size: 14px; color: var(--ink-mid); }
 .achievement-text strong { color: var(--ink); font-weight: 700; }
 
-/* ══ EXTRACURRICULAR ══ */
-.extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.extra-card {
-  background: white; border: 1px solid var(--border);
-  border-radius: 8px; padding: 30px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+/* ══ SKILLS — TABBED ══ */
+.skills-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px;
 }
-.extra-card.visible { opacity: 1; transform: translateY(0); }
-.extra-card:hover { box-shadow: 0 6px 24px rgba(26,127,212,0.10); transform: translateY(-3px) !important; }
-.extra-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
-.extra-icon {
-  width: 46px; height: 46px; border-radius: 8px;
-  background: var(--blue-light); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
-}
-.extra-period {
-  font-family: var(--font-main); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--blue); background: var(--blue-light);
-  border-radius: 20px; padding: 4px 12px; white-space: nowrap;
-}
-.extra-role { font-family: var(--font-main); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
-.extra-org {
+.skill-tab-btn {
   font-family: var(--font-main); font-size: 12px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
-}
-.extra-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
-.extra-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-.extra-tag {
-  font-family: var(--font-main); font-size: 11px; font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--blue-dark); background: var(--blue-light); border-radius: 20px; padding: 3px 10px;
+  padding: 8px 16px; border-radius: 20px; border: 1.5px solid var(--border);
+  background: white; color: var(--muted); cursor: pointer;
+  transition: all 0.2s;
 }
+.skill-tab-btn:hover { border-color: var(--blue); color: var(--blue); }
+.skill-tab-btn.active { background: var(--blue); border-color: var(--blue); color: white; }
 
-/* ══ SKILLS ══ */
+.skill-tab-panel { display: none; }
+.skill-tab-panel.active { display: block; }
+
 .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.skills-grid-2 { grid-template-columns: repeat(2, 1fr); }
 .skill-card {
   background: white; border: 1px solid var(--border);
   border-radius: 8px; padding: 28px;
@@ -348,8 +323,17 @@ section { padding: 80px 48px; }
 .skill-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
 .skill-tag:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
 
+/* Sub-group header within a skill card */
+.skill-subgroup {
+  font-family: var(--font-main); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin: 14px 0 6px; padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.skill-subgroup:first-of-type { margin-top: 0; }
+
 /* ══ CERTIFICATIONS ══ */
-.cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .cert-card {
   background: white; border: 1px solid var(--border);
   border-radius: 8px; padding: 26px;
@@ -369,6 +353,33 @@ section { padding: 80px 48px; }
 .cert-status { font-family: var(--font-main); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
 .cert-status.active     { background: #dff5e8; color: #1e7e40; }
 .cert-status.completed  { background: var(--blue-light); color: var(--blue-dark); }
+
+/* Standards section within certifications */
+.standards-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 40px;
+}
+.standard-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 8px; padding: 20px 22px;
+  border-left: 4px solid var(--blue);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex; align-items: center; gap: 12px;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+}
+.standard-card.visible { opacity: 1; transform: translateY(0); }
+.standard-card:hover { box-shadow: 0 5px 20px rgba(26,127,212,0.12); }
+.standard-icon { font-size: 22px; flex-shrink: 0; }
+.standard-name { font-family: var(--font-main); font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.35; }
+.standard-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.standards-label {
+  font-family: var(--font-main); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--blue); margin: 40px 0 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.standards-label::before { content: ''; width: 20px; height: 2px; background: var(--blue); }
 
 /* ══ CONTACT ══ */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
@@ -417,7 +428,7 @@ footer {
 .footer-links a:hover { color: white; }
 .footer-copy { font-family: var(--font-main); font-size: 11px; color: rgba(255,255,255,0.3); }
 
-/* ══ ANIMATIONS ══ */
+/* ══ HERO ANIMATIONS ══ */
 @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
 .hero-label  { animation: fadeUp 0.6s ease-out 0.1s both; }
 .hero-name   { animation: fadeUp 0.6s ease-out 0.2s both; }
@@ -426,280 +437,133 @@ footer {
 .hero-btns   { animation: fadeUp 0.6s ease-out 0.5s both; }
 
 /* ══ SVG FLOATING ANIMATIONS ══ */
-/* transform-box:fill-box makes CSS transform-origin work correctly on SVG elements */
-.svg-flask, .svg-tubes, .svg-micro, .svg-beaker, .svg-ph,
-.svg-moisture, .svg-wheat, .svg-color, .svg-molecule,
-.svg-noodle, .svg-brix, .svg-sun, .svg-o2 {
-  transform-box: fill-box;
-  transform-origin: center center;
+.svg-flask, .svg-tubes, .svg-micro, .svg-beaker, .svg-molecule {
+  transform-box: fill-box; transform-origin: center center;
 }
-@keyframes floatUp {
-  0%,100% { transform: translateY(0px); }
-  50%      { transform: translateY(-14px); }
-}
-@keyframes floatUpSm {
-  0%,100% { transform: translateY(0px); }
-  50%      { transform: translateY(-9px); }
-}
-@keyframes floatRock {
-  0%,100% { transform: translateY(0px) rotate(-2deg); }
-  50%      { transform: translateY(-12px) rotate(2deg); }
-}
-@keyframes floatRockR {
-  0%,100% { transform: translateY(0px) rotate(2deg); }
-  50%      { transform: translateY(-11px) rotate(-2deg); }
-}
-@keyframes bubbleRise {
-  0%   { transform: translateY(0);    opacity: 0.55; }
-  100% { transform: translateY(-50px); opacity: 0; }
-}
-@keyframes steamPuff {
-  0%,100% { opacity: 0.25; transform: translateY(0); }
-  50%      { opacity: 0.65; transform: translateY(-5px); }
-}
-@keyframes glowPulse {
-  0%,100% { opacity: 0.14; }
-  50%      { opacity: 0.30; }
-}
+@keyframes floatUp { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-14px); } }
+@keyframes floatUpSm { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-9px); } }
+@keyframes floatRock { 0%,100% { transform: translateY(0px) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+@keyframes floatRockR { 0%,100% { transform: translateY(0px) rotate(2deg); } 50% { transform: translateY(-11px) rotate(-2deg); } }
+@keyframes bubbleRise { 0% { transform: translateY(0); opacity: 0.55; } 100% { transform: translateY(-50px); opacity: 0; } }
 
-.svg-flask    { animation: floatRock  5s   ease-in-out infinite;                will-change: transform; }
-.svg-tubes    { animation: floatUpSm  4s   ease-in-out infinite -1.3s;          will-change: transform; }
-.svg-micro    { animation: floatUp    6.2s ease-in-out infinite -2.5s;          will-change: transform; }
-.svg-beaker   { animation: floatRockR 5.5s ease-in-out infinite -0.9s;          will-change: transform; }
-.svg-ph       { animation: floatUpSm  4.7s ease-in-out infinite -3.2s;          will-change: transform; }
-.svg-moisture { animation: floatUp    7s   ease-in-out infinite -1.7s;          will-change: transform; }
-.svg-wheat    { animation: floatRock  6.3s ease-in-out infinite -0.6s;          will-change: transform; }
-.svg-color    { animation: floatUpSm  5.1s ease-in-out infinite -2.8s;          will-change: transform; }
-.svg-molecule { animation: floatRockR 8s   ease-in-out infinite -1.4s;          will-change: transform; }
-.svg-noodle   { animation: floatUp    5.4s ease-in-out infinite -3.7s;          will-change: transform; }
-.svg-brix     { animation: floatRock  4.6s ease-in-out infinite -2.2s;          will-change: transform; }
-.svg-sun      { animation: floatUpSm  6.6s ease-in-out infinite -0.4s;          will-change: transform; }
-.svg-o2       { animation: floatUp    5.8s ease-in-out infinite -4.1s;          will-change: transform; }
-.svg-dots     { animation: glowPulse  4s   ease-in-out infinite; }
+.svg-flask    { animation: floatRock  5s   ease-in-out infinite; will-change: transform; }
+.svg-tubes    { animation: floatUpSm  4s   ease-in-out infinite -1.3s; will-change: transform; }
+.svg-micro    { animation: floatUp    6.2s ease-in-out infinite -2.5s; will-change: transform; }
+.svg-beaker   { animation: floatRockR 5.5s ease-in-out infinite -0.9s; will-change: transform; }
+.svg-molecule { animation: floatRockR 8s   ease-in-out infinite -1.4s; will-change: transform; }
 .svg-b1       { animation: bubbleRise 3.2s ease-out infinite; }
 .svg-b2       { animation: bubbleRise 3.2s ease-out infinite -1.1s; }
 .svg-b3       { animation: bubbleRise 3.2s ease-out infinite -2.2s; }
-.svg-s1       { animation: steamPuff  2.4s ease-in-out infinite; }
-.svg-s2       { animation: steamPuff  2.4s ease-in-out infinite -0.8s; }
-.svg-s3       { animation: steamPuff  2.4s ease-in-out infinite -1.6s; }
 
-/* ══ ROADMAP (SWIPE JOURNEY) ══ */
-.roadmap-shell {
-  --roadmap-progress: 0;
-}
-.roadmap-headline {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.roadmap-guide {
-  font-family: var(--font-main);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.roadmap-progress {
-  margin-bottom: 14px;
-}
-.roadmap-progress-meta {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 7px;
-}
-.roadmap-edge {
-  font-family: var(--font-main);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.roadmap-progress-track {
+/* ══ WINDING ROAD JOURNEY ══ */
+.road-journey-section { position: relative; }
+.road-journey-wrap {
   position: relative;
-  height: 8px;
-  border-radius: 99px;
-  background: #d8e6f2;
+  background: linear-gradient(135deg, #f0f6ff 0%, #e8f1fa 50%, #f4f8fc 100%);
+  border-radius: 20px; padding: 48px 40px 56px;
+  overflow: hidden; border: 1px solid rgba(26,127,212,0.12);
+  box-shadow: 0 4px 40px rgba(26,127,212,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
 }
-.roadmap-progress-fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: calc(var(--roadmap-progress) * 100%);
-  border-radius: 99px;
-  background: linear-gradient(to right, #8ec0ea, var(--blue));
-  transition: width 0.15s linear;
+.road-journey-wrap::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(26,127,212,0.08) 1px, transparent 1px);
+  background-size: 32px 32px; pointer-events: none;
 }
-.roadmap-walker {
-  position: absolute;
-  left: calc(var(--roadmap-progress) * 100%);
-  top: 50%;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: white;
-  box-shadow: 0 4px 14px rgba(21,72,126,0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translate(-50%, -55%);
-  font-size: 14px;
-  z-index: 2;
-  animation: walkerStep 1.05s ease-in-out infinite;
+.road-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; position: relative; z-index: 2; }
+.road-header-title { font-family: var(--font-main); font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.road-header-title::before { content: ''; width: 20px; height: 2px; background: var(--blue); }
+.road-header-sub { font-family: var(--font-main); font-size: 22px; font-weight: 800; color: var(--ink); }
+.road-header-sub span { color: var(--blue); }
+.road-legend { display: flex; align-items: center; gap: 6px; font-family: var(--font-main); font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+.road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); opacity: 0.5; }
+.road-svg-wrap { position: relative; z-index: 2; width: 100%; }
+.road-main-svg { width: 100%; height: auto; display: block; overflow: visible; }
+.road-stop { cursor: pointer; transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1); transform-box: fill-box; transform-origin: center; }
+.road-stop:hover { transform: scale(1.18); }
+.road-stop:hover .stop-ring { opacity: 1; }
+.stop-ring { opacity: 0; transition: opacity 0.2s; }
+.road-info-panel {
+  position: absolute; background: white; border: 1.5px solid rgba(26,127,212,0.25);
+  border-radius: 14px; padding: 18px 22px; width: 230px;
+  box-shadow: 0 12px 40px rgba(26,127,212,0.15), 0 2px 8px rgba(0,0,0,0.06);
+  pointer-events: none; opacity: 0; transform: translateY(10px) scale(0.94);
+  transition: opacity 0.22s ease, transform 0.22s ease; z-index: 100;
 }
-@keyframes walkerStep {
-  0%, 100% { transform: translate(-50%, -55%) translateY(0); }
-  50% { transform: translate(-50%, -55%) translateY(-2px); }
-}
+.road-info-panel.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.panel-year { font-family: var(--font-main); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+.panel-role { font-family: var(--font-main); font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 4px; }
+.panel-org { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+.panel-divider { height: 1px; background: var(--border); margin-bottom: 10px; }
+.panel-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.panel-tag { font-family: var(--font-main); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--blue-dark); background: var(--blue-light); border-radius: 20px; padding: 3px 9px; }
+.panel-close { position: absolute; top: 12px; right: 14px; font-size: 16px; color: var(--muted); cursor: pointer; line-height: 1; pointer-events: auto; background: none; border: none; transition: color 0.15s; }
+.panel-close:hover { color: var(--ink); }
+#roadPerson { transform-box: fill-box; transform-origin: center bottom; }
 
-.roadmap {
-  position: relative;
-  display: flex;
-  gap: 22px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 34px 10px 24px;
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: 10px;
-  scrollbar-width: thin;
-  -webkit-overflow-scrolling: touch;
-  cursor: grab;
-}
-.roadmap:active { cursor: grabbing; }
-.roadmap::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 3px;
-  background: linear-gradient(to right, rgba(26,127,212,0.2), rgba(26,127,212,0.72), rgba(26,127,212,0.22));
-  border-radius: 20px;
-}
-.roadmap-year-label,
-.roadmap-empty { display: none; }
-.roadmap-row {
-  position: relative;
-  flex: 0 0 min(84vw, 332px);
-  min-height: 352px;
-  scroll-snap-align: start;
-}
-.roadmap-row::after {
-  content: '';
-  position: absolute;
-  right: -22px;
-  top: 50%;
-  width: 22px;
-  height: 3px;
-  transform: translateY(-50%);
-  background: rgba(26,127,212,0.45);
-}
-.roadmap-row:last-child::after { display: none; }
-.roadmap-node {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-.roadmap-dot {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: white;
-  border: 3px solid var(--blue);
-  box-shadow: 0 0 0 4px var(--blue-light);
-  transition: background 0.2s;
-}
-.roadmap-row:hover .roadmap-dot { background: var(--blue); }
-.roadmap-card {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 18px 18px 15px;
-  box-shadow: 0 5px 18px rgba(0,0,0,0.07);
-  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
-}
-.roadmap-row.right .roadmap-card { top: 0; }
-.roadmap-row.left .roadmap-card { bottom: 0; }
-.roadmap-card:hover {
-  box-shadow: 0 10px 28px rgba(26,127,212,0.15);
-  border-color: var(--blue);
-  transform: translateY(-3px);
-}
-.roadmap-card.left,
-.roadmap-card.right { text-align: left; transform-origin: center; }
-.rm-year {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  margin-bottom: 8px;
-  border-radius: 20px;
-  background: var(--blue-light);
-  color: var(--blue-dark);
-  font-family: var(--font-main);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.rm-period {
-  font-family: var(--font-main); font-size: 11px; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 4px;
-}
-.rm-role {
-  font-family: var(--font-main); font-size: 15px; font-weight: 700;
-  color: var(--ink); margin-bottom: 2px; line-height: 1.2;
-}
-.rm-org {
-  font-family: var(--font-main); font-size: 12px; font-weight: 600;
-  letter-spacing: 0.04em; color: var(--muted); margin-bottom: 8px;
-}
-.rm-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-.rm-tag {
-  font-family: var(--font-main); font-size: 10px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--blue-dark); background: var(--blue-light);
-  border-radius: 20px; padding: 2px 8px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .roadmap-walker { animation: none; }
-  .roadmap-progress-fill,
-  .roadmap-walker { transition: none; }
-}
-
+/* ══ RESPONSIVE ══ */
 @media (max-width: 900px) {
   nav { padding: 0 20px; }
-  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    padding: 8px 20px 14px;
+    z-index: 290;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--blue-pale);
+  }
+  .nav-links a:last-child { border-bottom: none; }
   .nav-hamburger { display: flex; }
   section { padding: 60px 20px; }
   #hero { padding: 90px 20px 72px; min-height: auto; }
-  .roadmap-guide { font-size: 10px; letter-spacing: 0.08em; }
-  .roadmap { gap: 16px; padding: 26px 6px 16px; scroll-padding-left: 6px; }
-  .roadmap::before { left: 6px; right: 6px; }
-  .roadmap-row { flex-basis: min(88vw, 300px); min-height: 320px; }
-  .roadmap-row::after { right: -16px; width: 16px; }
-  .roadmap-card { padding: 16px 14px 13px; }
-  .roadmap-progress { margin-bottom: 10px; }
-  .roadmap-walker { width: 26px; height: 26px; font-size: 13px; }
-  .hero-stats { flex-wrap: wrap; }
-  .stat-item { min-width: 50%; }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .lang-card { position: static; }
   .exp-item { grid-template-columns: 1fr; gap: 10px; padding: 32px 0; }
-  .edu-grid, .extra-grid, .skills-grid, .cert-grid { grid-template-columns: 1fr; }
+  .edu-grid, .skills-grid, .cert-grid, .standards-grid { grid-template-columns: 1fr; }
+  .skills-grid-2 { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
+  .road-journey-wrap { padding: 28px 20px 36px; }
+  .road-header { flex-direction: column; gap: 10px; }
+  .skills-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .skill-tab-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .road-svg-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 10px;
+  }
+  .road-main-svg { min-width: 900px; }
+  .road-info-panel {
+    position: fixed;
+    left: 50% !important;
+    top: auto !important;
+    bottom: 12px;
+    width: min(92vw, 340px);
+    max-height: 60vh;
+    overflow-y: auto;
+    transform: translate(-50%, 10px) scale(0.96);
+    z-index: 500;
+  }
+  .road-info-panel.active { transform: translate(-50%, 0) scale(1); }
 }
 </style>
 </head>
@@ -729,7 +593,6 @@ footer {
 
 <!-- ══ HERO ══ -->
 <section id="hero">
-  <!-- Food Science SVG Background -->
   <div class="hero-sci-bg" aria-hidden="true">
     <svg id="hero-svg-bg" viewBox="0 0 1440 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
       <defs>
@@ -738,8 +601,6 @@ footer {
           <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
       </defs>
-
-      <!-- ── Erlenmeyer Flask (left) ── -->
       <g class="svg-flask">
       <g transform="translate(60,60)" opacity="0.22" filter="url(#glow)">
         <rect x="28" y="0" width="24" height="8" rx="2" fill="white"/>
@@ -751,8 +612,6 @@ footer {
         <circle class="svg-b3" cx="38" cy="98" r="4" fill="rgba(255,255,255,0.2)"/>
       </g>
       </g>
-
-      <!-- ── Test Tubes cluster ── -->
       <g class="svg-tubes">
       <g transform="translate(170,30)" opacity="0.2">
         <rect x="0" y="0" width="14" height="55" rx="7" fill="none" stroke="white" stroke-width="2"/>
@@ -764,8 +623,6 @@ footer {
         <rect x="-4" y="-6" width="66" height="6" rx="2" fill="rgba(255,255,255,0.3)"/>
       </g>
       </g>
-
-      <!-- ── Microscope (right side) ── -->
       <g class="svg-micro">
       <g transform="translate(1250,40)" opacity="0.2" filter="url(#glow)">
         <rect x="38" y="0" width="12" height="28" rx="4" fill="white"/>
@@ -776,88 +633,16 @@ footer {
         <rect x="8" y="130" width="44" height="6" rx="2" fill="white"/>
         <path d="M4 158 Q30 148 56 158" fill="white"/>
         <rect x="4" y="155" width="52" height="8" rx="4" fill="white"/>
-        <circle cx="56" cy="88" r="5" fill="none" stroke="white" stroke-width="2"/>
-        <circle cx="56" cy="102" r="5" fill="none" stroke="white" stroke-width="2"/>
       </g>
       </g>
-
-      <!-- ── Beaker (center-right) ── -->
       <g class="svg-beaker">
       <g transform="translate(1100,80)" opacity="0.18">
         <rect x="0" y="0" width="70" height="10" rx="2" fill="white"/>
         <path d="M60 0 L75 -12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
         <path d="M10 10 L0 90 Q0 110 35 110 Q70 110 70 90 L60 10 Z" fill="none" stroke="white" stroke-width="2.5"/>
         <path d="M8 75 Q35 65 62 75" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <line x1="62" y1="50" x2="68" y2="50" stroke="white" stroke-width="1.5"/>
-        <line x1="63" y1="65" x2="68" y2="65" stroke="white" stroke-width="1.5"/>
-        <line x1="63" y1="80" x2="68" y2="80" stroke="white" stroke-width="1.5"/>
       </g>
       </g>
-
-      <!-- ── pH Meter (bottom left) ── -->
-      <g class="svg-ph">
-      <g transform="translate(80,300)" opacity="0.18">
-        <rect x="0" y="0" width="54" height="90" rx="6" fill="none" stroke="white" stroke-width="2"/>
-        <rect x="6" y="8" width="42" height="28" rx="3" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.5"/>
-        <text x="27" y="26" text-anchor="middle" fill="white" font-size="11" font-family="monospace" font-weight="700">pH 6.8</text>
-        <circle cx="16" cy="52" r="5" fill="none" stroke="white" stroke-width="1.5"/>
-        <circle cx="27" cy="52" r="5" fill="none" stroke="white" stroke-width="1.5"/>
-        <circle cx="38" cy="52" r="5" fill="none" stroke="white" stroke-width="1.5"/>
-        <rect x="18" y="64" width="18" height="6" rx="2" fill="rgba(255,255,255,0.3)"/>
-        <line x1="27" y1="90" x2="27" y2="140" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <ellipse cx="27" cy="143" rx="4" ry="6" fill="none" stroke="white" stroke-width="1.5"/>
-      </g>
-      </g>
-
-      <!-- ── Moisture Analyzer (top center) ── -->
-      <g class="svg-moisture">
-      <g transform="translate(560,25)" opacity="0.15">
-        <rect x="0" y="40" width="120" height="60" rx="5" fill="none" stroke="white" stroke-width="2"/>
-        <rect x="8" y="48" width="68" height="36" rx="3" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
-        <text x="42" y="65" text-anchor="middle" fill="white" font-size="9" font-family="monospace">0.52% MC</text>
-        <text x="42" y="77" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="8" font-family="monospace">MOISTURE</text>
-        <path d="M10 40 Q60 10 110 40" fill="none" stroke="white" stroke-width="2"/>
-        <ellipse cx="60" cy="40" rx="30" ry="6" fill="none" stroke="white" stroke-width="1.5"/>
-        <rect x="84" y="52" width="28" height="36" rx="3" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-        <circle cx="92" cy="62" r="3" fill="rgba(255,255,255,0.3)"/>
-        <circle cx="102" cy="62" r="3" fill="rgba(255,255,255,0.3)"/>
-        <circle cx="92" cy="74" r="3" fill="rgba(255,255,255,0.3)"/>
-        <circle cx="102" cy="74" r="3" fill="rgba(255,255,255,0.3)"/>
-      </g>
-      </g>
-
-      <!-- ── Wheat / Grain ── -->
-      <g class="svg-wheat">
-      <g transform="translate(750,340)" opacity="0.16">
-        <line x1="20" y1="120" x2="20" y2="0" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <ellipse cx="20" cy="15" rx="7" ry="12" fill="none" stroke="white" stroke-width="1.5"/>
-        <ellipse cx="10" cy="35" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-20,10,35)"/>
-        <ellipse cx="30" cy="35" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(20,30,35)"/>
-        <ellipse cx="8" cy="58" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-25,8,58)"/>
-        <ellipse cx="32" cy="58" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(25,32,58)"/>
-        <ellipse cx="10" cy="80" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-20,10,80)"/>
-        <ellipse cx="30" cy="80" rx="6" ry="10" fill="none" stroke="white" stroke-width="1.5" transform="rotate(20,30,80)"/>
-        <line x1="20" y1="3" x2="20" y2="-15" stroke="white" stroke-width="1" stroke-linecap="round"/>
-        <line x1="10" y1="25" x2="2" y2="10" stroke="white" stroke-width="1" stroke-linecap="round"/>
-        <line x1="30" y1="25" x2="38" y2="10" stroke="white" stroke-width="1" stroke-linecap="round"/>
-      </g>
-      </g>
-
-      <!-- ── Colorimeter (bottom right) ── -->
-      <g class="svg-color">
-      <g transform="translate(1320,300)" opacity="0.17">
-        <rect x="0" y="20" width="80" height="110" rx="8" fill="none" stroke="white" stroke-width="2"/>
-        <circle cx="40" cy="20" r="14" fill="none" stroke="white" stroke-width="2"/>
-        <circle cx="40" cy="20" r="8" fill="rgba(255,255,255,0.15)"/>
-        <rect x="10" y="40" width="60" height="32" rx="4" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
-        <text x="40" y="58" text-anchor="middle" fill="white" font-size="10" font-family="monospace">ΔE 2.34</text>
-        <rect x="12" y="82" width="56" height="8" rx="3" fill="rgba(255,255,255,0.2)"/>
-        <rect x="12" y="96" width="56" height="8" rx="3" fill="rgba(255,255,255,0.2)"/>
-        <rect x="8" y="126" width="64" height="8" rx="3" fill="rgba(255,255,255,0.3)"/>
-      </g>
-      </g>
-
-      <!-- ── Molecule (amino acid) ── -->
       <g class="svg-molecule">
       <g transform="translate(900,30)" opacity="0.18">
         <line x1="40" y1="40" x2="80" y2="20" stroke="white" stroke-width="1.5"/>
@@ -866,12 +651,6 @@ footer {
         <line x1="120" y1="80" x2="80" y2="100" stroke="white" stroke-width="1.5"/>
         <line x1="80" y1="100" x2="40" y2="80" stroke="white" stroke-width="1.5"/>
         <line x1="40" y1="80" x2="40" y2="40" stroke="white" stroke-width="1.5"/>
-        <line x1="80" y1="20" x2="80" y2="100" stroke="white" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="122" y1="42" x2="122" y2="78" stroke="white" stroke-width="1"/>
-        <line x1="40" y1="60" x2="10" y2="60" stroke="white" stroke-width="1.5"/>
-        <text x="2" y="64" fill="white" font-size="10" font-family="sans-serif" font-weight="600">NH₂</text>
-        <line x1="120" y1="60" x2="148" y2="60" stroke="white" stroke-width="1.5"/>
-        <text x="150" y="64" fill="white" font-size="10" font-family="sans-serif" font-weight="600">COOH</text>
         <circle cx="40" cy="40" r="6" fill="white"/><text x="37" y="44" fill="#1a7fd4" font-size="8" font-weight="700">C</text>
         <circle cx="80" cy="20" r="6" fill="white"/><text x="77" y="24" fill="#1a7fd4" font-size="8" font-weight="700">C</text>
         <circle cx="120" cy="40" r="6" fill="white"/><text x="117" y="44" fill="#1a7fd4" font-size="8" font-weight="700">O</text>
@@ -879,96 +658,6 @@ footer {
         <circle cx="80" cy="100" r="6" fill="white"/><text x="77" y="104" fill="#1a7fd4" font-size="8" font-weight="700">N</text>
         <circle cx="40" cy="80" r="6" fill="white"/><text x="37" y="84" fill="#1a7fd4" font-size="8" font-weight="700">H</text>
       </g>
-      </g>
-
-      <!-- ── Noodle bowl ── -->
-      <g class="svg-noodle">
-      <g transform="translate(600,370)" opacity="0.16">
-        <path d="M10 30 Q10 90 100 90 Q190 90 190 30 Z" fill="none" stroke="white" stroke-width="2.5"/>
-        <ellipse cx="100" cy="30" rx="90" ry="20" fill="none" stroke="white" stroke-width="2"/>
-        <path class="svg-s1" d="M60 28 Q55 10 60 0 Q65 -10 60 -20" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-        <path class="svg-s2" d="M100 26 Q95 8 100 -2 Q105 -12 100 -22" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-        <path class="svg-s3" d="M140 28 Q135 10 140 0 Q145 -10 140 -20" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M35 45 Q55 35 75 48 Q95 60 115 48 Q135 35 155 45" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M30 60 Q50 50 70 62 Q90 74 110 62 Q130 50 150 60" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M38 74 Q58 64 78 76 Q98 88 118 76 Q138 64 158 74" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="80" y1="10" x2="60" y2="90" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <line x1="90" y1="10" x2="120" y2="90" stroke="white" stroke-width="2" stroke-linecap="round"/>
-      </g>
-      </g>
-
-      <!-- ── Brix Refractometer ── -->
-      <g class="svg-brix">
-      <g transform="translate(240,250)" opacity="0.17">
-        <rect x="10" y="0" width="22" height="100" rx="10" fill="none" stroke="white" stroke-width="2"/>
-        <ellipse cx="21" cy="0" rx="11" ry="6" fill="none" stroke="white" stroke-width="1.5"/>
-        <path d="M10 100 L6 118 L36 118 L32 100 Z" fill="none" stroke="white" stroke-width="2"/>
-        <rect x="6" y="118" width="30" height="6" rx="2" fill="rgba(255,255,255,0.3)"/>
-        <line x1="32" y1="30" x2="38" y2="30" stroke="white" stroke-width="1.2"/>
-        <line x1="33" y1="45" x2="38" y2="45" stroke="white" stroke-width="1.2"/>
-        <line x1="33" y1="60" x2="38" y2="60" stroke="white" stroke-width="1.2"/>
-        <line x1="32" y1="75" x2="38" y2="75" stroke="white" stroke-width="1.2"/>
-        <text x="40" y="49" fill="white" font-size="8" font-family="monospace">°Bx</text>
-      </g>
-      </g>
-
-      <!-- ── Sunflower microgreen ── -->
-      <g class="svg-sun">
-      <g transform="translate(1140,340)" opacity="0.18">
-        <path d="M10 80 L5 110 L65 110 L60 80 Z" fill="none" stroke="white" stroke-width="2"/>
-        <ellipse cx="35" cy="80" rx="25" ry="7" fill="none" stroke="white" stroke-width="1.5"/>
-        <ellipse cx="35" cy="80" rx="22" ry="5" fill="rgba(255,255,255,0.15)"/>
-        <line x1="35" y1="78" x2="35" y2="30" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <line x1="22" y1="80" x2="18" y2="38" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="48" y1="80" x2="52" y2="38" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="35" cy="26" r="10" fill="none" stroke="white" stroke-width="2"/>
-        <circle cx="35" cy="26" r="5" fill="rgba(255,255,255,0.3)"/>
-        <ellipse cx="35" cy="13" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5"/>
-        <ellipse cx="35" cy="39" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5"/>
-        <ellipse cx="22" cy="26" rx="7" ry="4" fill="none" stroke="white" stroke-width="1.5"/>
-        <ellipse cx="48" cy="26" rx="7" ry="4" fill="none" stroke="white" stroke-width="1.5"/>
-        <ellipse cx="26" cy="17" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-45,26,17)"/>
-        <ellipse cx="44" cy="17" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5" transform="rotate(45,44,17)"/>
-        <ellipse cx="26" cy="35" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5" transform="rotate(45,26,35)"/>
-        <ellipse cx="44" cy="35" rx="4" ry="7" fill="none" stroke="white" stroke-width="1.5" transform="rotate(-45,44,35)"/>
-        <path d="M18 38 Q8 28 14 20" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M52 38 Q62 28 56 20" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-      </g>
-      </g>
-
-      <!-- ── Oxygen Analyzer ── -->
-      <g class="svg-o2">
-      <g transform="translate(1370,60)" opacity="0.16">
-        <rect x="0" y="0" width="58" height="80" rx="6" fill="none" stroke="white" stroke-width="2"/>
-        <rect x="6" y="8" width="46" height="28" rx="3" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="1.5"/>
-        <text x="29" y="22" text-anchor="middle" fill="white" font-size="9" font-family="monospace">O₂</text>
-        <text x="29" y="32" text-anchor="middle" fill="white" font-size="9" font-family="monospace">20.9%</text>
-        <circle cx="18" cy="54" r="5" fill="none" stroke="white" stroke-width="1.5"/>
-        <circle cx="29" cy="54" r="5" fill="none" stroke="white" stroke-width="1.5"/>
-        <circle cx="40" cy="54" r="5" fill="none" stroke="white" stroke-width="1.5"/>
-        <rect x="8" y="66" width="42" height="6" rx="3" fill="rgba(255,255,255,0.25)"/>
-        <path d="M29 80 Q29 110 10 120" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="8" cy="123" r="4" fill="none" stroke="white" stroke-width="1.5"/>
-      </g>
-      </g>
-
-      <!-- ── scattered dots (constellation-like connectors) ── -->
-      <g opacity="0.12">
-        <circle cx="400" cy="80" r="2" fill="white"/>
-        <circle cx="480" cy="150" r="1.5" fill="white"/>
-        <circle cx="350" cy="200" r="2" fill="white"/>
-        <circle cx="500" cy="280" r="1.5" fill="white"/>
-        <circle cx="700" cy="100" r="2" fill="white"/>
-        <circle cx="820" cy="200" r="1.5" fill="white"/>
-        <circle cx="680" cy="300" r="2" fill="white"/>
-        <circle cx="1000" cy="150" r="1.5" fill="white"/>
-        <circle cx="1060" cy="260" r="2" fill="white"/>
-        <line x1="400" y1="80" x2="480" y2="150" stroke="white" stroke-width="0.8"/>
-        <line x1="480" y1="150" x2="350" y2="200" stroke="white" stroke-width="0.8"/>
-        <line x1="350" y1="200" x2="500" y2="280" stroke="white" stroke-width="0.8"/>
-        <line x1="700" y1="100" x2="820" y2="200" stroke="white" stroke-width="0.8"/>
-        <line x1="820" y1="200" x2="680" y2="300" stroke="white" stroke-width="0.8"/>
-        <line x1="1000" y1="150" x2="1060" y2="260" stroke="white" stroke-width="0.8"/>
       </g>
     </svg>
   </div>
@@ -984,7 +673,6 @@ footer {
       <a href="#experience" class="btn-outline-white">View Experience</a>
     </div>
   </div>
-
 </section>
 
 <div class="section-divider"></div>
@@ -1027,7 +715,6 @@ footer {
     <div class="section-kicker">Work Experience</div>
     <h2 class="section-title">Professional <span>Journey</span></h2>
     <div class="exp-timeline">
-
       <div class="exp-item">
         <div class="exp-meta">
           <div class="exp-date">Nov 2024 — Feb 2025</div>
@@ -1043,7 +730,6 @@ footer {
           </ul>
         </div>
       </div>
-
       <div class="exp-item">
         <div class="exp-meta">
           <div class="exp-date">Dec 2023 — Feb 2024</div>
@@ -1059,7 +745,6 @@ footer {
           </ul>
         </div>
       </div>
-
       <div class="exp-item">
         <div class="exp-meta">
           <div class="exp-date">Dec 2022 — Feb 2023</div>
@@ -1074,7 +759,6 @@ footer {
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1126,148 +810,90 @@ footer {
 
 <div class="section-divider"></div>
 
-<!-- ══ EXTRACURRICULAR ══ -->
-<section id="extracurricular" class="bg-white">
+<!-- ══ EXTRACURRICULAR — WINDING ROAD ══ -->
+<section id="extracurricular" class="bg-white road-journey-section">
   <div class="container">
     <div class="section-kicker">Extracurricular Activities</div>
     <h2 class="section-title">Beyond the <span>Laboratory</span></h2>
-
-    <div class="roadmap-shell">
-      <div class="roadmap-headline">
-        <p class="roadmap-guide">Swipe through the journey: oldest to latest</p>
-      </div>
-      <div class="roadmap-progress" aria-hidden="true">
-        <div class="roadmap-progress-meta">
-          <span class="roadmap-edge">Oldest</span>
-          <span class="roadmap-edge">Latest</span>
+    <div class="road-journey-wrap" id="roadJourneyWrap">
+      <div class="road-header">
+        <div class="road-header-left">
+          <div class="road-header-title">The Road to Growth</div>
+          <div class="road-header-sub">Activities &amp; <span>Leadership</span> Journey</div>
         </div>
-        <div class="roadmap-progress-track">
-          <div class="roadmap-progress-fill"></div>
-          <div class="roadmap-walker">🚶</div>
+        <div class="road-legend">
+          <div class="road-legend-dot"></div>
+          2023 → Present
         </div>
       </div>
-
-      <div class="roadmap" id="roadmapSwipe">
-        <div class="roadmap-row right">
-          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
-          <div class="roadmap-card right">
-            <div class="rm-year">2023</div>
-            <div class="rm-period">Jan 2023 – Dec 2023 · 1 yr</div>
-            <div class="rm-role">💃 Publicity Officer</div>
-            <div class="rm-org">Monash Dance Fusion Club</div>
-            <div class="rm-tags">
-              <span class="rm-tag">Social Media</span>
-              <span class="rm-tag">Publicity</span>
-              <span class="rm-tag">Creative Design</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="roadmap-row left">
-          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
-          <div class="roadmap-card left">
-            <div class="rm-year">2023</div>
-            <div class="rm-period">Jul 2023 – Dec 2023 · 6 mos</div>
-            <div class="rm-role">🌿 Publicity Officer</div>
-            <div class="rm-org">Monash Health Ambassador</div>
-            <div class="rm-tags">
-              <span class="rm-tag">Health &amp; Wellness</span>
-              <span class="rm-tag">Publicity</span>
-              <span class="rm-tag">Awareness</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="roadmap-row right">
-          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
-          <div class="roadmap-card right">
-            <div class="rm-year">2023</div>
-            <div class="rm-period">Jul 2023 – Dec 2023 · 6 mos</div>
-            <div class="rm-role">♻️ Publicity Officer</div>
-            <div class="rm-org">Monash Green Representative Network</div>
-            <div class="rm-tags">
-              <span class="rm-tag">Sustainability</span>
-              <span class="rm-tag">Publicity</span>
-              <span class="rm-tag">Advocacy</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="roadmap-row left">
-          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
-          <div class="roadmap-card left">
-            <div class="rm-year">2024</div>
-            <div class="rm-period">Jan 2024 – Jun 2024 · 6 mos</div>
-            <div class="rm-role">🎯 Event Coordinator</div>
-            <div class="rm-org">Monash Career Peer</div>
-            <div class="rm-tags">
-              <span class="rm-tag">Event Management</span>
-              <span class="rm-tag">Career Development</span>
-              <span class="rm-tag">Leadership</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="roadmap-row right">
-          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
-          <div class="roadmap-card right">
-            <div class="rm-year">2024</div>
-            <div class="rm-period">Jul 2024 – Dec 2024 · 6 mos</div>
-            <div class="rm-role">📊 Publicity Officer</div>
-            <div class="rm-org">Monash Accounting &amp; Finance Club</div>
-            <div class="rm-tags">
-              <span class="rm-tag">Marketing</span>
-              <span class="rm-tag">Content Creation</span>
-              <span class="rm-tag">Club Activities</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="roadmap-row left">
-          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
-          <div class="roadmap-card left">
-            <div class="rm-year">2024</div>
-            <div class="rm-period">Jul 2024 – Dec 2024 · 6 mos</div>
-            <div class="rm-role">🔭 Publicity Officer</div>
-            <div class="rm-org">Monash Science Club</div>
-            <div class="rm-tags">
-              <span class="rm-tag">Publicity</span>
-              <span class="rm-tag">Science Outreach</span>
-              <span class="rm-tag">Design</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="roadmap-row right">
-          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
-          <div class="roadmap-card right">
-            <div class="rm-year">2025</div>
-            <div class="rm-period">Jan 2025 – May 2025 · 5 mos</div>
-            <div class="rm-role">📣 Publicity Officer</div>
-            <div class="rm-org">Monash University Volunteer Program</div>
-            <div class="rm-tags">
-              <span class="rm-tag">Publicity</span>
-              <span class="rm-tag">Volunteering</span>
-              <span class="rm-tag">Communications</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="roadmap-row left">
-          <div class="roadmap-node"><div class="roadmap-dot"></div></div>
-          <div class="roadmap-card left">
-            <div class="rm-year">Ongoing</div>
-            <div class="rm-period">Monash University Volunteer Program</div>
-            <div class="rm-role">🤝 Community Volunteer</div>
-            <div class="rm-org">Kechara Soup Kitchen · Social Services</div>
-            <div class="rm-tags">
-              <span class="rm-tag">Community Service</span>
-              <span class="rm-tag">Social Impact</span>
-              <span class="rm-tag">Volunteering</span>
-            </div>
-          </div>
-        </div>
-      </div><!-- /roadmap -->
+      <div class="road-svg-wrap" id="roadSvgWrap">
+        <svg class="road-main-svg" viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" id="roadMainSvg">
+          <defs>
+            <filter id="stopShadow" x="-40%" y="-40%" width="180%" height="180%">
+              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(0,0,0,0.18)"/>
+            </filter>
+            <filter id="roadShadow" x="-5%" y="-5%" width="110%" height="120%">
+              <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(26,127,212,0.10)"/>
+            </filter>
+            <radialGradient id="nodeGrad" cx="35%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="60%" stop-color="#dde4ec"/>
+              <stop offset="100%" stop-color="#bec8d4"/>
+            </radialGradient>
+            <path id="roadCenterLine"
+              d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310"
+              fill="none"/>
+          </defs>
+          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(26,127,212,0.12)" stroke-width="52" stroke-linecap="round" stroke-linejoin="round" filter="url(#roadShadow)"/>
+          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(200,218,240,0.55)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(26,127,212,0.35)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(235,245,255,0.75)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="2" stroke-linecap="round" stroke-dasharray="18,12"/>
+          <text x="130" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">1. Dance Fusion Club</text>
+          <line x1="130" y1="72" x2="130" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="290" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">2. Health Ambassador</text>
+          <line x1="290" y1="72" x2="290" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="450" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">3. Green Rep Network</text>
+          <line x1="450" y1="72" x2="450" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="660" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">4. Career Peer</text>
+          <line x1="660" y1="72" x2="660" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <line x1="660" y1="224" x2="660" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="660" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">5. Accounting &amp; Finance</text>
+          <line x1="450" y1="224" x2="450" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="450" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">6. Science Club</text>
+          <line x1="290" y1="224" x2="290" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="290" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">7. Volunteer Program</text>
+          <line x1="290" y1="324" x2="290" y2="360" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="290" y="370" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">8. Kechara Soup Kitchen</text>
+          <g class="road-stop" data-idx="0" transform="translate(130,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">1</text></g>
+          <g class="road-stop" data-idx="1" transform="translate(290,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">2</text></g>
+          <g class="road-stop" data-idx="2" transform="translate(450,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">3</text></g>
+          <g class="road-stop" data-idx="3" transform="translate(660,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">4</text></g>
+          <g class="road-stop" data-idx="4" transform="translate(660,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">5</text></g>
+          <g class="road-stop" data-idx="5" transform="translate(450,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">6</text></g>
+          <g class="road-stop" data-idx="6" transform="translate(290,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">7</text></g>
+          <g class="road-stop" data-idx="7" transform="translate(290,310)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">8</text></g>
+          <g id="roadPerson">
+            <ellipse cx="0" cy="14" rx="8" ry="3" fill="rgba(0,0,0,0.12)"/>
+            <rect x="-5" y="-2" width="10" height="13" rx="3" fill="#1a7fd4"/>
+            <circle cx="0" cy="-9" r="7" fill="#fcd5b0" stroke="#e8b990" stroke-width="1"/>
+            <path d="M -7,-13 Q0,-18 7,-13 Q7,-8 -7,-8 Z" fill="#4a3728"/>
+            <g id="leftArm"><line x1="-5" y1="1" x2="-12" y2="7" stroke="#1a7fd4" stroke-width="3" stroke-linecap="round"/></g>
+            <g id="rightArm"><line x1="5" y1="1" x2="12" y2="7" stroke="#1a7fd4" stroke-width="3" stroke-linecap="round"/></g>
+            <g id="leftLeg"><line x1="-3" y1="11" x2="-6" y2="20" stroke="#2c3e6b" stroke-width="3" stroke-linecap="round"/></g>
+            <g id="rightLeg"><line x1="3" y1="11" x2="6" y2="20" stroke="#2c3e6b" stroke-width="3" stroke-linecap="round"/></g>
+          </g>
+        </svg>
+      </div>
+      <div class="road-info-panel" id="roadInfoPanel">
+        <button class="panel-close" id="panelClose">✕</button>
+        <div class="panel-year" id="panelYear"></div>
+        <div class="panel-role" id="panelRole"></div>
+        <div class="panel-org" id="panelOrg"></div>
+        <div class="panel-divider"></div>
+        <div class="panel-tags" id="panelTags"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1279,37 +905,156 @@ footer {
   <div class="container">
     <div class="section-kicker">Skills &amp; Expertise</div>
     <h2 class="section-title">Core <span>Competencies</span></h2>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-card-header"><div class="skill-card-icon">⌨️</div><div class="skill-card-title">Technical Skills</div></div>
-        <div class="skill-tags">
-          <div class="skill-tag">Microsoft Office Suite</div>
-          <div class="skill-tag">Adobe Photoshop</div>
-          <div class="skill-tag">Canva</div>
-          <div class="skill-tag">Web Development</div>
-          <div class="skill-tag">Python</div>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Laboratory Equipment</div></div>
-        <div class="skill-tags">
-          <div class="skill-tag">Moisture Analyzers</div>
-          <div class="skill-tag">Oxygen Analyzers</div>
-          <div class="skill-tag">pH Meters</div>
-          <div class="skill-tag">Colorimeter</div>
-          <div class="skill-tag">Brix-Salinity Meters</div>
-        </div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-card-header"><div class="skill-card-icon">🛡️</div><div class="skill-card-title">Compliance &amp; Standards</div></div>
-        <div class="skill-tags">
-          <div class="skill-tag">GMP (Good Manufacturing Practice)</div>
-          <div class="skill-tag">HACCP</div>
-          <div class="skill-tag">Halal Certification</div>
-          <div class="skill-tag">Food Safety Management</div>
+
+    <!-- Tab buttons -->
+    <div class="skills-tabs" role="tablist">
+      <button class="skill-tab-btn active" onclick="switchTab(this,'tab-tech')" role="tab">Technical</button>
+      <button class="skill-tab-btn" onclick="switchTab(this,'tab-lab')" role="tab">Lab &amp; Instruments</button>
+      <button class="skill-tab-btn" onclick="switchTab(this,'tab-processing')" role="tab">Processing &amp; Packaging</button>
+      <button class="skill-tab-btn" onclick="switchTab(this,'tab-sensory')" role="tab">Sensory &amp; Chemical</button>
+      <button class="skill-tab-btn" onclick="switchTab(this,'tab-micro')" role="tab">Microbiology</button>
+      <button class="skill-tab-btn" onclick="switchTab(this,'tab-compliance')" role="tab">Compliance</button>
+    </div>
+
+    <!-- Tab: Technical -->
+    <div class="skill-tab-panel active" id="tab-tech">
+      <div class="skills-grid">
+        <div class="skill-card visible">
+          <div class="skill-card-header"><div class="skill-card-icon">⌨️</div><div class="skill-card-title">Software &amp; Digital</div></div>
+          <div class="skill-tags">
+            <div class="skill-tag">Microsoft Office Suite</div>
+            <div class="skill-tag">Adobe Photoshop</div>
+            <div class="skill-tag">Canva</div>
+            <div class="skill-tag">Web Development</div>
+            <div class="skill-tag">Python</div>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Tab: Lab & Instruments -->
+    <div class="skill-tab-panel" id="tab-lab">
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Analytical Instruments</div></div>
+          <div class="skill-tags">
+            <div class="skill-tag">pH Meter</div>
+            <div class="skill-tag">Colorimeter</div>
+            <div class="skill-tag">Texture Analyser</div>
+            <div class="skill-tag">Moisture Analyser</div>
+            <div class="skill-tag">Water Activity Meter</div>
+            <div class="skill-tag">Oxygen Analyser</div>
+            <div class="skill-tag">Brix-Salinity Meter</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">⚗️</div><div class="skill-card-title">Spectroscopy &amp; Chromatography</div></div>
+          <div class="skill-tags">
+            <div class="skill-tag">Gas Chromatography (GC)</div>
+            <div class="skill-tag">High Performance Liquid Chromatography (HPLC)</div>
+            <div class="skill-tag">UV-Visible Spectrophotometry</div>
+            <div class="skill-tag">Fourier Transform Infrared Spectroscopy (FTIR)</div>
+            <div class="skill-tag">Atomic Absorption Spectroscopy (AAS)</div>
+            <div class="skill-tag">Mass Spectrometry (MS)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Processing & Packaging -->
+    <div class="skill-tab-panel" id="tab-processing">
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">🏭</div><div class="skill-card-title">Pilot Plant Equipment</div></div>
+          <div class="skill-tags">
+            <div class="skill-tag">Spray Dryer</div>
+            <div class="skill-tag">Heat Plate Exchanger</div>
+            <div class="skill-tag">Membrane Filtration</div>
+            <div class="skill-tag">Freeze Dryer</div>
+            <div class="skill-tag">Convection Oven</div>
+            <div class="skill-tag">Vacuum Oven</div>
+            <div class="skill-tag">Bioreactor</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">📦</div><div class="skill-card-title">Packaging &amp; Shelf Life</div></div>
+          <div class="skill-tags">
+            <div class="skill-tag">Modified Atmosphere Packaging (MAP)</div>
+            <div class="skill-tag">Oxygen &amp; Moisture Analysis</div>
+            <div class="skill-tag">Shelf Life Evaluation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Sensory & Chemical -->
+    <div class="skill-tab-panel" id="tab-sensory">
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">👅</div><div class="skill-card-title">Sensory &amp; Consumer Testing</div></div>
+          <div class="skill-tags">
+            <div class="skill-tag">Triangle Test</div>
+            <div class="skill-tag">Preference Test</div>
+            <div class="skill-tag">Sensory Evaluation Panels</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">🧫</div><div class="skill-card-title">Chemical Analysis</div></div>
+          <div class="skill-tags">
+            <div class="skill-tag">Titration</div>
+            <div class="skill-tag">Kjeldahl Method (Protein Analysis)</div>
+            <div class="skill-tag">Soxhlet Extraction (Fat Analysis)</div>
+            <div class="skill-tag">Iodine Starch Test</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Microbiology -->
+    <div class="skill-tab-panel" id="tab-micro">
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">🦠</div><div class="skill-card-title">Aseptic &amp; Culture Techniques</div></div>
+          <div class="skill-tags">
+            <div class="skill-subgroup">Inoculation Methods</div>
+            <div class="skill-tag">Pour Plating</div>
+            <div class="skill-tag">Streak Plating</div>
+            <div class="skill-tag">Serial Dilution</div>
+            <div class="skill-subgroup">Microscopy</div>
+            <div class="skill-tag">Gram Staining</div>
+            <div class="skill-tag">Microscopy Techniques</div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">🔭</div><div class="skill-card-title">Identification &amp; Selective Media</div></div>
+          <div class="skill-tags">
+            <div class="skill-subgroup">Biochemical Tests</div>
+            <div class="skill-tag">Catalase Test</div>
+            <div class="skill-tag">Coagulase Test</div>
+            <div class="skill-subgroup">Media &amp; Isolation</div>
+            <div class="skill-tag">Selective Media Preparation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Compliance -->
+    <div class="skill-tab-panel" id="tab-compliance">
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-header"><div class="skill-card-icon">🛡️</div><div class="skill-card-title">Standards &amp; Systems</div></div>
+          <div class="skill-tags">
+            <div class="skill-tag">GMP (Good Manufacturing Practice)</div>
+            <div class="skill-tag">HACCP (Codex Alimentarius)</div>
+            <div class="skill-tag">Halal Assurance System</div>
+            <div class="skill-tag">Food Safety Management</div>
+            <div class="skill-tag">ISO 9001:2015</div>
+            <div class="skill-tag">FSSC 22000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1320,30 +1065,75 @@ footer {
   <div class="container">
     <div class="section-kicker">Certifications</div>
     <h2 class="section-title">Credentials &amp; <span>Training</span></h2>
+
+    <!-- Professional Qualifications -->
     <div class="cert-grid">
-
       <div class="cert-card">
-        <div class="cert-badge">📜</div>
-        <div class="cert-name">Add Certification Name</div>
-        <div class="cert-issuer">Issuing Organization · Platform or Institution</div>
-        <div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status active">Active</div></div>
+        <div class="cert-badge">🐍</div>
+        <div class="cert-name">Data Science with Python</div>
+        <div class="cert-issuer">BINUS University · Python for Data Science</div>
+        <div class="cert-footer"><div class="cert-year">Feb 2026</div><div class="cert-status active">Active</div></div>
       </div>
-
       <div class="cert-card">
-        <div class="cert-badge">🛡️</div>
-        <div class="cert-name">Add Certification Name</div>
-        <div class="cert-issuer">Issuing Organization · Platform or Institution</div>
-        <div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status active">Active</div></div>
+        <div class="cert-badge">💻</div>
+        <div class="cert-name">Basic Programming with C++</div>
+        <div class="cert-issuer">Bina Nusantara University · Programming Fundamentals</div>
+        <div class="cert-footer"><div class="cert-year">May 2019</div><div class="cert-status completed">Completed</div></div>
       </div>
-
       <div class="cert-card">
-        <div class="cert-badge">🔬</div>
-        <div class="cert-name">Add Certification Name</div>
-        <div class="cert-issuer">Issuing Organization · Platform or Institution</div>
-        <div class="cert-footer"><div class="cert-year">Year</div><div class="cert-status completed">Completed</div></div>
+        <div class="cert-badge">🎨</div>
+        <div class="cert-name">Image Editing with Adobe Photoshop</div>
+        <div class="cert-issuer">Bina Nusantara University · Digital Design</div>
+        <div class="cert-footer"><div class="cert-year">Mar 2018</div><div class="cert-status completed">Completed</div></div>
       </div>
-
+      <div class="cert-card">
+        <div class="cert-badge">🌐</div>
+        <div class="cert-name">HTML &amp; Web Development</div>
+        <div class="cert-issuer">Bina Nusantara University · Web Technologies</div>
+        <div class="cert-footer"><div class="cert-year">Aug 2017</div><div class="cert-status completed">Completed</div></div>
+      </div>
     </div>
+
+    <!-- Standards & Frameworks -->
+    <div class="standards-label">📜 &nbsp;Standards &amp; Frameworks</div>
+    <div class="standards-grid">
+      <div class="standard-card">
+        <div class="standard-icon">🏅</div>
+        <div>
+          <div class="standard-name">ISO 9001:2015</div>
+          <div class="standard-desc">Quality Management Systems</div>
+        </div>
+      </div>
+      <div class="standard-card">
+        <div class="standard-icon">🍽️</div>
+        <div>
+          <div class="standard-name">FSSC 22000</div>
+          <div class="standard-desc">Food Safety System Certification v5.1</div>
+        </div>
+      </div>
+      <div class="standard-card">
+        <div class="standard-icon">📋</div>
+        <div>
+          <div class="standard-name">HACCP</div>
+          <div class="standard-desc">Based on Codex Alimentarius</div>
+        </div>
+      </div>
+      <div class="standard-card">
+        <div class="standard-icon">🏭</div>
+        <div>
+          <div class="standard-name">GMP</div>
+          <div class="standard-desc">Good Manufacturing Practice</div>
+        </div>
+      </div>
+      <div class="standard-card">
+        <div class="standard-icon">☪️</div>
+        <div>
+          <div class="standard-name">Halal Assurance System</div>
+          <div class="standard-desc">Halal Certification &amp; Compliance</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1411,12 +1201,27 @@ footer {
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
-document.querySelectorAll('.exp-item,.edu-card,.skill-card,.project-card,.roadmap-row,.cert-card').forEach(el => observer.observe(el));
+document.querySelectorAll('.exp-item,.edu-card,.project-card,.cert-card,.standard-card').forEach(el => observer.observe(el));
 document.querySelectorAll('.edu-card').forEach((el,i)  => el.style.transitionDelay=(i*.12)+'s');
-document.querySelectorAll('.skill-card').forEach((el,i) => el.style.transitionDelay=(i*.10)+'s');
 document.querySelectorAll('.exp-item').forEach((el,i)   => el.style.transitionDelay=(i*.10)+'s');
-document.querySelectorAll('.roadmap-row').forEach((el,i) => el.style.transitionDelay=(i*.1)+'s');
 document.querySelectorAll('.cert-card').forEach((el,i)  => el.style.transitionDelay=(i*.10)+'s');
+document.querySelectorAll('.standard-card').forEach((el,i) => el.style.transitionDelay=(i*.07)+'s');
+
+/* ── Skill tabs ── */
+function switchTab(btn, tabId) {
+  document.querySelectorAll('.skill-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.skill-tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const panel = document.getElementById(tabId);
+  panel.classList.add('active');
+  // Trigger visible for cards in this panel
+  panel.querySelectorAll('.skill-card').forEach((el,i) => {
+    el.style.transitionDelay = (i * 0.08) + 's';
+    setTimeout(() => el.classList.add('visible'), 10);
+  });
+}
+// Init first tab cards as visible
+document.querySelectorAll('#tab-tech .skill-card').forEach(el => el.classList.add('visible'));
 
 /* ── Active nav ── */
 const sections = document.querySelectorAll('section[id]');
@@ -1427,34 +1232,176 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(a => { a.style.color = a.getAttribute('href')==='#'+current ? 'var(--blue)' : ''; });
 });
 
-/* ── Swipe roadmap walker ── */
-const roadmapScroller = document.getElementById('roadmapSwipe');
-const roadmapShell = document.querySelector('.roadmap-shell');
-function updateRoadmapProgress() {
-  if (!roadmapScroller || !roadmapShell) return;
-  const maxScroll = roadmapScroller.scrollWidth - roadmapScroller.clientWidth;
-  const ratio = maxScroll > 0 ? roadmapScroller.scrollLeft / maxScroll : 0;
-  roadmapShell.style.setProperty('--roadmap-progress', ratio.toFixed(4));
+/* ── Milestone data ── */
+const milestones = [
+  { year:'2023', role:'💃 Publicity Officer', org:'Monash Dance Fusion Club', period:'Jan 2023 – Dec 2023 · 1 yr', tags:['Social Media','Publicity','Creative Design'] },
+  { year:'2023', role:'🌿 Publicity Officer', org:'Monash Health Ambassador', period:'Jul 2023 – Dec 2023 · 6 mos', tags:['Health & Wellness','Publicity','Awareness'] },
+  { year:'2023', role:'♻️ Publicity Officer', org:'Monash Green Rep Network', period:'Jul 2023 – Dec 2023 · 6 mos', tags:['Sustainability','Publicity','Advocacy'] },
+  { year:'2024', role:'🎯 Event Coordinator', org:'Monash Career Peer', period:'Jan 2024 – Jun 2024 · 6 mos', tags:['Event Management','Career Dev','Leadership'] },
+  { year:'2024', role:'📊 Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'] },
+  { year:'2024', role:'🔭 Publicity Officer', org:'Monash Science Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Publicity','Science Outreach','Design'] },
+  { year:'2025', role:'📣 Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Comms'] },
+  { year:'Ongoing', role:'🤝 Community Volunteer', org:'Kechara Soup Kitchen · Social Services', period:'Ongoing', tags:['Community','Social Impact','Volunteering'] },
+];
+
+const stopCoords = [
+  {x:130,y:110},{x:290,y:110},{x:450,y:110},{x:660,y:110},
+  {x:660,y:210},{x:450,y:210},{x:290,y:210},{x:290,y:310}
+];
+
+const panel   = document.getElementById('roadInfoPanel');
+const pClose  = document.getElementById('panelClose');
+const pYear   = document.getElementById('panelYear');
+const pRole   = document.getElementById('panelRole');
+const pOrg    = document.getElementById('panelOrg');
+const pTags   = document.getElementById('panelTags');
+const svgWrap = document.getElementById('roadSvgWrap');
+const mainSvg = document.getElementById('roadMainSvg');
+let activeIdx = null;
+
+function showPanel(idx, svgX, svgY) {
+  const m = milestones[idx];
+  pYear.textContent = m.year;
+  pRole.textContent = m.role;
+  pOrg.textContent  = m.period + ' · ' + m.org;
+  pTags.innerHTML   = m.tags.map(t => `<span class="panel-tag">${t}</span>`).join('');
+
+  const isMobile = window.matchMedia('(max-width: 900px)').matches;
+  if (isMobile) {
+    panel.style.left = '50%';
+    panel.style.top = '';
+    panel.style.bottom = '12px';
+    panel.classList.add('active');
+    activeIdx = idx;
+    return;
+  }
+
+  panel.style.bottom = '';
+  const pt = mainSvg.createSVGPoint();
+  pt.x = svgX; pt.y = svgY;
+  const domPt    = pt.matrixTransform(mainSvg.getScreenCTM());
+  const wrapRect = svgWrap.getBoundingClientRect();
+  let left = domPt.x - wrapRect.left - 115;
+  let top  = domPt.y - wrapRect.top  + 28;
+  left = Math.max(8, Math.min(left, svgWrap.clientWidth - 238));
+  if (top + 160 > svgWrap.clientHeight) top = domPt.y - wrapRect.top - 170;
+  top = Math.max(8, top);
+  panel.style.left = left + 'px';
+  panel.style.top  = top  + 'px';
+  panel.classList.add('active');
+  activeIdx = idx;
 }
-if (roadmapScroller && roadmapShell) {
-  updateRoadmapProgress();
-  roadmapScroller.addEventListener('scroll', updateRoadmapProgress, { passive: true });
-  window.addEventListener('resize', updateRoadmapProgress);
-  roadmapScroller.addEventListener('wheel', e => {
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      roadmapScroller.scrollLeft += e.deltaY;
-      e.preventDefault();
+function hidePanel() { panel.classList.remove('active'); activeIdx = null; }
+
+document.querySelectorAll('.road-stop').forEach(el => {
+  el.addEventListener('click', e => {
+    const idx = parseInt(el.getAttribute('data-idx'));
+    const c = stopCoords[idx];
+    if (activeIdx === idx) { hidePanel(); return; }
+    showPanel(idx, c.x, c.y);
+  });
+});
+pClose.addEventListener('click', hidePanel);
+document.addEventListener('click', e => {
+  if (!panel.contains(e.target) && !e.target.closest('.road-stop')) hidePanel();
+});
+
+/* ── Walking person animation ── */
+(function animatePerson() {
+  const person   = document.getElementById('roadPerson');
+  const path     = document.getElementById('roadCenterLine');
+  const leftLeg  = document.getElementById('leftLeg').querySelector('line');
+  const rightLeg = document.getElementById('rightLeg').querySelector('line');
+  const leftArm  = document.getElementById('leftArm').querySelector('line');
+  const rightArm = document.getElementById('rightArm').querySelector('line');
+  if (!person || !path) return;
+  const total = path.getTotalLength();
+  const stopPositions = [
+    {x:130,y:110},{x:290,y:110},{x:450,y:110},{x:660,y:110},
+    {x:660,y:210},{x:450,y:210},{x:290,y:210},{x:290,y:310}
+  ];
+  const numSamples = 10000;
+  const fractions = stopPositions.map(sp => {
+    let best = 0, bestDist = Infinity;
+    for (let i = 0; i <= numSamples; i++) {
+      const f = i / numSamples;
+      const pt = path.getPointAtLength(f * total);
+      const d = Math.hypot(pt.x - sp.x, pt.y - sp.y);
+      if (d < bestDist) { bestDist = d; best = f; }
     }
-  }, { passive: false });
-}
+    return best;
+  });
+  let currentStop = 0, nextStop = 1, segT = 0;
+  const STEP_DURATION = 3000, PAUSE_DURATION = 1200;
+  let phase = 'walking', pauseStart = null, segStart = null, lastTs = null, walkCycle = 0, pauseAngle = 0;
+  person.setAttribute('transform', `translate(${stopPositions[0].x},${stopPositions[0].y}) rotate(0)`);
+  function frame(ts) {
+    if (!lastTs) { lastTs = ts; segStart = ts; }
+    const dt = ts - lastTs; lastTs = ts;
+    if (phase === 'pausing') {
+      const stop = stopPositions[nextStop];
+      person.setAttribute('transform', `translate(${stop.x},${stop.y}) rotate(${pauseAngle})`);
+      if (!pauseStart) pauseStart = ts;
+      if (ts - pauseStart >= PAUSE_DURATION) {
+        phase = 'walking'; pauseStart = null; segStart = ts; segT = 0;
+        currentStop = nextStop;
+        nextStop = (nextStop + 1) % fractions.length;
+      }
+      requestAnimationFrame(frame); return;
+    }
+    const elapsed = ts - segStart;
+    segT = Math.min(elapsed / STEP_DURATION, 1);
+    const eased = segT < 0.5 ? 2*segT*segT : 1 - Math.pow(-2*segT+2,2)/2;
+    const f  = fractions[currentStop] + eased * (fractions[nextStop] - fractions[currentStop]);
+    const f2 = Math.min(f + 0.003, 1);
+    const pos  = path.getPointAtLength(f * total);
+    const pos2 = path.getPointAtLength(f2 * total);
+    const angle = Math.atan2(pos2.y - pos.y, pos2.x - pos.x) * 180 / Math.PI;
+    walkCycle += dt * 0.008;
+    const swing = Math.sin(walkCycle) * 10;
+    leftLeg.setAttribute('x2',  String(-6 + swing * 0.5));
+    leftLeg.setAttribute('y2',  '20');
+    rightLeg.setAttribute('x2', String(6 - swing * 0.5));
+    rightLeg.setAttribute('y2', '20');
+    leftArm.setAttribute('x2',  String(-12 - swing * 0.4));
+    leftArm.setAttribute('y2',  String(7 + Math.abs(Math.sin(walkCycle)) * 2));
+    rightArm.setAttribute('x2', String(12 + swing * 0.4));
+    rightArm.setAttribute('y2', String(7 + Math.abs(Math.cos(walkCycle)) * 2));
+    person.setAttribute('transform', `translate(${pos.x},${pos.y}) rotate(${angle})`);
+    if (segT >= 1) { phase = 'pausing'; pauseStart = null; pauseAngle = angle; }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
 
 /* ── Form ── */
 function handleSend(btn) {
   btn.textContent = '✓ Sent!';
   btn.style.background = '#1e7e40';
-  setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 3000);
+  btn.disabled = true;
+  btn.style.cursor = 'default';
 }
-function toggleMenu() { alert('Mobile menu!'); }
+
+const mobileMenu = document.querySelector('.nav-links');
+function closeMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.remove('open');
+}
+function toggleMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+document.addEventListener('click', e => {
+  if (window.innerWidth > 900) return;
+  if (!mobileMenu || !mobileMenu.classList.contains('open')) return;
+  if (!e.target.closest('nav')) closeMenu();
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900) closeMenu();
+});
 </script>
 </body>
 </html>
