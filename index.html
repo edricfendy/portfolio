@@ -285,18 +285,21 @@ section { padding: 80px 48px; }
 
 /* ══ SKILLS — TABBED ══ */
 .skills-interactive {
-  position: relative;
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
 }
 .skills-chat-stage {
   position: relative;
-  min-height: 360px;
-  margin-top: 8px;
+  min-height: 340px;
+  margin-top: 0;
 }
 .skills-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 0;
 }
 .skill-tab-btn {
   display: flex;
@@ -305,7 +308,7 @@ section { padding: 80px 48px; }
   font-family: var(--font-main); font-size: 12px; font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase;
   text-align: left;
-  min-height: 64px;
+  min-height: 56px;
   width: 100%;
   padding: 12px 14px;
   border-radius: 12px;
@@ -320,34 +323,20 @@ section { padding: 80px 48px; }
 
 .skill-tab-panel {
   display: none;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: min(560px, calc(100% - 20px));
-  max-height: 430px;
-  overflow: auto;
+  position: relative;
+  width: 100%;
+  max-height: none;
+  overflow: visible;
   background: #ffffff;
   border: 1px solid #c7daec;
   border-radius: 16px;
-  box-shadow: 0 16px 34px rgba(24, 89, 149, 0.16), 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 8px 22px rgba(24, 89, 149, 0.10), 0 2px 8px rgba(0,0,0,0.04);
   padding: 16px;
-  z-index: 6;
+  z-index: 2;
 }
 .skill-tab-panel.active {
   display: block;
   animation: chatPanelIn 0.22s ease;
-}
-.skill-tab-panel.active::before {
-  content: '';
-  position: absolute;
-  top: -9px;
-  left: var(--tail-x, 50%);
-  width: 16px;
-  height: 16px;
-  transform: translateX(-50%) rotate(45deg);
-  background: #ffffff;
-  border-left: 1px solid #c7daec;
-  border-top: 1px solid #c7daec;
 }
 @keyframes chatPanelIn {
   from { opacity: 0; transform: translateY(8px) scale(0.98); }
@@ -365,9 +354,9 @@ section { padding: 80px 48px; }
   text-transform: uppercase;
   color: #6c8198;
   border: 1px dashed #c6d8e8;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.65);
-  min-height: 140px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.75);
+  min-height: 340px;
   padding: 20px;
 }
 .skills-prompt.hidden { display: none; }
@@ -601,75 +590,6 @@ footer {
   text-transform: uppercase;
 }
 .road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff5f5f; }
-.road-controls {
-  position: relative;
-  z-index: 2;
-  margin: 0 0 14px;
-  display: grid;
-  grid-template-columns: minmax(106px, auto) 1fr minmax(106px, auto);
-  grid-template-areas: "prev step next";
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 12px;
-  padding: 8px 10px;
-  backdrop-filter: blur(5px);
-}
-.road-control-btn {
-  font-family: var(--font-main);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid rgba(180,210,232,0.65);
-  border-radius: 999px;
-  background: rgba(255,255,255,0.88);
-  color: #2e4258;
-  padding: 8px 12px;
-  min-width: 106px;
-  cursor: pointer;
-  transition: border-color 0.18s, color 0.18s, background-color 0.18s, box-shadow 0.18s;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  -webkit-appearance: none;
-  appearance: none;
-  user-select: none;
-  -webkit-user-select: none;
-  min-height: 38px;
-  white-space: nowrap;
-}
-.road-control-btn:disabled {
-  color: #7891a8;
-  background: rgba(213,227,239,0.75);
-  border-color: rgba(181,205,224,0.7);
-  cursor: not-allowed;
-}
-.road-control-btn.is-selected:not(:disabled) {
-  color: #ffffff;
-  border-color: #2b98f0;
-  background: linear-gradient(180deg, #37a4ff 0%, #1f85de 100%);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.45) inset, 0 8px 18px rgba(30,143,228,0.28);
-  text-shadow: 0 1px 0 rgba(0,0,0,0.16);
-}
-.road-control-btn:focus-visible { outline: 2px solid rgba(136,200,247,0.65); outline-offset: 2px; }
-#roadPrevBtn { grid-area: prev; justify-self: start; }
-#roadNextBtn { grid-area: next; justify-self: end; }
-.road-step-indicator {
-  grid-area: step;
-  font-family: var(--font-main);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #dceaf7;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 0;
-}
 .road-svg-wrap {
   position: relative;
   z-index: 2;
@@ -810,17 +730,6 @@ footer {
   border-radius: 20px;
   padding: 3px 9px;
 }
-@media (hover: hover) and (pointer: fine) {
-  .road-control-btn:not(:disabled):hover {
-    border-color: #69b3e8;
-    color: #1f5f92;
-  }
-  .road-control-btn.is-selected:not(:disabled):hover {
-    color: #ffffff;
-    border-color: #35a5ff;
-    background: linear-gradient(180deg, #40adff 0%, #2390ea 100%);
-  }
-}
 
 /* ══ RESPONSIVE ══ */
 @media (max-width: 900px) {
@@ -858,9 +767,12 @@ footer {
   footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
   .road-journey-wrap { padding: 28px 20px 52px; }
   .road-header { flex-direction: column; gap: 10px; }
+  .skills-interactive { display: block; }
   .skills-tabs {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
+    margin-bottom: 10px;
   }
   .skill-tab-btn {
     white-space: normal;
@@ -869,7 +781,7 @@ footer {
   }
   .skills-chat-stage {
     min-height: 0;
-    margin-top: 10px;
+    margin-top: 0;
   }
   .skills-prompt {
     min-height: 88px;
@@ -885,29 +797,13 @@ footer {
     margin-top: 12px;
     padding: 14px;
   }
-  .skill-tab-panel.active::before { display: none; }
   .road-svg-wrap { padding-bottom: 8px; }
   .road-main-svg { min-width: 980px; }
   .road-info-panel { margin-top: 14px; }
-  .road-controls { grid-template-columns: minmax(92px, auto) 1fr minmax(92px, auto); }
-  #roadPrevBtn,
-  #roadNextBtn {
-    width: 100%;
-    min-width: 0;
-  }
-  .road-step-indicator { font-size: 9px; letter-spacing: 0.09em; }
 }
 
 @media (max-width: 560px) {
   .skills-tabs { grid-template-columns: 1fr; }
-  .road-controls {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "prev next" "step step";
-    padding: 7px 8px;
-    gap: 8px;
-  }
-  .road-control-btn { font-size: 9px; padding: 8px 10px; min-height: 36px; }
-  .road-step-indicator { white-space: normal; line-height: 1.35; }
 }
 </style>
 </head>
@@ -1169,11 +1065,6 @@ footer {
           <div class="road-legend-dot"></div>
           2023 → Present
         </div>
-      </div>
-      <div class="road-controls">
-        <button class="road-control-btn" id="roadPrevBtn" type="button" aria-controls="roadMainSvg">← Previous</button>
-        <div class="road-step-indicator" id="roadStepIndicator">Monash Dance Fusion Club</div>
-        <button class="road-control-btn" id="roadNextBtn" type="button" aria-controls="roadMainSvg">Next →</button>
       </div>
       <div class="road-svg-wrap" id="roadSvgWrap">
         <svg class="road-main-svg" viewBox="0 0 980 430" xmlns="http://www.w3.org/2000/svg" id="roadMainSvg" aria-label="Leadership milestone timeline">
@@ -1589,59 +1480,16 @@ document.querySelectorAll('.standard-card').forEach((el,i) => el.style.transitio
 
 /* ── Skill tabs (area-based, no click toggle) ── */
 const skillsInteractive = document.getElementById('skillsInteractive');
-const skillsTabsWrap = document.querySelector('.skills-tabs');
-const skillsChatStage = document.getElementById('skillsChatStage');
-
-function placeSkillPanel(btn, panel) {
-  if (!skillsTabsWrap || !skillsChatStage) return;
-  if (window.matchMedia('(max-width: 900px)').matches) {
-    panel.style.left = '';
-    panel.style.top = '';
-    panel.style.width = '';
-    panel.style.removeProperty('--tail-x');
-    skillsChatStage.style.minHeight = '';
-    return;
-  }
-
-  const tabsRect = skillsTabsWrap.getBoundingClientRect();
-  const btnRect = btn.getBoundingClientRect();
-  const stageRect = skillsChatStage.getBoundingClientRect();
-  const maxWidth = Math.min(560, Math.max(320, stageRect.width - 20));
-  panel.style.width = `${maxWidth}px`;
-
-  requestAnimationFrame(() => {
-    const panelHeight = panel.offsetHeight || 300;
-    const minTop = 10;
-    const maxTop = Math.max(minTop, stageRect.height - panelHeight - 10);
-    let left = (btnRect.left - tabsRect.left) + (btnRect.width / 2) - (maxWidth / 2);
-    left = Math.max(10, Math.min(left, stageRect.width - maxWidth - 10));
-    let top = (btnRect.top - tabsRect.top) + btnRect.height + 14;
-    top = Math.max(minTop, Math.min(top, maxTop));
-    const tailX = Math.max(22, Math.min((btnRect.left - tabsRect.left + (btnRect.width / 2)) - left, maxWidth - 22));
-
-    panel.style.left = `${left}px`;
-    panel.style.top = `${top}px`;
-    panel.style.setProperty('--tail-x', `${tailX}px`);
-    skillsChatStage.style.minHeight = `${Math.max(220, top + panelHeight + 12)}px`;
-  });
-}
 
 function switchTab(btn, tabId) {
   const skillsPrompt = document.getElementById('skillsPrompt');
   document.querySelectorAll('.skill-tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.skill-tab-panel').forEach(p => {
-    p.classList.remove('active');
-    p.style.left = '';
-    p.style.top = '';
-    p.style.width = '';
-    p.style.removeProperty('--tail-x');
-  });
+  document.querySelectorAll('.skill-tab-panel').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
   const panel = document.getElementById(tabId);
   if (skillsPrompt) skillsPrompt.classList.add('hidden');
   panel.classList.add('active');
   panel.querySelectorAll('.skill-card').forEach(el => el.classList.remove('visible'));
-  placeSkillPanel(btn, panel);
   panel.querySelectorAll('.skill-card').forEach((el, i) => {
     el.style.transitionDelay = (i * 0.08) + 's';
     setTimeout(() => el.classList.add('visible'), 10);
@@ -1651,14 +1499,7 @@ function switchTab(btn, tabId) {
 function resetSkillTabsPrompt() {
   const skillsPrompt = document.getElementById('skillsPrompt');
   document.querySelectorAll('.skill-tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.skill-tab-panel').forEach(p => {
-    p.classList.remove('active');
-    p.style.left = '';
-    p.style.top = '';
-    p.style.width = '';
-    p.style.removeProperty('--tail-x');
-  });
-  if (skillsChatStage) skillsChatStage.style.minHeight = '';
+  document.querySelectorAll('.skill-tab-panel').forEach(p => p.classList.remove('active'));
   if (skillsPrompt) skillsPrompt.classList.remove('hidden');
 }
 
@@ -1702,11 +1543,7 @@ const pTags   = document.getElementById('panelTags');
 const svgWrap = document.getElementById('roadSvgWrap');
 const mainSvg = document.getElementById('roadMainSvg');
 const roadStops = Array.from(document.querySelectorAll('.road-stop'));
-const roadPrevBtn = document.getElementById('roadPrevBtn');
-const roadNextBtn = document.getElementById('roadNextBtn');
-const roadStepIndicator = document.getElementById('roadStepIndicator');
 let roadCurrentStop = 0;
-let roadControlGlowTimer = null;
 
 function renderRoadDetails(idx) {
   const m = milestones[idx];
@@ -1743,34 +1580,13 @@ function ensureRoadStopVisible(idx, behavior = 'smooth') {
   }
 }
 
-function glowRoadControl(which) {
-  if (!roadPrevBtn || !roadNextBtn) return;
-  roadPrevBtn.classList.remove('is-selected');
-  roadNextBtn.classList.remove('is-selected');
-  if (which === 'prev') roadPrevBtn.classList.add('is-selected');
-  if (which === 'next') roadNextBtn.classList.add('is-selected');
-  if (roadControlGlowTimer) clearTimeout(roadControlGlowTimer);
-  roadControlGlowTimer = setTimeout(() => {
-    roadPrevBtn.classList.remove('is-selected');
-    roadNextBtn.classList.remove('is-selected');
-  }, 520);
-}
-
-function updateRoadControls() {
-  if (roadPrevBtn) roadPrevBtn.disabled = roadCurrentStop === 0;
-  if (roadNextBtn) roadNextBtn.disabled = roadCurrentStop === roadStops.length - 1;
-  if (roadStepIndicator) roadStepIndicator.textContent = `${roadCurrentStop + 1}/${milestones.length} · ${milestones[roadCurrentStop].org}`;
-}
-
-function moveRoadTo(targetIdx, source = '') {
+function moveRoadTo(targetIdx) {
   const idx = Math.max(0, Math.min(targetIdx, roadStops.length - 1));
   if (!roadStops.length) return;
-  if (source === 'prev' || source === 'next') glowRoadControl(source);
   roadCurrentStop = idx;
   setActiveRoadStop(idx);
   ensureRoadStopVisible(idx, 'smooth');
   renderRoadDetails(idx);
-  updateRoadControls();
 }
 
 roadStops.forEach(el => {
@@ -1779,14 +1595,11 @@ roadStops.forEach(el => {
     moveRoadTo(idx);
   });
 });
-if (roadPrevBtn) roadPrevBtn.addEventListener('click', () => moveRoadTo(roadCurrentStop - 1, 'prev'));
-if (roadNextBtn) roadNextBtn.addEventListener('click', () => moveRoadTo(roadCurrentStop + 1, 'next'));
 
 if (roadStops.length) {
   setActiveRoadStop(0);
   renderRoadDetails(0);
   ensureRoadStopVisible(0, 'auto');
-  updateRoadControls();
   setTimeout(() => ensureRoadStopVisible(roadCurrentStop, 'auto'), 0);
 }
 
@@ -1818,13 +1631,6 @@ document.addEventListener('click', e => {
 window.addEventListener('resize', () => {
   if (window.innerWidth > 900) closeMenu();
   ensureRoadStopVisible(roadCurrentStop, 'auto');
-  const activeSkillBtn = document.querySelector('.skill-tab-btn.active');
-  const activeSkillPanel = document.querySelector('.skill-tab-panel.active');
-  if (activeSkillBtn && activeSkillPanel) {
-    placeSkillPanel(activeSkillBtn, activeSkillPanel);
-  } else if (skillsChatStage) {
-    skillsChatStage.style.minHeight = '';
-  }
 });
 </script>
 </body>
