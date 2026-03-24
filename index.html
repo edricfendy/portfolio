@@ -596,9 +596,11 @@ footer {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   padding-bottom: 2px;
 }
+.road-svg-wrap::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .road-main-svg {
   width: 100%;
   min-width: 980px;
@@ -638,6 +640,10 @@ footer {
   transition: transform 0.22s ease;
   transform-box: fill-box;
   transform-origin: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .road-stop .stop-core,
 .road-stop .stop-ring,
@@ -683,6 +689,10 @@ footer {
 }
 .road-stop.active .stop-inner { stroke: #ff3c3c; }
 .road-stop.active .stop-icon { fill: #17344a; }
+@media (hover: none) and (pointer: coarse) {
+  .road-stop:hover { transform: none; }
+  .road-stop:hover .stop-ring { opacity: 0; }
+}
 .road-info-panel {
   position: relative;
   z-index: 2;
@@ -1544,6 +1554,7 @@ const svgWrap = document.getElementById('roadSvgWrap');
 const mainSvg = document.getElementById('roadMainSvg');
 const roadStops = Array.from(document.querySelectorAll('.road-stop'));
 let roadCurrentStop = 0;
+let roadWasDragging = false;
 
 function renderRoadDetails(idx) {
   const m = milestones[idx];
@@ -1583,14 +1594,45 @@ function ensureRoadStopVisible(idx, behavior = 'smooth') {
 function moveRoadTo(targetIdx) {
   const idx = Math.max(0, Math.min(targetIdx, roadStops.length - 1));
   if (!roadStops.length) return;
+  if (idx === roadCurrentStop) return;
   roadCurrentStop = idx;
   setActiveRoadStop(idx);
-  ensureRoadStopVisible(idx, 'smooth');
+  const behavior = window.matchMedia('(max-width: 900px)').matches ? 'smooth' : 'auto';
+  ensureRoadStopVisible(idx, behavior);
   renderRoadDetails(idx);
+}
+
+if (svgWrap) {
+  let pointerStartX = null;
+  let pointerStartY = null;
+  let dragging = false;
+  const dragThreshold = 9;
+
+  svgWrap.addEventListener('pointerdown', e => {
+    pointerStartX = e.clientX;
+    pointerStartY = e.clientY;
+    dragging = false;
+  });
+  svgWrap.addEventListener('pointermove', e => {
+    if (pointerStartX === null || pointerStartY === null) return;
+    if (Math.abs(e.clientX - pointerStartX) > dragThreshold || Math.abs(e.clientY - pointerStartY) > dragThreshold) {
+      dragging = true;
+    }
+  });
+  const endPointer = () => {
+    roadWasDragging = dragging;
+    pointerStartX = null;
+    pointerStartY = null;
+    dragging = false;
+    setTimeout(() => { roadWasDragging = false; }, 40);
+  };
+  svgWrap.addEventListener('pointerup', endPointer);
+  svgWrap.addEventListener('pointercancel', endPointer);
 }
 
 roadStops.forEach(el => {
   el.addEventListener('click', () => {
+    if (roadWasDragging) return;
     const idx = parseInt(el.getAttribute('data-idx'), 10);
     moveRoadTo(idx);
   });
