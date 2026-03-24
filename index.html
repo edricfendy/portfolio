@@ -514,16 +514,23 @@ footer {
 .road-stop { cursor: pointer; transition: transform 0.22s ease; transform-box: fill-box; transform-origin: center; }
 .road-stop:hover { transform: scale(1.08); }
 .road-stop:hover .stop-ring { opacity: 1; }
-.road-stop.active { transform: scale(1.12); }
-.road-stop.active .stop-ring { opacity: 1; }
+.road-stop .stop-core,
+.road-stop .stop-dot,
+.road-stop .stop-ring { transition: fill 0.22s ease, stroke 0.22s ease, opacity 0.22s ease, filter 0.22s ease; }
+.road-stop.active { transform: scale(1.15); }
+.road-stop.active .stop-ring {
+  opacity: 1;
+  stroke: rgba(26,127,212,0.9);
+  stroke-width: 4;
+}
 .road-stop.active .stop-core {
-  fill: #2f85d7;
+  fill: #2f85d7 !important;
   stroke: #ffffff;
   stroke-width: 2.5;
   filter: drop-shadow(0 0 10px rgba(26,127,212,0.45));
 }
 .road-stop.active .stop-dot {
-  fill: #ffffff;
+  fill: #ffffff !important;
 }
 .stop-ring { opacity: 0; transition: opacity 0.2s; }
 .road-info-panel {
@@ -593,6 +600,7 @@ footer {
   border-color: #2078cc;
   background: linear-gradient(180deg, #2e8ee7 0%, #1d76ca 100%);
   box-shadow: 0 0 0 1px rgba(255,255,255,0.45) inset, 0 6px 18px rgba(26,127,212,0.28);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.12);
 }
 .road-control-btn:focus-visible {
   outline: 2px solid rgba(26,127,212,0.35);
@@ -1445,8 +1453,6 @@ const roadPrevBtn = document.getElementById('roadPrevBtn');
 const roadNextBtn = document.getElementById('roadNextBtn');
 const roadStepIndicator = document.getElementById('roadStepIndicator');
 let roadCurrentStop = 0;
-let roadWalking = false;
-let roadTransitionTimer = null;
 let roadControlGlowTimer = null;
 
 function setActiveRoadStop(idx) {
@@ -1489,12 +1495,12 @@ function glowRoadControl(which) {
   roadControlGlowTimer = setTimeout(() => {
     roadPrevBtn.classList.remove('is-selected');
     roadNextBtn.classList.remove('is-selected');
-  }, 260);
+  }, 520);
 }
 
 function updateRoadControls() {
-  if (roadPrevBtn) roadPrevBtn.disabled = roadWalking || roadCurrentStop === 0;
-  if (roadNextBtn) roadNextBtn.disabled = roadWalking || roadCurrentStop === stopCoords.length - 1;
+  if (roadPrevBtn) roadPrevBtn.disabled = roadCurrentStop === 0;
+  if (roadNextBtn) roadNextBtn.disabled = roadCurrentStop === stopCoords.length - 1;
   if (roadStepIndicator) roadStepIndicator.textContent = milestones[roadCurrentStop].org;
 }
 
@@ -1513,22 +1519,15 @@ function moveRoadTo(targetIdx, showDetails = true, source = '') {
     updateRoadControls();
     return;
   }
-  if (roadWalking) return;
-
   if (source === 'prev' || source === 'next') glowRoadControl(source);
-  if (roadTransitionTimer) clearTimeout(roadTransitionTimer);
-  roadWalking = true;
-  updateRoadControls();
+  roadCurrentStop = idx;
+  setActiveRoadStop(roadCurrentStop);
   ensureRoadStopVisible(idx, 'smooth');
-  roadTransitionTimer = setTimeout(() => {
-    roadCurrentStop = idx;
-    roadWalking = false;
+  updateRoadControls();
+  if (showDetails) {
     const finalPos = stopCoords[roadCurrentStop];
-    setActiveRoadStop(roadCurrentStop);
-    ensureRoadStopVisible(roadCurrentStop, 'smooth');
-    updateRoadControls();
-    if (showDetails) showPanel(roadCurrentStop, finalPos.x, finalPos.y);
-  }, 230);
+    showPanel(roadCurrentStop, finalPos.x, finalPos.y);
+  }
 }
 
 roadStops.forEach(el => {
