@@ -505,14 +505,26 @@ footer {
   z-index: 2;
   width: 100%;
   overflow-x: auto;
+  padding-bottom: 8px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 .road-svg-wrap::-webkit-scrollbar { height: 0; display: none; }
 .road-main-svg { width: 100%; height: auto; display: block; overflow: visible; }
-.road-stop { cursor: pointer; transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1); transform-box: fill-box; transform-origin: center; }
-.road-stop:hover { transform: scale(1.18); }
+.road-stop { cursor: pointer; transition: transform 0.22s ease; transform-box: fill-box; transform-origin: center; }
+.road-stop:hover { transform: scale(1.08); }
 .road-stop:hover .stop-ring { opacity: 1; }
+.road-stop.active { transform: scale(1.12); }
+.road-stop.active .stop-ring { opacity: 1; }
+.road-stop.active .stop-core {
+  fill: #2f85d7;
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 10px rgba(26,127,212,0.45));
+}
+.road-stop.active .stop-dot {
+  fill: #ffffff;
+}
 .stop-ring { opacity: 0; transition: opacity 0.2s; }
 .road-info-panel {
   position: absolute; background: white; border: 1.5px solid rgba(26,127,212,0.25);
@@ -530,45 +542,57 @@ footer {
 .panel-tag { font-family: var(--font-main); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--blue-dark); background: var(--blue-light); border-radius: 20px; padding: 3px 9px; }
 .panel-close { position: absolute; top: 12px; right: 14px; font-size: 16px; color: var(--muted); cursor: pointer; line-height: 1; pointer-events: auto; background: none; border: none; transition: color 0.15s; }
 .panel-close:hover { color: var(--ink); }
-#roadPerson { transform-box: fill-box; transform-origin: center bottom; }
 .road-controls {
   position: relative;
   z-index: 2;
-  margin-top: 16px;
+  margin: 0 0 14px;
   display: grid;
-  grid-template-columns: minmax(116px, auto) 1fr minmax(116px, auto);
+  grid-template-columns: minmax(106px, auto) 1fr minmax(106px, auto);
   grid-template-areas: "prev step next";
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(26,127,212,0.18);
+  border-radius: 12px;
+  padding: 8px 10px;
+  backdrop-filter: blur(4px);
 }
 .road-control-btn {
   font-family: var(--font-main);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: 1px solid var(--border);
+  border: 1px solid #c4d7eb;
   border-radius: 999px;
-  background: white;
-  color: var(--ink);
-  padding: 9px 14px;
-  min-width: 116px;
+  background: #f8fbff;
+  color: #30445a;
+  padding: 8px 12px;
+  min-width: 106px;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.18s, color 0.18s, background-color 0.18s;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
   user-select: none;
   -webkit-user-select: none;
-  min-height: 42px;
+  min-height: 38px;
   white-space: nowrap;
 }
 .road-control-btn:disabled {
   opacity: 1;
-  color: #9aa8b8;
-  background: #eef3f8;
-  border-color: #d1ddea;
+  color: #6f8196;
+  background: #e7eef6;
+  border-color: #cedaea;
   cursor: not-allowed;
+}
+.road-control-btn.is-selected:not(:disabled) {
+  color: #ffffff;
+  border-color: #2078cc;
+  background: linear-gradient(180deg, #2e8ee7 0%, #1d76ca 100%);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.45) inset, 0 6px 18px rgba(26,127,212,0.28);
 }
 .road-control-btn:focus-visible {
   outline: 2px solid rgba(26,127,212,0.35);
@@ -579,11 +603,11 @@ footer {
 .road-step-indicator {
   grid-area: step;
   font-family: var(--font-main);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: #5a7087;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -591,9 +615,14 @@ footer {
   min-width: 0;
 }
 @media (hover: hover) and (pointer: fine) {
-  .road-control-btn:hover {
+  .road-control-btn:not(:disabled):hover {
     border-color: var(--blue);
     color: var(--blue);
+  }
+  .road-control-btn.is-selected:not(:disabled):hover {
+    color: #ffffff;
+    border-color: #1f72c1;
+    background: linear-gradient(180deg, #3094f1 0%, #1f79d0 100%);
   }
 }
 
@@ -658,33 +687,19 @@ footer {
     z-index: 500;
   }
   .road-info-panel.active { transform: translate(-50%, 0) scale(1); }
-  .road-controls {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "step step"
-      "prev next";
-    gap: 10px;
-    align-items: stretch;
-  }
+  .road-controls { grid-template-columns: minmax(92px, auto) 1fr minmax(92px, auto); }
   #roadPrevBtn,
   #roadNextBtn {
     width: 100%;
     min-width: 0;
   }
-  .road-step-indicator {
-    margin-bottom: 2px;
-  }
+  .road-step-indicator { font-size: 9px; letter-spacing: 0.09em; }
 }
 
 @media (max-width: 560px) {
   .skills-tabs { grid-template-columns: 1fr; }
-  .road-controls {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "step"
-      "prev"
-      "next";
-  }
+  .road-controls { padding: 7px 8px; gap: 8px; }
+  .road-control-btn { font-size: 9px; padding: 8px 10px; min-height: 36px; }
 }
 </style>
 </head>
@@ -947,6 +962,11 @@ footer {
           2023 → Present
         </div>
       </div>
+      <div class="road-controls">
+        <button class="road-control-btn" id="roadPrevBtn" type="button" aria-controls="roadMainSvg">← Previous</button>
+        <div class="road-step-indicator" id="roadStepIndicator">Monash Dance Fusion Club</div>
+        <button class="road-control-btn" id="roadNextBtn" type="button" aria-controls="roadMainSvg">Next →</button>
+      </div>
       <div class="road-svg-wrap" id="roadSvgWrap">
         <svg class="road-main-svg" viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" id="roadMainSvg">
           <defs>
@@ -971,37 +991,27 @@ footer {
           <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(26,127,212,0.35)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(235,245,255,0.75)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="2" stroke-linecap="round" stroke-dasharray="18,12"/>
-          <text x="130" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">1. Dance Fusion Club</text>
+          <text x="130" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Dance Fusion Club</text>
           <line x1="130" y1="72" x2="130" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="290" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">2. Health Ambassador</text>
+          <text x="290" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Health Ambassador</text>
           <line x1="290" y1="72" x2="290" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="450" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">3. Green Rep Network</text>
+          <text x="450" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Green Rep Network</text>
           <line x1="450" y1="72" x2="450" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="660" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">4. Career Peer</text>
+          <text x="660" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Career Peer</text>
           <line x1="660" y1="72" x2="660" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
           <line x1="660" y1="224" x2="660" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="660" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">5. Accounting &amp; Finance</text>
+          <text x="660" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Accounting &amp; Finance</text>
           <line x1="450" y1="224" x2="450" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="450" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">6. Science Club</text>
+          <text x="450" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Science Club</text>
           <line x1="290" y1="224" x2="290" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="290" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">7. Volunteer Program</text>
-          <g class="road-stop" data-idx="0" transform="translate(130,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">1</text></g>
-          <g class="road-stop" data-idx="1" transform="translate(290,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">2</text></g>
-          <g class="road-stop" data-idx="2" transform="translate(450,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">3</text></g>
-          <g class="road-stop" data-idx="3" transform="translate(660,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">4</text></g>
-          <g class="road-stop" data-idx="4" transform="translate(660,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">5</text></g>
-          <g class="road-stop" data-idx="5" transform="translate(450,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">6</text></g>
-          <g class="road-stop" data-idx="6" transform="translate(290,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle r="19" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.8)" stroke-width="2.5" filter="url(#stopShadow)"/><text x="0" y="5" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="13" font-weight="800" fill="#5a6a7e">7</text></g>
-          <g id="roadPerson">
-            <ellipse cx="0" cy="14" rx="8" ry="3" fill="rgba(0,0,0,0.12)"/>
-            <rect x="-5" y="-2" width="10" height="13" rx="3" fill="#1a7fd4"/>
-            <circle cx="0" cy="-9" r="7" fill="#fcd5b0" stroke="#e8b990" stroke-width="1"/>
-            <path d="M -7,-13 Q0,-18 7,-13 Q7,-8 -7,-8 Z" fill="#4a3728"/>
-            <g id="leftArm"><line x1="-5" y1="1" x2="-12" y2="7" stroke="#1a7fd4" stroke-width="3" stroke-linecap="round"/></g>
-            <g id="rightArm"><line x1="5" y1="1" x2="12" y2="7" stroke="#1a7fd4" stroke-width="3" stroke-linecap="round"/></g>
-            <g id="leftLeg"><line x1="-3" y1="11" x2="-6" y2="20" stroke="#2c3e6b" stroke-width="3" stroke-linecap="round"/></g>
-            <g id="rightLeg"><line x1="3" y1="11" x2="6" y2="20" stroke="#2c3e6b" stroke-width="3" stroke-linecap="round"/></g>
-          </g>
+          <text x="290" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Volunteer Program</text>
+          <g class="road-stop" data-idx="0" transform="translate(130,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
+          <g class="road-stop" data-idx="1" transform="translate(290,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
+          <g class="road-stop" data-idx="2" transform="translate(450,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
+          <g class="road-stop" data-idx="3" transform="translate(660,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
+          <g class="road-stop" data-idx="4" transform="translate(660,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
+          <g class="road-stop" data-idx="5" transform="translate(450,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
+          <g class="road-stop" data-idx="6" transform="translate(290,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
         </svg>
       </div>
       <div class="road-info-panel" id="roadInfoPanel">
@@ -1011,11 +1021,6 @@ footer {
         <div class="panel-org" id="panelOrg"></div>
         <div class="panel-divider"></div>
         <div class="panel-tags" id="panelTags"></div>
-      </div>
-      <div class="road-controls">
-        <button class="road-control-btn" id="roadPrevBtn" type="button">← Previous</button>
-        <div class="road-step-indicator" id="roadStepIndicator">Step 1 of 7</div>
-        <button class="road-control-btn" id="roadNextBtn" type="button">Next →</button>
       </div>
     </div>
   </div>
@@ -1439,62 +1444,68 @@ const roadStops = Array.from(document.querySelectorAll('.road-stop'));
 const roadPrevBtn = document.getElementById('roadPrevBtn');
 const roadNextBtn = document.getElementById('roadNextBtn');
 const roadStepIndicator = document.getElementById('roadStepIndicator');
-const roadPerson = document.getElementById('roadPerson');
-const roadPath = document.getElementById('roadCenterLine');
-const roadTotalLength = roadPath ? roadPath.getTotalLength() : 0;
-const leftLegLine  = document.getElementById('leftLeg')?.querySelector('line');
-const rightLegLine = document.getElementById('rightLeg')?.querySelector('line');
-const leftArmLine  = document.getElementById('leftArm')?.querySelector('line');
-const rightArmLine = document.getElementById('rightArm')?.querySelector('line');
 let roadCurrentStop = 0;
 let roadWalking = false;
-let roadAnimFrame = null;
+let roadTransitionTimer = null;
+let roadControlGlowTimer = null;
 
-function setRoadLimbPose(swing) {
-  if (!leftLegLine || !rightLegLine || !leftArmLine || !rightArmLine) return;
-  leftLegLine.setAttribute('x2', String(-6 + swing * 0.5));
-  leftLegLine.setAttribute('y2', '20');
-  rightLegLine.setAttribute('x2', String(6 - swing * 0.5));
-  rightLegLine.setAttribute('y2', '20');
-  leftArmLine.setAttribute('x2', String(-12 - swing * 0.4));
-  leftArmLine.setAttribute('y2', String(7 + Math.abs(Math.sin(swing / 10)) * 2));
-  rightArmLine.setAttribute('x2', String(12 + swing * 0.4));
-  rightArmLine.setAttribute('y2', String(7 + Math.abs(Math.cos(swing / 10)) * 2));
-}
-
-function setRoadPersonTransform(x, y, angle) {
-  if (!roadPerson) return;
-  roadPerson.setAttribute('transform', `translate(${x},${y}) rotate(${angle})`);
-}
-
-function buildRoadFractions() {
-  if (!roadPath || !roadTotalLength) return stopCoords.map(() => 0);
-  const samples = 6000;
-  return stopCoords.map(sp => {
-    let best = 0;
-    let bestDist = Infinity;
-    for (let i = 0; i <= samples; i++) {
-      const f = i / samples;
-      const pt = roadPath.getPointAtLength(f * roadTotalLength);
-      const d = Math.hypot(pt.x - sp.x, pt.y - sp.y);
-      if (d < bestDist) { bestDist = d; best = f; }
-    }
-    return best;
+function setActiveRoadStop(idx) {
+  roadStops.forEach((stop, stopIdx) => {
+    stop.classList.toggle('active', stopIdx === idx);
   });
 }
-const roadFractions = buildRoadFractions();
+
+function ensureRoadStopVisible(idx, behavior = 'smooth') {
+  if (!svgWrap || !mainSvg) return;
+  if (svgWrap.scrollWidth <= svgWrap.clientWidth + 2) return;
+
+  const point = stopCoords[idx];
+  if (!point) return;
+
+  const vb = mainSvg.viewBox && mainSvg.viewBox.baseVal ? mainSvg.viewBox.baseVal : null;
+  const viewBoxWidth = vb && vb.width ? vb.width : 900;
+  const renderedWidth = mainSvg.getBoundingClientRect().width || viewBoxWidth;
+  const pxPerUnit = renderedWidth / viewBoxWidth;
+  const targetX = point.x * pxPerUnit;
+  const desiredLeft = Math.max(
+    0,
+    Math.min(targetX - (svgWrap.clientWidth / 2), svgWrap.scrollWidth - svgWrap.clientWidth)
+  );
+
+  try {
+    svgWrap.scrollTo({ left: desiredLeft, behavior });
+  } catch (_) {
+    svgWrap.scrollLeft = desiredLeft;
+  }
+}
+
+function glowRoadControl(which) {
+  if (!roadPrevBtn || !roadNextBtn) return;
+  roadPrevBtn.classList.remove('is-selected');
+  roadNextBtn.classList.remove('is-selected');
+  if (which === 'prev') roadPrevBtn.classList.add('is-selected');
+  if (which === 'next') roadNextBtn.classList.add('is-selected');
+  if (roadControlGlowTimer) clearTimeout(roadControlGlowTimer);
+  roadControlGlowTimer = setTimeout(() => {
+    roadPrevBtn.classList.remove('is-selected');
+    roadNextBtn.classList.remove('is-selected');
+  }, 260);
+}
 
 function updateRoadControls() {
   if (roadPrevBtn) roadPrevBtn.disabled = roadWalking || roadCurrentStop === 0;
   if (roadNextBtn) roadNextBtn.disabled = roadWalking || roadCurrentStop === stopCoords.length - 1;
-  if (roadStepIndicator) roadStepIndicator.textContent = `Step ${roadCurrentStop + 1} of ${stopCoords.length}`;
+  if (roadStepIndicator) roadStepIndicator.textContent = milestones[roadCurrentStop].org;
 }
 
-function moveRoadPersonTo(targetIdx, showDetails = true) {
+function moveRoadTo(targetIdx, showDetails = true, source = '') {
   const idx = Math.max(0, Math.min(targetIdx, stopCoords.length - 1));
-  if (!roadPath || !roadPerson) return;
+  if (!roadStops.length) return;
 
   if (idx === roadCurrentStop) {
+    if (source === 'prev' || source === 'next') glowRoadControl(source);
+    setActiveRoadStop(idx);
+    ensureRoadStopVisible(idx, 'smooth');
     if (showDetails) {
       const c = stopCoords[idx];
       if (activeIdx === idx) hidePanel(); else showPanel(idx, c.x, c.y);
@@ -1504,66 +1515,39 @@ function moveRoadPersonTo(targetIdx, showDetails = true) {
   }
   if (roadWalking) return;
 
-  if (roadAnimFrame) cancelAnimationFrame(roadAnimFrame);
+  if (source === 'prev' || source === 'next') glowRoadControl(source);
+  if (roadTransitionTimer) clearTimeout(roadTransitionTimer);
   roadWalking = true;
   updateRoadControls();
-
-  const startFraction = roadFractions[roadCurrentStop];
-  const endFraction = roadFractions[idx];
-  const directionDelta = endFraction >= startFraction ? 1 : -1;
-  const startTs = performance.now();
-  const duration = 900 + Math.abs(idx - roadCurrentStop) * 280;
-  let walkCycle = 0;
-
-  function frame(ts) {
-    const t = Math.min((ts - startTs) / duration, 1);
-    const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    const f = startFraction + (endFraction - startFraction) * eased;
-    const f2 = Math.max(0, Math.min(1, f + 0.003 * directionDelta));
-    const pos = roadPath.getPointAtLength(f * roadTotalLength);
-    const pos2 = roadPath.getPointAtLength(f2 * roadTotalLength);
-    const angle = Math.atan2(pos2.y - pos.y, pos2.x - pos.x) * 180 / Math.PI;
-
-    walkCycle += 0.42;
-    const swing = Math.sin(walkCycle) * 10;
-    setRoadLimbPose(swing);
-    setRoadPersonTransform(pos.x, pos.y, angle);
-
-    if (t < 1) {
-      roadAnimFrame = requestAnimationFrame(frame);
-      return;
-    }
-
+  ensureRoadStopVisible(idx, 'smooth');
+  roadTransitionTimer = setTimeout(() => {
     roadCurrentStop = idx;
     roadWalking = false;
-    setRoadLimbPose(0);
     const finalPos = stopCoords[roadCurrentStop];
-    setRoadPersonTransform(finalPos.x, finalPos.y, angle);
+    setActiveRoadStop(roadCurrentStop);
+    ensureRoadStopVisible(roadCurrentStop, 'smooth');
     updateRoadControls();
     if (showDetails) showPanel(roadCurrentStop, finalPos.x, finalPos.y);
-  }
-  roadAnimFrame = requestAnimationFrame(frame);
+  }, 230);
 }
 
 roadStops.forEach(el => {
   el.addEventListener('click', () => {
     const idx = parseInt(el.getAttribute('data-idx'), 10);
-    moveRoadPersonTo(idx, true);
+    moveRoadTo(idx, true);
   });
 });
-if (roadPrevBtn) roadPrevBtn.addEventListener('click', () => moveRoadPersonTo(roadCurrentStop - 1, true));
-if (roadNextBtn) roadNextBtn.addEventListener('click', () => moveRoadPersonTo(roadCurrentStop + 1, true));
+if (roadPrevBtn) roadPrevBtn.addEventListener('click', () => moveRoadTo(roadCurrentStop - 1, true, 'prev'));
+if (roadNextBtn) roadNextBtn.addEventListener('click', () => moveRoadTo(roadCurrentStop + 1, true, 'next'));
 pClose.addEventListener('click', hidePanel);
 document.addEventListener('click', e => {
-  if (!panel.contains(e.target) && !e.target.closest('.road-stop')) hidePanel();
+  if (!panel.contains(e.target) && !e.target.closest('.road-stop') && !e.target.closest('.road-control-btn')) hidePanel();
 });
 
-if (roadPerson) {
-  const p0 = stopCoords[0];
-  setRoadLimbPose(0);
-  setRoadPersonTransform(p0.x, p0.y, 0);
-}
+setActiveRoadStop(0);
+ensureRoadStopVisible(0, 'auto');
 updateRoadControls();
+setTimeout(() => ensureRoadStopVisible(roadCurrentStop, 'auto'), 0);
 
 /* ── Form ── */
 function handleSend(btn) {
@@ -1592,6 +1576,7 @@ document.addEventListener('click', e => {
 });
 window.addEventListener('resize', () => {
   if (window.innerWidth > 900) closeMenu();
+  ensureRoadStopVisible(roadCurrentStop, 'auto');
 });
 </script>
 </body>
