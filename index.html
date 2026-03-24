@@ -799,32 +799,34 @@ footer {
   border-radius: 20px;
   padding: 3px 10px;
 }
-.panel-links {
-  margin-top: 10px;
+.panel-media {
+  margin-top: 12px;
   display: none;
-  flex-direction: column;
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
 }
-.panel-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  width: fit-content;
-  font-family: var(--font-main);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--blue-dark);
-  background: #eef6ff;
+.panel-media-card {
+  background: #f4f9ff;
   border: 1px solid #cfe3f5;
-  border-radius: 8px;
-  padding: 6px 10px;
-  text-decoration: none;
-  transition: all 0.15s;
+  border-radius: 10px;
+  overflow: hidden;
 }
-.panel-link:hover {
-  background: #e2f0ff;
-  border-color: #a9cae7;
-  color: var(--blue);
+.panel-media-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #dfeefc;
+}
+.panel-media-caption {
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--blue-dark);
+  padding: 7px 8px;
+  line-height: 1.35;
 }
 
 /* Keyboard focus for accessibility */
@@ -1263,7 +1265,7 @@ footer {
           <div class="panel-role" id="panelRole"></div>
           <div class="panel-org"  id="panelOrg"></div>
           <div class="panel-tags" id="panelTags"></div>
-          <div class="panel-links" id="panelLinks"></div>
+          <div class="panel-media" id="panelMedia"></div>
         </div>
       </div>
     </div>
@@ -1576,10 +1578,10 @@ const milestones = [
   { icon:'🌿', year:'2023', role:'Publicity Officer', org:'Monash Health Ambassador',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Health & Wellness','Publicity','Awareness'] },
   { icon:'♻️', year:'2023', role:'Publicity Officer', org:'Monash Green Rep Network',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Sustainability','Publicity','Advocacy'] },
   { icon:'🎯', year:'2024', role:'Event Coordinator', org:'Monash Career Peer',         period:'Jan 2024 – Jun 2024 · 6 mos',        tags:['Event Management','Career Dev','Leadership'] },
-  { icon:'📊', year:'2024', role:'Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'], links:[
-    { label:'Club Loyalty Program', href:'assets/mafc/club-loyalty-program.pdf' },
-    { label:'Maximize Your LinkedIn Presence (BDO)', href:'assets/mafc/maximize-linkedin-presence-bdo.pdf' },
-    { label:'PwC Company Tour', href:'assets/mafc/pwc-company-tour.pdf' }
+  { icon:'📊', year:'2024', role:'Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'], images:[
+    { label:'Club Loyalty Program', src:'assets/mafc/previews/club-loyalty-program.png' },
+    { label:'Maximize LinkedIn Presence (BDO)', src:'assets/mafc/previews/maximize-linkedin-presence-bdo.png' },
+    { label:'PwC Company Tour', src:'assets/mafc/previews/pwc-company-tour.png' }
   ] },
   { icon:'🔭', year:'2024', role:'Publicity Officer', org:'Monash Science Club',         period:'Jul 2024 – Dec 2024 · 6 mos',        tags:['Publicity','Science Outreach','Design'] },
   { icon:'📣', year:'2025', role:'Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Communications'] },
@@ -1590,7 +1592,7 @@ const panelYear = document.getElementById('panelYear');
 const panelRole = document.getElementById('panelRole');
 const panelOrg  = document.getElementById('panelOrg');
 const panelTags = document.getElementById('panelTags');
-const panelLinks = document.getElementById('panelLinks');
+const panelMedia = document.getElementById('panelMedia');
 
 const roadStops   = Array.from(document.querySelectorAll('.road-stop'));
 let   activeIdx   = -1;   // nothing selected yet
@@ -1603,15 +1605,20 @@ function renderPanel(idx) {
   panelRole.textContent = m.role;
   panelOrg.textContent  = m.org;
   panelTags.innerHTML   = m.tags.map(t => `<span class="panel-tag">${t}</span>`).join('');
-  if (panelLinks) {
-    if (Array.isArray(m.links) && m.links.length) {
-      panelLinks.style.display = 'flex';
-      panelLinks.innerHTML = m.links
-        .map(link => `<a class="panel-link" href="${link.href}" target="_blank" rel="noopener noreferrer">📄 ${link.label}</a>`)
+  if (panelMedia) {
+    if (Array.isArray(m.images) && m.images.length) {
+      panelMedia.style.display = 'grid';
+      panelMedia.innerHTML = m.images
+        .map(image => `
+          <figure class="panel-media-card">
+            <img src="${image.src}" alt="${image.label}" loading="lazy" decoding="async">
+            <figcaption class="panel-media-caption">${image.label}</figcaption>
+          </figure>
+        `)
         .join('');
     } else {
-      panelLinks.style.display = 'none';
-      panelLinks.innerHTML = '';
+      panelMedia.style.display = 'none';
+      panelMedia.innerHTML = '';
     }
   }
 }
