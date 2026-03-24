@@ -541,76 +541,66 @@ footer {
 .svg-b2       { animation: bubbleRise 3.2s ease-out infinite -1.1s; }
 .svg-b3       { animation: bubbleRise 3.2s ease-out infinite -2.2s; }
 
-/* ══ WINDING ROAD JOURNEY ══ */
+/* ══ ROADMAP — CLASSIC TIMELINE ══ */
 .road-journey-section { position: relative; }
 .road-journey-wrap {
   position: relative;
-  background: linear-gradient(135deg, #f0f6ff 0%, #e8f1fa 50%, #f4f8fc 100%);
-  border-radius: 20px; padding: 48px 40px 56px;
-  overflow: hidden; border: 1px solid rgba(26,127,212,0.12);
-  box-shadow: 0 4px 40px rgba(26,127,212,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
+  background: linear-gradient(165deg, #294f66 0%, #22465d 55%, #1f3f54 100%);
+  border-radius: 18px;
+  padding: 34px 30px 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 36px rgba(8,30,43,0.26);
 }
 .road-journey-wrap::before {
-  content: ''; position: absolute; inset: 0;
-  background-image: radial-gradient(circle, rgba(26,127,212,0.08) 1px, transparent 1px);
-  background-size: 32px 32px; pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 34px 34px;
+  pointer-events: none;
 }
-.road-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; position: relative; z-index: 2; }
-.road-header-title { font-family: var(--font-main); font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.road-header-title::before { content: ''; width: 20px; height: 2px; background: var(--blue); }
-.road-header-sub { font-family: var(--font-main); font-size: 22px; font-weight: 800; color: var(--ink); }
-.road-header-sub span { color: var(--blue); }
-.road-legend { display: flex; align-items: center; gap: 6px; font-family: var(--font-main); font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
-.road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); opacity: 0.5; }
-.road-svg-wrap {
+.road-header {
   position: relative;
   z-index: 2;
-  width: 100%;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
 }
-.road-svg-wrap::-webkit-scrollbar { height: 0; display: none; }
-.road-main-svg { width: 100%; height: auto; display: block; overflow: visible; }
-.road-stop { cursor: pointer; transition: transform 0.22s ease; transform-box: fill-box; transform-origin: center; }
-.road-stop:hover { transform: scale(1.08); }
-.road-stop:hover .stop-ring { opacity: 1; }
-.road-stop .stop-core,
-.road-stop .stop-dot,
-.road-stop .stop-ring { transition: fill 0.22s ease, stroke 0.22s ease, opacity 0.22s ease, filter 0.22s ease; }
-.road-stop.active { transform: scale(1.15); }
-.road-stop.active .stop-ring {
-  opacity: 1;
-  stroke: rgba(26,127,212,0.9);
-  stroke-width: 4;
+.road-header-title {
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: #9bc7ea;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
 }
-.road-stop.active .stop-core {
-  fill: #2f85d7 !important;
-  stroke: #ffffff;
-  stroke-width: 2.5;
-  filter: drop-shadow(0 0 10px rgba(26,127,212,0.45));
+.road-header-title::before { content: ''; width: 20px; height: 2px; background: #7db8e6; }
+.road-header-sub {
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 800;
+  color: #f0f7ff;
 }
-.road-stop.active .stop-dot {
-  fill: #ffffff !important;
+.road-header-sub span { color: #7fc3f5; }
+.road-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 700;
+  color: #cce2f5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-.stop-ring { opacity: 0; transition: opacity 0.2s; }
-.road-info-panel {
-  position: absolute; background: white; border: 1.5px solid rgba(26,127,212,0.25);
-  border-radius: 14px; padding: 18px 22px; width: 230px;
-  box-shadow: 0 12px 40px rgba(26,127,212,0.15), 0 2px 8px rgba(0,0,0,0.06);
-  pointer-events: none; opacity: 0; transform: translateY(10px) scale(0.94);
-  transition: opacity 0.22s ease, transform 0.22s ease; z-index: 100;
-}
-.road-info-panel.active { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-.panel-year { font-family: var(--font-main); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
-.panel-role { font-family: var(--font-main); font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 4px; }
-.panel-org { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
-.panel-divider { height: 1px; background: var(--border); margin-bottom: 10px; }
-.panel-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-.panel-tag { font-family: var(--font-main); font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--blue-dark); background: var(--blue-light); border-radius: 20px; padding: 3px 9px; }
-.panel-close { position: absolute; top: 12px; right: 14px; font-size: 16px; color: var(--muted); cursor: pointer; line-height: 1; pointer-events: auto; background: none; border: none; transition: color 0.15s; }
-.panel-close:hover { color: var(--ink); }
+.road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff5f5f; }
 .road-controls {
   position: relative;
   z-index: 2;
@@ -621,11 +611,11 @@ footer {
   align-items: center;
   gap: 10px;
   width: 100%;
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(26,127,212,0.18);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
   border-radius: 12px;
   padding: 8px 10px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
 }
 .road-control-btn {
   font-family: var(--font-main);
@@ -633,14 +623,14 @@ footer {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: 1px solid #c4d7eb;
+  border: 1px solid rgba(180,210,232,0.65);
   border-radius: 999px;
-  background: #f8fbff;
-  color: #30445a;
+  background: rgba(255,255,255,0.88);
+  color: #2e4258;
   padding: 8px 12px;
   min-width: 106px;
   cursor: pointer;
-  transition: border-color 0.18s, color 0.18s, background-color 0.18s;
+  transition: border-color 0.18s, color 0.18s, background-color 0.18s, box-shadow 0.18s;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   -webkit-appearance: none;
@@ -651,23 +641,19 @@ footer {
   white-space: nowrap;
 }
 .road-control-btn:disabled {
-  opacity: 1;
-  color: #6f8196;
-  background: #e7eef6;
-  border-color: #cedaea;
+  color: #7891a8;
+  background: rgba(213,227,239,0.75);
+  border-color: rgba(181,205,224,0.7);
   cursor: not-allowed;
 }
 .road-control-btn.is-selected:not(:disabled) {
   color: #ffffff;
-  border-color: #2078cc;
-  background: linear-gradient(180deg, #2e8ee7 0%, #1d76ca 100%);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.45) inset, 0 6px 18px rgba(26,127,212,0.28);
-  text-shadow: 0 1px 0 rgba(0,0,0,0.12);
+  border-color: #2b98f0;
+  background: linear-gradient(180deg, #37a4ff 0%, #1f85de 100%);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.45) inset, 0 8px 18px rgba(30,143,228,0.28);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.16);
 }
-.road-control-btn:focus-visible {
-  outline: 2px solid rgba(26,127,212,0.35);
-  outline-offset: 2px;
-}
+.road-control-btn:focus-visible { outline: 2px solid rgba(136,200,247,0.65); outline-offset: 2px; }
 #roadPrevBtn { grid-area: prev; justify-self: start; }
 #roadNextBtn { grid-area: next; justify-self: end; }
 .road-step-indicator {
@@ -675,24 +661,164 @@ footer {
   font-family: var(--font-main);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.10em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #5a7087;
+  color: #dceaf7;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
 }
+.road-svg-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 2px;
+}
+.road-main-svg {
+  width: 100%;
+  min-width: 980px;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.road-track {
+  fill: none;
+  stroke: #b6cddd;
+  stroke-width: 2;
+}
+.road-connector {
+  stroke: #aac2d3;
+  stroke-width: 1.45;
+}
+.axis-dot {
+  fill: #ff5f5f;
+  filter: drop-shadow(0 0 4px rgba(255,95,95,0.45));
+}
+.stop-caption {
+  font-family: var(--font-main);
+  font-size: 10.5px;
+  font-weight: 600;
+  fill: #e4f0fb;
+  text-anchor: middle;
+}
+.stop-year {
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  fill: #f2f8ff;
+  text-anchor: middle;
+}
+.road-stop {
+  cursor: pointer;
+  transition: transform 0.22s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.road-stop .stop-core,
+.road-stop .stop-ring,
+.road-stop .stop-inner,
+.road-stop .stop-icon { transition: all 0.22s ease; }
+.stop-core {
+  fill: #ffffff;
+  stroke: rgba(209,226,239,0.95);
+  stroke-width: 2.2;
+  filter: url(#stopShadow);
+}
+.stop-inner {
+  fill: none;
+  stroke: #e84444;
+  stroke-width: 2.4;
+}
+.stop-icon {
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  fill: #2b4257;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+.stop-ring {
+  fill: none;
+  stroke: rgba(140,210,255,0.72);
+  stroke-width: 2.5;
+  opacity: 0;
+}
+.road-stop:hover { transform: scale(1.08); }
+.road-stop:hover .stop-ring { opacity: 1; }
+.road-stop.active { transform: scale(1.13); }
+.road-stop.active .stop-ring {
+  opacity: 1;
+  stroke: rgba(115,212,255,0.95);
+  stroke-width: 3;
+}
+.road-stop.active .stop-core {
+  stroke: #7ac7ff;
+  filter: drop-shadow(0 0 10px rgba(69,184,255,0.36));
+}
+.road-stop.active .stop-inner { stroke: #ff3c3c; }
+.road-stop.active .stop-icon { fill: #17344a; }
+.road-info-panel {
+  position: relative;
+  z-index: 2;
+  margin-top: 16px;
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(143,186,219,0.65);
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 24px rgba(7,35,54,0.18);
+}
+.panel-year {
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #3574a6;
+  margin-bottom: 6px;
+}
+.panel-role {
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 700;
+  color: #213548;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.panel-org {
+  font-size: 12px;
+  color: #607589;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.panel-divider { height: 1px; background: #d7e5f1; margin-bottom: 10px; }
+.panel-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.panel-tag {
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #205c8e;
+  background: #e8f3ff;
+  border: 1px solid #c8ddf1;
+  border-radius: 20px;
+  padding: 3px 9px;
+}
 @media (hover: hover) and (pointer: fine) {
   .road-control-btn:not(:disabled):hover {
-    border-color: var(--blue);
-    color: var(--blue);
+    border-color: #69b3e8;
+    color: #1f5f92;
   }
   .road-control-btn.is-selected:not(:disabled):hover {
     color: #ffffff;
-    border-color: #1f72c1;
-    background: linear-gradient(180deg, #3094f1 0%, #1f79d0 100%);
+    border-color: #35a5ff;
+    background: linear-gradient(180deg, #40adff 0%, #2390ea 100%);
   }
 }
 
@@ -760,22 +886,9 @@ footer {
     padding: 14px;
   }
   .skill-tab-panel.active::before { display: none; }
-  .road-svg-wrap {
-    padding-bottom: 10px;
-  }
-  .road-main-svg { min-width: 900px; }
-  .road-info-panel {
-    position: fixed;
-    left: 50% !important;
-    top: auto !important;
-    bottom: 12px;
-    width: min(92vw, 340px);
-    max-height: 60vh;
-    overflow-y: auto;
-    transform: translate(-50%, 10px) scale(0.96);
-    z-index: 500;
-  }
-  .road-info-panel.active { transform: translate(-50%, 0) scale(1); }
+  .road-svg-wrap { padding-bottom: 8px; }
+  .road-main-svg { min-width: 980px; }
+  .road-info-panel { margin-top: 14px; }
   .road-controls { grid-template-columns: minmax(92px, auto) 1fr minmax(92px, auto); }
   #roadPrevBtn,
   #roadNextBtn {
@@ -787,8 +900,14 @@ footer {
 
 @media (max-width: 560px) {
   .skills-tabs { grid-template-columns: 1fr; }
-  .road-controls { padding: 7px 8px; gap: 8px; }
+  .road-controls {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "prev next" "step step";
+    padding: 7px 8px;
+    gap: 8px;
+  }
   .road-control-btn { font-size: 9px; padding: 8px 10px; min-height: 36px; }
+  .road-step-indicator { white-space: normal; line-height: 1.35; }
 }
 </style>
 </head>
@@ -1043,7 +1162,7 @@ footer {
     <div class="road-journey-wrap" id="roadJourneyWrap">
       <div class="road-header">
         <div class="road-header-left">
-          <div class="road-header-title">The Road to Growth</div>
+          <div class="road-header-title">Timeline Roadmap</div>
           <div class="road-header-sub">Activities &amp; <span>Leadership</span> Journey</div>
         </div>
         <div class="road-legend">
@@ -1057,54 +1176,93 @@ footer {
         <button class="road-control-btn" id="roadNextBtn" type="button" aria-controls="roadMainSvg">Next →</button>
       </div>
       <div class="road-svg-wrap" id="roadSvgWrap">
-        <svg class="road-main-svg" viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" id="roadMainSvg">
+        <svg class="road-main-svg" viewBox="0 0 980 430" xmlns="http://www.w3.org/2000/svg" id="roadMainSvg" aria-label="Leadership milestone timeline">
           <defs>
             <filter id="stopShadow" x="-40%" y="-40%" width="180%" height="180%">
-              <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="rgba(0,0,0,0.18)"/>
+              <feDropShadow dx="0" dy="4" stdDeviation="5.5" flood-color="rgba(0,0,0,0.25)"/>
             </filter>
-            <filter id="roadShadow" x="-5%" y="-5%" width="110%" height="120%">
-              <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="rgba(26,127,212,0.10)"/>
-            </filter>
-            <radialGradient id="nodeGrad" cx="35%" cy="30%" r="65%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="60%" stop-color="#dde4ec"/>
-              <stop offset="100%" stop-color="#bec8d4"/>
-            </radialGradient>
-            <path id="roadCenterLine"
-              d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310"
-              fill="none"/>
           </defs>
-          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(26,127,212,0.12)" stroke-width="52" stroke-linecap="round" stroke-linejoin="round" filter="url(#roadShadow)"/>
-          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(200,218,240,0.55)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(26,127,212,0.35)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(235,245,255,0.75)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M 60,110 L 820,110 Q 870,110 870,160 Q 870,210 820,210 L 80,210 Q 30,210 30,260 Q 30,310 80,310 L 820,310" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="2" stroke-linecap="round" stroke-dasharray="18,12"/>
-          <text x="130" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Dance Fusion Club</text>
-          <line x1="130" y1="72" x2="130" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="290" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Health Ambassador</text>
-          <line x1="290" y1="72" x2="290" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="450" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Green Rep Network</text>
-          <line x1="450" y1="72" x2="450" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="660" y="68" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Career Peer</text>
-          <line x1="660" y1="72" x2="660" y2="96" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <line x1="660" y1="224" x2="660" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="660" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Accounting &amp; Finance</text>
-          <line x1="450" y1="224" x2="450" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="450" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Science Club</text>
-          <line x1="290" y1="224" x2="290" y2="248" stroke="rgba(26,127,212,0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="290" y="258" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10.5" font-weight="600" fill="#3a4a5c">Volunteer Program</text>
-          <g class="road-stop" data-idx="0" transform="translate(130,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
-          <g class="road-stop" data-idx="1" transform="translate(290,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
-          <g class="road-stop" data-idx="2" transform="translate(450,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
-          <g class="road-stop" data-idx="3" transform="translate(660,110)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
-          <g class="road-stop" data-idx="4" transform="translate(660,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
-          <g class="road-stop" data-idx="5" transform="translate(450,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
-          <g class="road-stop" data-idx="6" transform="translate(290,210)"><circle class="stop-ring" r="24" fill="none" stroke="rgba(26,127,212,0.4)" stroke-width="3"/><circle class="stop-core" r="18" fill="url(#nodeGrad)" stroke="rgba(180,195,210,0.85)" stroke-width="2.5" filter="url(#stopShadow)"/><circle class="stop-dot" r="4.4" fill="#7c8fa5"/></g>
+          <line class="road-track" x1="90" y1="215" x2="890" y2="215"/>
+
+          <text class="stop-caption" x="90" y="34">Dance Fusion Club</text>
+          <line class="road-connector" x1="90" y1="140" x2="90" y2="215"/>
+          <circle class="axis-dot" cx="90" cy="215" r="3"/>
+          <text class="stop-year" x="90" y="238">2023</text>
+          <g class="road-stop" data-idx="0" transform="translate(90,112)">
+            <circle class="stop-ring" r="29"/>
+            <circle class="stop-core" r="23"/>
+            <circle class="stop-inner" r="19"/>
+            <text class="stop-icon">♪</text>
+          </g>
+
+          <text class="stop-caption" x="220" y="398">Health Ambassador</text>
+          <line class="road-connector" x1="220" y1="290" x2="220" y2="215"/>
+          <circle class="axis-dot" cx="220" cy="215" r="3"/>
+          <text class="stop-year" x="220" y="238">2023</text>
+          <g class="road-stop" data-idx="1" transform="translate(220,318)">
+            <circle class="stop-ring" r="29"/>
+            <circle class="stop-core" r="23"/>
+            <circle class="stop-inner" r="19"/>
+            <text class="stop-icon">✚</text>
+          </g>
+
+          <text class="stop-caption" x="350" y="34">Green Rep Network</text>
+          <line class="road-connector" x1="350" y1="140" x2="350" y2="215"/>
+          <circle class="axis-dot" cx="350" cy="215" r="3"/>
+          <text class="stop-year" x="350" y="238">2023</text>
+          <g class="road-stop" data-idx="2" transform="translate(350,112)">
+            <circle class="stop-ring" r="29"/>
+            <circle class="stop-core" r="23"/>
+            <circle class="stop-inner" r="19"/>
+            <text class="stop-icon">♻</text>
+          </g>
+
+          <text class="stop-caption" x="480" y="398">Career Peer</text>
+          <line class="road-connector" x1="480" y1="290" x2="480" y2="215"/>
+          <circle class="axis-dot" cx="480" cy="215" r="3"/>
+          <text class="stop-year" x="480" y="238">2024</text>
+          <g class="road-stop" data-idx="3" transform="translate(480,318)">
+            <circle class="stop-ring" r="29"/>
+            <circle class="stop-core" r="23"/>
+            <circle class="stop-inner" r="19"/>
+            <text class="stop-icon">★</text>
+          </g>
+
+          <text class="stop-caption" x="610" y="34">Accounting &amp; Finance</text>
+          <line class="road-connector" x1="610" y1="140" x2="610" y2="215"/>
+          <circle class="axis-dot" cx="610" cy="215" r="3"/>
+          <text class="stop-year" x="610" y="238">2024</text>
+          <g class="road-stop" data-idx="4" transform="translate(610,112)">
+            <circle class="stop-ring" r="29"/>
+            <circle class="stop-core" r="23"/>
+            <circle class="stop-inner" r="19"/>
+            <text class="stop-icon">▦</text>
+          </g>
+
+          <text class="stop-caption" x="740" y="398">Science Club</text>
+          <line class="road-connector" x1="740" y1="290" x2="740" y2="215"/>
+          <circle class="axis-dot" cx="740" cy="215" r="3"/>
+          <text class="stop-year" x="740" y="238">2024</text>
+          <g class="road-stop" data-idx="5" transform="translate(740,318)">
+            <circle class="stop-ring" r="29"/>
+            <circle class="stop-core" r="23"/>
+            <circle class="stop-inner" r="19"/>
+            <text class="stop-icon">⚗</text>
+          </g>
+
+          <text class="stop-caption" x="870" y="34">Volunteer Program</text>
+          <line class="road-connector" x1="870" y1="140" x2="870" y2="215"/>
+          <circle class="axis-dot" cx="870" cy="215" r="3"/>
+          <text class="stop-year" x="870" y="238">2025</text>
+          <g class="road-stop" data-idx="6" transform="translate(870,112)">
+            <circle class="stop-ring" r="29"/>
+            <circle class="stop-core" r="23"/>
+            <circle class="stop-inner" r="19"/>
+            <text class="stop-icon">♥</text>
+          </g>
         </svg>
       </div>
       <div class="road-info-panel" id="roadInfoPanel">
-        <button class="panel-close" id="panelClose">✕</button>
         <div class="panel-year" id="panelYear"></div>
         <div class="panel-role" id="panelRole"></div>
         <div class="panel-org" id="panelOrg"></div>
@@ -1536,61 +1694,28 @@ const milestones = [
   { year:'2025', role:'📣 Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Comms'] },
 ];
 
-const stopCoords = [
-  {x:130,y:110},{x:290,y:110},{x:450,y:110},{x:660,y:110},
-  {x:660,y:210},{x:450,y:210},{x:290,y:210}
-];
-
 const panel   = document.getElementById('roadInfoPanel');
-const pClose  = document.getElementById('panelClose');
 const pYear   = document.getElementById('panelYear');
 const pRole   = document.getElementById('panelRole');
 const pOrg    = document.getElementById('panelOrg');
 const pTags   = document.getElementById('panelTags');
 const svgWrap = document.getElementById('roadSvgWrap');
 const mainSvg = document.getElementById('roadMainSvg');
-let activeIdx = null;
-
-function showPanel(idx, svgX, svgY) {
-  const m = milestones[idx];
-  pYear.textContent = m.year;
-  pRole.textContent = m.role;
-  pOrg.textContent  = m.period + ' · ' + m.org;
-  pTags.innerHTML   = m.tags.map(t => `<span class="panel-tag">${t}</span>`).join('');
-
-  const isMobile = window.matchMedia('(max-width: 900px)').matches;
-  if (isMobile) {
-    panel.style.left = '50%';
-    panel.style.top = '';
-    panel.style.bottom = '12px';
-    panel.classList.add('active');
-    activeIdx = idx;
-    return;
-  }
-
-  panel.style.bottom = '';
-  const pt = mainSvg.createSVGPoint();
-  pt.x = svgX; pt.y = svgY;
-  const domPt    = pt.matrixTransform(mainSvg.getScreenCTM());
-  const wrapRect = svgWrap.getBoundingClientRect();
-  let left = domPt.x - wrapRect.left - 115;
-  let top  = domPt.y - wrapRect.top  + 28;
-  left = Math.max(8, Math.min(left, svgWrap.clientWidth - 238));
-  if (top + 160 > svgWrap.clientHeight) top = domPt.y - wrapRect.top - 170;
-  top = Math.max(8, top);
-  panel.style.left = left + 'px';
-  panel.style.top  = top  + 'px';
-  panel.classList.add('active');
-  activeIdx = idx;
-}
-function hidePanel() { panel.classList.remove('active'); activeIdx = null; }
-
 const roadStops = Array.from(document.querySelectorAll('.road-stop'));
 const roadPrevBtn = document.getElementById('roadPrevBtn');
 const roadNextBtn = document.getElementById('roadNextBtn');
 const roadStepIndicator = document.getElementById('roadStepIndicator');
 let roadCurrentStop = 0;
 let roadControlGlowTimer = null;
+
+function renderRoadDetails(idx) {
+  const m = milestones[idx];
+  if (!m || !panel) return;
+  pYear.textContent = `${m.year} · ${m.period}`;
+  pRole.textContent = m.role;
+  pOrg.textContent = m.org;
+  pTags.innerHTML = m.tags.map(t => `<span class="panel-tag">${t}</span>`).join('');
+}
 
 function setActiveRoadStop(idx) {
   roadStops.forEach((stop, stopIdx) => {
@@ -1601,19 +1726,15 @@ function setActiveRoadStop(idx) {
 function ensureRoadStopVisible(idx, behavior = 'smooth') {
   if (!svgWrap || !mainSvg) return;
   if (svgWrap.scrollWidth <= svgWrap.clientWidth + 2) return;
-
-  const point = stopCoords[idx];
-  if (!point) return;
-
-  const vb = mainSvg.viewBox && mainSvg.viewBox.baseVal ? mainSvg.viewBox.baseVal : null;
-  const viewBoxWidth = vb && vb.width ? vb.width : 900;
-  const renderedWidth = mainSvg.getBoundingClientRect().width || viewBoxWidth;
-  const pxPerUnit = renderedWidth / viewBoxWidth;
-  const targetX = point.x * pxPerUnit;
-  const desiredLeft = Math.max(
-    0,
-    Math.min(targetX - (svgWrap.clientWidth / 2), svgWrap.scrollWidth - svgWrap.clientWidth)
-  );
+  const targetStop = roadStops[idx];
+  if (!targetStop) return;
+  const targetRect = targetStop.getBoundingClientRect();
+  const wrapRect = svgWrap.getBoundingClientRect();
+  const targetCenter = svgWrap.scrollLeft + (targetRect.left - wrapRect.left) + (targetRect.width / 2);
+  const desiredLeft = Math.max(0, Math.min(
+    targetCenter - (svgWrap.clientWidth / 2),
+    svgWrap.scrollWidth - svgWrap.clientWidth
+  ));
 
   try {
     svgWrap.scrollTo({ left: desiredLeft, behavior });
@@ -1637,53 +1758,37 @@ function glowRoadControl(which) {
 
 function updateRoadControls() {
   if (roadPrevBtn) roadPrevBtn.disabled = roadCurrentStop === 0;
-  if (roadNextBtn) roadNextBtn.disabled = roadCurrentStop === stopCoords.length - 1;
-  if (roadStepIndicator) roadStepIndicator.textContent = milestones[roadCurrentStop].org;
+  if (roadNextBtn) roadNextBtn.disabled = roadCurrentStop === roadStops.length - 1;
+  if (roadStepIndicator) roadStepIndicator.textContent = `${roadCurrentStop + 1}/${milestones.length} · ${milestones[roadCurrentStop].org}`;
 }
 
-function moveRoadTo(targetIdx, showDetails = true, source = '') {
-  const idx = Math.max(0, Math.min(targetIdx, stopCoords.length - 1));
+function moveRoadTo(targetIdx, source = '') {
+  const idx = Math.max(0, Math.min(targetIdx, roadStops.length - 1));
   if (!roadStops.length) return;
-
-  if (idx === roadCurrentStop) {
-    if (source === 'prev' || source === 'next') glowRoadControl(source);
-    setActiveRoadStop(idx);
-    ensureRoadStopVisible(idx, 'smooth');
-    if (showDetails) {
-      const c = stopCoords[idx];
-      if (activeIdx === idx) hidePanel(); else showPanel(idx, c.x, c.y);
-    }
-    updateRoadControls();
-    return;
-  }
   if (source === 'prev' || source === 'next') glowRoadControl(source);
   roadCurrentStop = idx;
-  setActiveRoadStop(roadCurrentStop);
+  setActiveRoadStop(idx);
   ensureRoadStopVisible(idx, 'smooth');
+  renderRoadDetails(idx);
   updateRoadControls();
-  if (showDetails) {
-    const finalPos = stopCoords[roadCurrentStop];
-    showPanel(roadCurrentStop, finalPos.x, finalPos.y);
-  }
 }
 
 roadStops.forEach(el => {
   el.addEventListener('click', () => {
     const idx = parseInt(el.getAttribute('data-idx'), 10);
-    moveRoadTo(idx, true);
+    moveRoadTo(idx);
   });
 });
-if (roadPrevBtn) roadPrevBtn.addEventListener('click', () => moveRoadTo(roadCurrentStop - 1, true, 'prev'));
-if (roadNextBtn) roadNextBtn.addEventListener('click', () => moveRoadTo(roadCurrentStop + 1, true, 'next'));
-pClose.addEventListener('click', hidePanel);
-document.addEventListener('click', e => {
-  if (!panel.contains(e.target) && !e.target.closest('.road-stop') && !e.target.closest('.road-control-btn')) hidePanel();
-});
+if (roadPrevBtn) roadPrevBtn.addEventListener('click', () => moveRoadTo(roadCurrentStop - 1, 'prev'));
+if (roadNextBtn) roadNextBtn.addEventListener('click', () => moveRoadTo(roadCurrentStop + 1, 'next'));
 
-setActiveRoadStop(0);
-ensureRoadStopVisible(0, 'auto');
-updateRoadControls();
-setTimeout(() => ensureRoadStopVisible(roadCurrentStop, 'auto'), 0);
+if (roadStops.length) {
+  setActiveRoadStop(0);
+  renderRoadDetails(0);
+  ensureRoadStopVisible(0, 'auto');
+  updateRoadControls();
+  setTimeout(() => ensureRoadStopVisible(roadCurrentStop, 'auto'), 0);
+}
 
 /* ── Form ── */
 function handleSend(btn) {
