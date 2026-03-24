@@ -807,7 +807,7 @@ footer {
 .panel-media {
   margin-top: 12px;
   display: none;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 10px;
 }
 .panel-media-card {
@@ -819,9 +819,9 @@ footer {
 .panel-media-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  background: #dfeefc;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #eef6ff;
 }
 .panel-media-caption {
   font-family: var(--font-main);
@@ -1621,8 +1621,14 @@ window.addEventListener('scroll', () => {
 
 /* ══ ROADMAP ══ */
 const milestones = [
-  { icon:'💃', year:'2023', role:'Publicity Officer', org:'Monash Dance Fusion Club', period:'Jan 2023 – Dec 2023 · 1 yr',         tags:['Social Media','Publicity','Creative Design'] },
-  { icon:'🌿', year:'2023', role:'Publicity Officer', org:'Monash Health Ambassador',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Health & Wellness','Publicity','Awareness'] },
+  { icon:'💃', year:'2023', role:'Publicity Officer', org:'Monash Dance Fusion Club', period:'Jan 2023 – Dec 2023 · 1 yr',         tags:['Social Media','Publicity','Creative Design'], images:[
+    { label:'MDFC Social Dance Workshop', src:'assets/activity-previews/mdfc-main.png' },
+    { label:'Member Recruitment & Weekly Class', src:'assets/activity-previews/mdfc-member-recruitment-weekly-class.png' }
+  ] },
+  { icon:'🌿', year:'2023', role:'Publicity Officer', org:'Monash Health Ambassador',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Health & Wellness','Publicity','Awareness'], images:[
+    { label:'Tree Planting Days', src:'assets/activity-previews/mha-tree-planting-days.png' },
+    { label:'Orientation Night', src:'assets/activity-previews/mha-orientation-night.png' }
+  ] },
   { icon:'♻️', year:'2023', role:'Publicity Officer', org:'Monash Green Rep Network',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Sustainability','Publicity','Advocacy'] },
   { icon:'🎯', year:'2024', role:'Event Coordinator', org:'Monash Career Peer',         period:'Jan 2024 – Jun 2024 · 6 mos',        tags:['Event Management','Career Dev','Leadership'] },
   { icon:'📊', year:'2024', role:'Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'], images:[
@@ -1630,8 +1636,16 @@ const milestones = [
     { label:'Maximize LinkedIn Presence (BDO)', src:'assets/mafc/previews/maximize-linkedin-presence-bdo.png' },
     { label:'PwC Company Tour', src:'assets/mafc/previews/pwc-company-tour.png' }
   ] },
-  { icon:'🔭', year:'2024', role:'Publicity Officer', org:'Monash Science Club',         period:'Jul 2024 – Dec 2024 · 6 mos',        tags:['Publicity','Science Outreach','Design'] },
-  { icon:'📣', year:'2025', role:'Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Communications'] },
+  { icon:'🔭', year:'2024', role:'Publicity Officer', org:'Monash Science Club',         period:'Jul 2024 – Dec 2024 · 6 mos',        tags:['Publicity','Science Outreach','Design'], images:[
+    { label:'Eppendorf Company Tour Recap', src:'assets/activity-previews/msc-eppendorf.png' },
+    { label:'LyreBird Feature', src:'assets/activity-previews/msc-lyrebird.png' },
+    { label:'Mosquito Feature', src:'assets/activity-previews/msc-mosquito.png' }
+  ] },
+  { icon:'📣', year:'2025', role:'Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Communications'], images:[
+    { label:'WWF Volunteer Recruitment', src:'assets/activity-previews/muvp-wwf-volunteer-recruitment.png' },
+    { label:'Shelter Home Recruitment', src:'assets/activity-previews/muvp-shelter-home-recruitment.png' },
+    { label:'Flooding Mitigation Recruitment', src:'assets/activity-previews/muvp-flooding-mitigation-recruitment.png' }
+  ] },
 ];
 
 const panelIcon = document.getElementById('panelIcon');
