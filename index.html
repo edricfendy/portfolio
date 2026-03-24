@@ -398,7 +398,6 @@ section { padding: 80px 48px; }
   box-shadow: 0 1px 8px rgba(0,0,0,0.04);
 }
 
-/* Sub-group header within a skill card */
 .skill-subgroup {
   font-family: var(--font-main); font-size: 10px; font-weight: 700;
   letter-spacing: 0.14em; text-transform: uppercase;
@@ -429,7 +428,6 @@ section { padding: 80px 48px; }
 .cert-status.active     { background: #dff5e8; color: #1e7e40; }
 .cert-status.completed  { background: var(--blue-light); color: var(--blue-dark); }
 
-/* Standards section within certifications */
 .standards-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
   margin-top: 40px;
@@ -530,25 +528,38 @@ footer {
 .svg-b2       { animation: bubbleRise 3.2s ease-out infinite -1.1s; }
 .svg-b3       { animation: bubbleRise 3.2s ease-out infinite -2.2s; }
 
-/* ══ ROADMAP — CLASSIC TIMELINE ══ */
-.road-journey-section { position: relative; }
+/* ══ ROADMAP — REDESIGNED TO MATCH THEME ══ */
 .road-journey-wrap {
   position: relative;
-  background: linear-gradient(165deg, #294f66 0%, #22465d 55%, #1f3f54 100%);
-  border-radius: 18px;
-  padding: 34px 30px 28px;
+  background: var(--blue);
+  border-radius: 16px;
+  padding: 36px 36px 32px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 36px rgba(8,30,43,0.26);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 32px rgba(26,127,212,0.25);
 }
+
+/* Subtle dot-grid texture */
 .road-journey-wrap::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
-  background-size: 34px 34px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  border-radius: 16px;
+}
+
+/* Decorative corner glow */
+.road-journey-wrap::after {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
   pointer-events: none;
 }
+
 .road-header {
   position: relative;
   z-index: 2;
@@ -556,40 +567,48 @@ footer {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 .road-header-title {
   font-family: var(--font-main);
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.19em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #9bc7ea;
+  color: rgba(255,255,255,0.7);
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
+  gap: 10px;
+  margin-bottom: 8px;
 }
-.road-header-title::before { content: ''; width: 20px; height: 2px; background: #7db8e6; }
+.road-header-title::before { content: ''; width: 28px; height: 2px; background: rgba(255,255,255,0.6); }
 .road-header-sub {
   font-family: var(--font-main);
-  font-size: 24px;
+  font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 800;
-  color: #f0f7ff;
+  color: #fff;
+  line-height: 1.15;
 }
-.road-header-sub span { color: #7fc3f5; }
+.road-header-sub span { color: rgba(255,255,255,0.75); font-weight: 300; }
 .road-legend {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--font-main);
-  font-size: 10px;
-  font-weight: 700;
-  color: #cce2f5;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  white-space: nowrap;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
 }
-.road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff5f5f; }
+.road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; flex-shrink: 0; }
+
+/* ── Scroll container ── */
 .road-svg-wrap {
   position: relative;
   z-index: 2;
@@ -598,148 +617,185 @@ footer {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding-bottom: 2px;
+  padding-bottom: 4px;
 }
-.road-svg-wrap::-webkit-scrollbar { width: 0; height: 0; display: none; }
+.road-svg-wrap::-webkit-scrollbar { display: none; }
+
 .road-main-svg {
   width: 100%;
-  min-width: 980px;
+  min-width: 860px;
   height: auto;
   display: block;
   overflow: visible;
+  cursor: default;
 }
+
+/* ── Track line ── */
 .road-track {
   fill: none;
-  stroke: #b6cddd;
+  stroke: rgba(255,255,255,0.35);
   stroke-width: 2;
+  stroke-dasharray: 6 4;
 }
+
+/* ── Connector verticals ── */
 .road-connector {
-  stroke: #aac2d3;
-  stroke-width: 1.45;
+  stroke: rgba(255,255,255,0.3);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
 }
+
+/* ── Year dot on axis ── */
 .axis-dot {
-  fill: #ff5f5f;
-  filter: drop-shadow(0 0 4px rgba(255,95,95,0.45));
+  fill: rgba(255,255,255,0.5);
 }
-.stop-caption {
-  font-family: var(--font-main);
-  font-size: 10.5px;
-  font-weight: 600;
-  fill: #e4f0fb;
-  text-anchor: middle;
-}
+
+/* ── Year label ── */
 .stop-year {
   font-family: var(--font-main);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  fill: #f2f8ff;
+  fill: rgba(255,255,255,0.55);
   text-anchor: middle;
+  letter-spacing: 0.08em;
 }
+
+/* ── Caption above/below stop ── */
+.stop-caption {
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-weight: 600;
+  fill: rgba(255,255,255,0.85);
+  text-anchor: middle;
+  letter-spacing: 0.02em;
+}
+
+/* ── Stop button group ── */
 .road-stop {
   cursor: pointer;
-  transition: transform 0.22s ease;
-  transform-box: fill-box;
-  transform-origin: center;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
+  outline: none;
 }
-.road-stop .stop-core,
-.road-stop .stop-ring,
-.road-stop .stop-inner,
-.road-stop .stop-icon { transition: all 0.22s ease; }
+
+/* Ring (visible when active/hover) */
+.stop-ring {
+  fill: none;
+  stroke: rgba(255,255,255,0.4);
+  stroke-width: 2.5;
+  opacity: 0;
+  transition: opacity 0.2s ease, r 0.2s ease;
+}
+
+/* Outer circle */
 .stop-core {
-  fill: #ffffff;
-  stroke: rgba(209,226,239,0.95);
-  stroke-width: 2.2;
-  filter: url(#stopShadow);
+  fill: rgba(255,255,255,0.18);
+  stroke: rgba(255,255,255,0.55);
+  stroke-width: 1.8;
+  transition: fill 0.2s ease, stroke 0.2s ease, r 0.2s ease;
 }
+
+/* Inner accent ring */
 .stop-inner {
   fill: none;
-  stroke: #e84444;
-  stroke-width: 2.4;
+  stroke: rgba(255,255,255,0.5);
+  stroke-width: 1.5;
+  transition: stroke 0.2s ease;
 }
+
+/* Icon text */
 .stop-icon {
   font-family: var(--font-main);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  fill: #2b4257;
+  fill: white;
   text-anchor: middle;
   dominant-baseline: central;
   pointer-events: none;
+  transition: fill 0.2s ease;
 }
-.stop-ring {
-  fill: none;
-  stroke: rgba(140,210,255,0.72);
-  stroke-width: 2.5;
-  opacity: 0;
+
+/* Hover state (non-touch) */
+@media (hover: hover) and (pointer: fine) {
+  .road-stop:hover .stop-ring  { opacity: 1; }
+  .road-stop:hover .stop-core  { fill: rgba(255,255,255,0.28); stroke: white; }
+  .road-stop:hover .stop-inner { stroke: rgba(255,255,255,0.75); }
 }
-.road-stop:hover { transform: scale(1.08); }
-.road-stop:hover .stop-ring { opacity: 1; }
-.road-stop.active { transform: scale(1.13); }
-.road-stop.active .stop-ring {
-  opacity: 1;
-  stroke: rgba(115,212,255,0.95);
-  stroke-width: 3;
-}
-.road-stop.active .stop-core {
-  stroke: #7ac7ff;
-  filter: drop-shadow(0 0 10px rgba(69,184,255,0.36));
-}
-.road-stop.active .stop-inner { stroke: #ff3c3c; }
-.road-stop.active .stop-icon { fill: #17344a; }
-@media (hover: none) and (pointer: coarse) {
-  .road-stop:hover { transform: none; }
-  .road-stop:hover .stop-ring { opacity: 0; }
-}
+
+/* Active/selected state */
+.road-stop.active .stop-ring  { opacity: 1; stroke: white; stroke-width: 3; }
+.road-stop.active .stop-core  { fill: white; stroke: white; }
+.road-stop.active .stop-inner { stroke: var(--blue); }
+.road-stop.active .stop-icon  { fill: var(--blue); }
+
+/* ── Info panel — redesigned to match theme ── */
 .road-info-panel {
   position: relative;
   z-index: 2;
-  margin-top: 16px;
+  margin-top: 20px;
   background: rgba(255,255,255,0.97);
-  border: 1px solid rgba(143,186,219,0.65);
+  border: 1px solid rgba(255,255,255,0.8);
   border-radius: 12px;
-  padding: 14px 16px;
-  box-shadow: 0 8px 24px rgba(7,35,54,0.18);
+  padding: 18px 22px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 80px;
 }
+
+.panel-icon-wrap {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: var(--blue-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.panel-content { flex: 1; min-width: 0; }
+
 .panel-year {
   font-family: var(--font-main);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #3574a6;
-  margin-bottom: 6px;
+  color: var(--blue);
+  margin-bottom: 5px;
 }
 .panel-role {
   font-family: var(--font-main);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: #213548;
+  color: var(--ink);
   line-height: 1.3;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 .panel-org {
-  font-size: 12px;
-  color: #607589;
-  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 12px;
   line-height: 1.4;
 }
-.panel-divider { height: 1px; background: #d7e5f1; margin-bottom: 10px; }
 .panel-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .panel-tag {
   font-family: var(--font-main);
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #205c8e;
-  background: #e8f3ff;
-  border: 1px solid #c8ddf1;
+  color: var(--blue-dark);
+  background: var(--blue-light);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 3px 9px;
+  padding: 3px 10px;
 }
+
+/* Keyboard focus for accessibility */
+.road-stop:focus-visible .stop-ring { opacity: 1; stroke: white; }
 
 /* ══ RESPONSIVE ══ */
 @media (max-width: 900px) {
@@ -775,8 +831,9 @@ footer {
   .skills-grid-2 { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
-  .road-journey-wrap { padding: 28px 20px 52px; }
+  .road-journey-wrap { padding: 24px 18px 24px; border-radius: 12px; }
   .road-header { flex-direction: column; gap: 10px; }
+  .road-legend { align-self: flex-start; }
   .skills-interactive { display: block; }
   .skills-tabs {
     display: grid;
@@ -789,15 +846,8 @@ footer {
     min-height: 58px;
     padding: 10px 12px;
   }
-  .skills-chat-stage {
-    min-height: 0;
-    margin-top: 0;
-  }
-  .skills-prompt {
-    min-height: 88px;
-    padding: 14px;
-    font-size: 11px;
-  }
+  .skills-chat-stage { min-height: 0; margin-top: 0; }
+  .skills-prompt { min-height: 88px; padding: 14px; font-size: 11px; }
   .skill-tab-panel {
     position: relative;
     top: auto !important;
@@ -807,9 +857,9 @@ footer {
     margin-top: 12px;
     padding: 14px;
   }
-  .road-svg-wrap { padding-bottom: 8px; }
-  .road-main-svg { min-width: 980px; }
-  .road-info-panel { margin-top: 14px; }
+  .road-main-svg { min-width: 860px; }
+  .road-info-panel { flex-direction: column; gap: 12px; padding: 16px; }
+  .panel-icon-wrap { width: 38px; height: 38px; font-size: 17px; }
 }
 
 @media (max-width: 560px) {
@@ -1060,12 +1110,13 @@ footer {
 
 <div class="section-divider"></div>
 
-<!-- ══ EXTRACURRICULAR — WINDING ROAD ══ -->
-<section id="extracurricular" class="bg-white road-journey-section">
+<!-- ══ EXTRACURRICULAR — ROADMAP ══ -->
+<section id="extracurricular" class="bg-white">
   <div class="container">
     <div class="section-kicker">Extracurricular Activities</div>
     <h2 class="section-title">Beyond the <span>Laboratory</span></h2>
-    <div class="road-journey-wrap" id="roadJourneyWrap">
+
+    <div class="road-journey-wrap">
       <div class="road-header">
         <div class="road-header-left">
           <div class="road-header-title">Timeline Roadmap</div>
@@ -1073,104 +1124,120 @@ footer {
         </div>
         <div class="road-legend">
           <div class="road-legend-dot"></div>
-          2023 → Present
+          2023 → 2025
         </div>
       </div>
+
       <div class="road-svg-wrap" id="roadSvgWrap">
-        <svg class="road-main-svg" viewBox="0 0 980 430" xmlns="http://www.w3.org/2000/svg" id="roadMainSvg" aria-label="Leadership milestone timeline">
+        <svg class="road-main-svg" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" id="roadMainSvg" aria-label="Leadership milestone timeline">
           <defs>
-            <filter id="stopShadow" x="-40%" y="-40%" width="180%" height="180%">
-              <feDropShadow dx="0" dy="4" stdDeviation="5.5" flood-color="rgba(0,0,0,0.25)"/>
+            <filter id="stopGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
-          <line class="road-track" x1="90" y1="215" x2="890" y2="215"/>
 
-          <text class="stop-caption" x="90" y="34">Dance Fusion Club</text>
-          <line class="road-connector" x1="90" y1="140" x2="90" y2="215"/>
-          <circle class="axis-dot" cx="90" cy="215" r="3"/>
-          <text class="stop-year" x="90" y="238">2023</text>
-          <g class="road-stop" data-idx="0" transform="translate(90,112)">
-            <circle class="stop-ring" r="29"/>
-            <circle class="stop-core" r="23"/>
-            <circle class="stop-inner" r="19"/>
+          <!-- Track line -->
+          <line class="road-track" x1="70" y1="150" x2="790" y2="150"/>
+
+          <!-- Stop 0: Dance Fusion — above -->
+          <text class="stop-caption" x="70"  y="42">Dance Fusion Club</text>
+          <line class="road-connector" x1="70"  y1="58"  x2="70"  y2="132"/>
+          <circle class="axis-dot" cx="70"  cy="150" r="3"/>
+          <text class="stop-year" x="70"  y="168">2023</text>
+          <g class="road-stop" data-idx="0" tabindex="0" role="button" aria-label="Dance Fusion Club" transform="translate(70,80)">
+            <circle class="stop-ring"  r="28"/>
+            <circle class="stop-core"  r="21"/>
+            <circle class="stop-inner" r="15"/>
             <text class="stop-icon">♪</text>
           </g>
 
-          <text class="stop-caption" x="220" y="398">Health Ambassador</text>
-          <line class="road-connector" x1="220" y1="290" x2="220" y2="215"/>
-          <circle class="axis-dot" cx="220" cy="215" r="3"/>
-          <text class="stop-year" x="220" y="238">2023</text>
-          <g class="road-stop" data-idx="1" transform="translate(220,318)">
-            <circle class="stop-ring" r="29"/>
-            <circle class="stop-core" r="23"/>
-            <circle class="stop-inner" r="19"/>
+          <!-- Stop 1: Health Ambassador — below -->
+          <text class="stop-caption" x="190" y="260">Health Ambassador</text>
+          <line class="road-connector" x1="190" y1="168" x2="190" y2="232"/>
+          <circle class="axis-dot" cx="190" cy="150" r="3"/>
+          <text class="stop-year" x="190" y="168">2023</text>
+          <g class="road-stop" data-idx="1" tabindex="0" role="button" aria-label="Health Ambassador" transform="translate(190,220)">
+            <circle class="stop-ring"  r="28"/>
+            <circle class="stop-core"  r="21"/>
+            <circle class="stop-inner" r="15"/>
             <text class="stop-icon">✚</text>
           </g>
 
-          <text class="stop-caption" x="350" y="34">Green Rep Network</text>
-          <line class="road-connector" x1="350" y1="140" x2="350" y2="215"/>
-          <circle class="axis-dot" cx="350" cy="215" r="3"/>
-          <text class="stop-year" x="350" y="238">2023</text>
-          <g class="road-stop" data-idx="2" transform="translate(350,112)">
-            <circle class="stop-ring" r="29"/>
-            <circle class="stop-core" r="23"/>
-            <circle class="stop-inner" r="19"/>
+          <!-- Stop 2: Green Rep — above -->
+          <text class="stop-caption" x="310" y="42">Green Rep Network</text>
+          <line class="road-connector" x1="310" y1="58"  x2="310" y2="132"/>
+          <circle class="axis-dot" cx="310" cy="150" r="3"/>
+          <text class="stop-year" x="310" y="168">2023</text>
+          <g class="road-stop" data-idx="2" tabindex="0" role="button" aria-label="Green Rep Network" transform="translate(310,80)">
+            <circle class="stop-ring"  r="28"/>
+            <circle class="stop-core"  r="21"/>
+            <circle class="stop-inner" r="15"/>
             <text class="stop-icon">♻</text>
           </g>
 
-          <text class="stop-caption" x="480" y="398">Career Peer</text>
-          <line class="road-connector" x1="480" y1="290" x2="480" y2="215"/>
-          <circle class="axis-dot" cx="480" cy="215" r="3"/>
-          <text class="stop-year" x="480" y="238">2024</text>
-          <g class="road-stop" data-idx="3" transform="translate(480,318)">
-            <circle class="stop-ring" r="29"/>
-            <circle class="stop-core" r="23"/>
-            <circle class="stop-inner" r="19"/>
+          <!-- Stop 3: Career Peer — below -->
+          <text class="stop-caption" x="430" y="260">Career Peer</text>
+          <line class="road-connector" x1="430" y1="168" x2="430" y2="232"/>
+          <circle class="axis-dot" cx="430" cy="150" r="3"/>
+          <text class="stop-year" x="430" y="168">2024</text>
+          <g class="road-stop" data-idx="3" tabindex="0" role="button" aria-label="Career Peer" transform="translate(430,220)">
+            <circle class="stop-ring"  r="28"/>
+            <circle class="stop-core"  r="21"/>
+            <circle class="stop-inner" r="15"/>
             <text class="stop-icon">★</text>
           </g>
 
-          <text class="stop-caption" x="610" y="34">Accounting &amp; Finance</text>
-          <line class="road-connector" x1="610" y1="140" x2="610" y2="215"/>
-          <circle class="axis-dot" cx="610" cy="215" r="3"/>
-          <text class="stop-year" x="610" y="238">2024</text>
-          <g class="road-stop" data-idx="4" transform="translate(610,112)">
-            <circle class="stop-ring" r="29"/>
-            <circle class="stop-core" r="23"/>
-            <circle class="stop-inner" r="19"/>
+          <!-- Stop 4: Accounting & Finance — above -->
+          <text class="stop-caption" x="550" y="42">Accounting &amp; Finance</text>
+          <line class="road-connector" x1="550" y1="58"  x2="550" y2="132"/>
+          <circle class="axis-dot" cx="550" cy="150" r="3"/>
+          <text class="stop-year" x="550" y="168">2024</text>
+          <g class="road-stop" data-idx="4" tabindex="0" role="button" aria-label="Accounting and Finance Club" transform="translate(550,80)">
+            <circle class="stop-ring"  r="28"/>
+            <circle class="stop-core"  r="21"/>
+            <circle class="stop-inner" r="15"/>
             <text class="stop-icon">▦</text>
           </g>
 
-          <text class="stop-caption" x="740" y="398">Science Club</text>
-          <line class="road-connector" x1="740" y1="290" x2="740" y2="215"/>
-          <circle class="axis-dot" cx="740" cy="215" r="3"/>
-          <text class="stop-year" x="740" y="238">2024</text>
-          <g class="road-stop" data-idx="5" transform="translate(740,318)">
-            <circle class="stop-ring" r="29"/>
-            <circle class="stop-core" r="23"/>
-            <circle class="stop-inner" r="19"/>
+          <!-- Stop 5: Science Club — below -->
+          <text class="stop-caption" x="670" y="260">Science Club</text>
+          <line class="road-connector" x1="670" y1="168" x2="670" y2="232"/>
+          <circle class="axis-dot" cx="670" cy="150" r="3"/>
+          <text class="stop-year" x="670" y="168">2024</text>
+          <g class="road-stop" data-idx="5" tabindex="0" role="button" aria-label="Science Club" transform="translate(670,220)">
+            <circle class="stop-ring"  r="28"/>
+            <circle class="stop-core"  r="21"/>
+            <circle class="stop-inner" r="15"/>
             <text class="stop-icon">⚗</text>
           </g>
 
-          <text class="stop-caption" x="870" y="34">Volunteer Program</text>
-          <line class="road-connector" x1="870" y1="140" x2="870" y2="215"/>
-          <circle class="axis-dot" cx="870" cy="215" r="3"/>
-          <text class="stop-year" x="870" y="238">2025</text>
-          <g class="road-stop" data-idx="6" transform="translate(870,112)">
-            <circle class="stop-ring" r="29"/>
-            <circle class="stop-core" r="23"/>
-            <circle class="stop-inner" r="19"/>
+          <!-- Stop 6: Volunteer — above -->
+          <text class="stop-caption" x="790" y="42">Volunteer Program</text>
+          <line class="road-connector" x1="790" y1="58"  x2="790" y2="132"/>
+          <circle class="axis-dot" cx="790" cy="150" r="3"/>
+          <text class="stop-year" x="790" y="168">2025</text>
+          <g class="road-stop" data-idx="6" tabindex="0" role="button" aria-label="Volunteer Program" transform="translate(790,80)">
+            <circle class="stop-ring"  r="28"/>
+            <circle class="stop-core"  r="21"/>
+            <circle class="stop-inner" r="15"/>
             <text class="stop-icon">♥</text>
           </g>
         </svg>
       </div>
+
+      <!-- Info panel -->
       <div class="road-info-panel" id="roadInfoPanel">
-        <div class="panel-year" id="panelYear"></div>
-        <div class="panel-role" id="panelRole"></div>
-        <div class="panel-org" id="panelOrg"></div>
-        <div class="panel-divider"></div>
-        <div class="panel-tags" id="panelTags"></div>
+        <div class="panel-icon-wrap" id="panelIcon">💃</div>
+        <div class="panel-content">
+          <div class="panel-year" id="panelYear"></div>
+          <div class="panel-role" id="panelRole"></div>
+          <div class="panel-org"  id="panelOrg"></div>
+          <div class="panel-tags" id="panelTags"></div>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1181,21 +1248,18 @@ footer {
   <div class="container">
     <div class="section-kicker">Skills &amp; Expertise</div>
     <h2 class="section-title">Core <span>Competencies</span></h2>
-
     <div class="skills-interactive" id="skillsInteractive">
-      <!-- Tab buttons -->
       <div class="skills-tabs" role="tablist">
-        <button class="skill-tab-btn" data-tab="tab-lab" role="tab">Lab &amp; Instruments</button>
+        <button class="skill-tab-btn" data-tab="tab-lab"        role="tab">Lab &amp; Instruments</button>
         <button class="skill-tab-btn" data-tab="tab-compliance" role="tab">Compliance</button>
-        <button class="skill-tab-btn" data-tab="tab-sensory" role="tab">Sensory &amp; Chemical</button>
-        <button class="skill-tab-btn" data-tab="tab-micro" role="tab">Microbiology</button>
+        <button class="skill-tab-btn" data-tab="tab-sensory"    role="tab">Sensory &amp; Chemical</button>
+        <button class="skill-tab-btn" data-tab="tab-micro"      role="tab">Microbiology</button>
         <button class="skill-tab-btn" data-tab="tab-processing" role="tab">Processing &amp; Packaging</button>
-        <button class="skill-tab-btn" data-tab="tab-tech" role="tab">Technical</button>
+        <button class="skill-tab-btn" data-tab="tab-tech"       role="tab">Technical</button>
       </div>
       <div class="skills-chat-stage" id="skillsChatStage">
         <div class="skills-prompt" id="skillsPrompt">Choose a competency heading to view the list</div>
 
-        <!-- Tab: Technical -->
         <div class="skill-tab-panel" id="tab-tech">
           <div class="skills-grid">
             <div class="skill-card">
@@ -1211,113 +1275,108 @@ footer {
           </div>
         </div>
 
-    <!-- Tab: Lab & Instruments -->
-    <div class="skill-tab-panel" id="tab-lab">
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Analytical Instruments</div></div>
-          <div class="skill-tags">
-            <div class="skill-tag">pH Meter</div>
-            <div class="skill-tag">Colorimeter</div>
-            <div class="skill-tag">Texture Analyser</div>
-            <div class="skill-tag">Moisture Analyser</div>
-            <div class="skill-tag">Water Activity Meter</div>
-            <div class="skill-tag">Oxygen Analyser</div>
-            <div class="skill-tag">Brix-Salinity Meter</div>
+        <div class="skill-tab-panel" id="tab-lab">
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Analytical Instruments</div></div>
+              <div class="skill-tags">
+                <div class="skill-tag">pH Meter</div>
+                <div class="skill-tag">Colorimeter</div>
+                <div class="skill-tag">Texture Analyser</div>
+                <div class="skill-tag">Moisture Analyser</div>
+                <div class="skill-tag">Water Activity Meter</div>
+                <div class="skill-tag">Oxygen Analyser</div>
+                <div class="skill-tag">Brix-Salinity Meter</div>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-card-header"><div class="skill-card-icon">⚗️</div><div class="skill-card-title">Spectroscopy &amp; Chromatography</div></div>
+              <div class="skill-tags">
+                <div class="skill-tag">Gas Chromatography (GC)</div>
+                <div class="skill-tag">High Performance Liquid Chromatography (HPLC)</div>
+                <div class="skill-tag">UV-Visible Spectrophotometry</div>
+                <div class="skill-tag">Fourier Transform Infrared Spectroscopy (FTIR)</div>
+                <div class="skill-tag">Atomic Absorption Spectroscopy (AAS)</div>
+                <div class="skill-tag">Mass Spectrometry (MS)</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="skill-card">
-          <div class="skill-card-header"><div class="skill-card-icon">⚗️</div><div class="skill-card-title">Spectroscopy &amp; Chromatography</div></div>
-          <div class="skill-tags">
-            <div class="skill-tag">Gas Chromatography (GC)</div>
-            <div class="skill-tag">High Performance Liquid Chromatography (HPLC)</div>
-            <div class="skill-tag">UV-Visible Spectrophotometry</div>
-            <div class="skill-tag">Fourier Transform Infrared Spectroscopy (FTIR)</div>
-            <div class="skill-tag">Atomic Absorption Spectroscopy (AAS)</div>
-            <div class="skill-tag">Mass Spectrometry (MS)</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Tab: Processing & Packaging -->
-    <div class="skill-tab-panel" id="tab-processing">
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-card-header"><div class="skill-card-icon">🏭</div><div class="skill-card-title">Pilot Plant Equipment</div></div>
-          <div class="skill-tags">
-            <div class="skill-tag">Spray Dryer</div>
-            <div class="skill-tag">Heat Plate Exchanger</div>
-            <div class="skill-tag">Membrane Filtration</div>
-            <div class="skill-tag">Freeze Dryer</div>
-            <div class="skill-tag">Convection Oven</div>
-            <div class="skill-tag">Vacuum Oven</div>
-            <div class="skill-tag">Bioreactor</div>
+        <div class="skill-tab-panel" id="tab-processing">
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-card-header"><div class="skill-card-icon">🏭</div><div class="skill-card-title">Pilot Plant Equipment</div></div>
+              <div class="skill-tags">
+                <div class="skill-tag">Spray Dryer</div>
+                <div class="skill-tag">Heat Plate Exchanger</div>
+                <div class="skill-tag">Membrane Filtration</div>
+                <div class="skill-tag">Freeze Dryer</div>
+                <div class="skill-tag">Convection Oven</div>
+                <div class="skill-tag">Vacuum Oven</div>
+                <div class="skill-tag">Bioreactor</div>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-card-header"><div class="skill-card-icon">📦</div><div class="skill-card-title">Packaging &amp; Shelf Life</div></div>
+              <div class="skill-tags">
+                <div class="skill-tag">Modified Atmosphere Packaging (MAP)</div>
+                <div class="skill-tag">Oxygen &amp; Moisture Analysis</div>
+                <div class="skill-tag">Shelf Life Evaluation</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="skill-card">
-          <div class="skill-card-header"><div class="skill-card-icon">📦</div><div class="skill-card-title">Packaging &amp; Shelf Life</div></div>
-          <div class="skill-tags">
-            <div class="skill-tag">Modified Atmosphere Packaging (MAP)</div>
-            <div class="skill-tag">Oxygen &amp; Moisture Analysis</div>
-            <div class="skill-tag">Shelf Life Evaluation</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Tab: Sensory & Chemical -->
-    <div class="skill-tab-panel" id="tab-sensory">
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-card-header"><div class="skill-card-icon">👅</div><div class="skill-card-title">Sensory &amp; Consumer Testing</div></div>
-          <div class="skill-tags">
-            <div class="skill-tag">Triangle Test</div>
-            <div class="skill-tag">Preference Test</div>
-            <div class="skill-tag">Sensory Evaluation Panels</div>
+        <div class="skill-tab-panel" id="tab-sensory">
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-card-header"><div class="skill-card-icon">👅</div><div class="skill-card-title">Sensory &amp; Consumer Testing</div></div>
+              <div class="skill-tags">
+                <div class="skill-tag">Triangle Test</div>
+                <div class="skill-tag">Preference Test</div>
+                <div class="skill-tag">Sensory Evaluation Panels</div>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-card-header"><div class="skill-card-icon">🧫</div><div class="skill-card-title">Chemical Analysis</div></div>
+              <div class="skill-tags">
+                <div class="skill-tag">Titration</div>
+                <div class="skill-tag">Kjeldahl Method (Protein Analysis)</div>
+                <div class="skill-tag">Soxhlet Extraction (Fat Analysis)</div>
+                <div class="skill-tag">Iodine Starch Test</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="skill-card">
-          <div class="skill-card-header"><div class="skill-card-icon">🧫</div><div class="skill-card-title">Chemical Analysis</div></div>
-          <div class="skill-tags">
-            <div class="skill-tag">Titration</div>
-            <div class="skill-tag">Kjeldahl Method (Protein Analysis)</div>
-            <div class="skill-tag">Soxhlet Extraction (Fat Analysis)</div>
-            <div class="skill-tag">Iodine Starch Test</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Tab: Microbiology -->
-    <div class="skill-tab-panel" id="tab-micro">
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-card-header"><div class="skill-card-icon">🦠</div><div class="skill-card-title">Aseptic &amp; Culture Techniques</div></div>
-          <div class="skill-tags">
-            <div class="skill-subgroup">Inoculation Methods</div>
-            <div class="skill-tag">Pour Plating</div>
-            <div class="skill-tag">Streak Plating</div>
-            <div class="skill-tag">Serial Dilution</div>
-            <div class="skill-subgroup">Microscopy</div>
-            <div class="skill-tag">Gram Staining</div>
-            <div class="skill-tag">Microscopy Techniques</div>
+        <div class="skill-tab-panel" id="tab-micro">
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-card-header"><div class="skill-card-icon">🦠</div><div class="skill-card-title">Aseptic &amp; Culture Techniques</div></div>
+              <div class="skill-tags">
+                <div class="skill-subgroup">Inoculation Methods</div>
+                <div class="skill-tag">Pour Plating</div>
+                <div class="skill-tag">Streak Plating</div>
+                <div class="skill-tag">Serial Dilution</div>
+                <div class="skill-subgroup">Microscopy</div>
+                <div class="skill-tag">Gram Staining</div>
+                <div class="skill-tag">Microscopy Techniques</div>
+              </div>
+            </div>
+            <div class="skill-card">
+              <div class="skill-card-header"><div class="skill-card-icon">🔭</div><div class="skill-card-title">Identification &amp; Selective Media</div></div>
+              <div class="skill-tags">
+                <div class="skill-subgroup">Biochemical Tests</div>
+                <div class="skill-tag">Catalase Test</div>
+                <div class="skill-tag">Coagulase Test</div>
+                <div class="skill-subgroup">Media &amp; Isolation</div>
+                <div class="skill-tag">Selective Media Preparation</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="skill-card">
-          <div class="skill-card-header"><div class="skill-card-icon">🔭</div><div class="skill-card-title">Identification &amp; Selective Media</div></div>
-          <div class="skill-tags">
-            <div class="skill-subgroup">Biochemical Tests</div>
-            <div class="skill-tag">Catalase Test</div>
-            <div class="skill-tag">Coagulase Test</div>
-            <div class="skill-subgroup">Media &amp; Isolation</div>
-            <div class="skill-tag">Selective Media Preparation</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-        <!-- Tab: Compliance -->
         <div class="skill-tab-panel" id="tab-compliance">
           <div class="skills-grid">
             <div class="skill-card">
@@ -1333,9 +1392,9 @@ footer {
             </div>
           </div>
         </div>
+
       </div>
     </div>
-
   </div>
 </section>
 
@@ -1346,8 +1405,6 @@ footer {
   <div class="container">
     <div class="section-kicker">Certifications</div>
     <h2 class="section-title">Credentials &amp; <span>Training</span></h2>
-
-    <!-- Professional Qualifications -->
     <div class="cert-grid">
       <div class="cert-card">
         <div class="cert-badge">🐍</div>
@@ -1374,47 +1431,29 @@ footer {
         <div class="cert-footer"><div class="cert-year">Aug 2017</div><div class="cert-status completed">Completed</div></div>
       </div>
     </div>
-
-    <!-- Standards & Frameworks -->
     <div class="standards-label">📜 &nbsp;Standards &amp; Frameworks</div>
     <div class="standards-grid">
       <div class="standard-card">
         <div class="standard-icon">🏅</div>
-        <div>
-          <div class="standard-name">ISO 9001:2015</div>
-          <div class="standard-desc">Quality Management Systems</div>
-        </div>
+        <div><div class="standard-name">ISO 9001:2015</div><div class="standard-desc">Quality Management Systems</div></div>
       </div>
       <div class="standard-card">
         <div class="standard-icon">🍽️</div>
-        <div>
-          <div class="standard-name">FSSC 22000</div>
-          <div class="standard-desc">Food Safety System Certification v5.1</div>
-        </div>
+        <div><div class="standard-name">FSSC 22000</div><div class="standard-desc">Food Safety System Certification v5.1</div></div>
       </div>
       <div class="standard-card">
         <div class="standard-icon">📋</div>
-        <div>
-          <div class="standard-name">HACCP</div>
-          <div class="standard-desc">Based on Codex Alimentarius</div>
-        </div>
+        <div><div class="standard-name">HACCP</div><div class="standard-desc">Based on Codex Alimentarius</div></div>
       </div>
       <div class="standard-card">
         <div class="standard-icon">🏭</div>
-        <div>
-          <div class="standard-name">GMP</div>
-          <div class="standard-desc">Good Manufacturing Practice</div>
-        </div>
+        <div><div class="standard-name">GMP</div><div class="standard-desc">Good Manufacturing Practice</div></div>
       </div>
       <div class="standard-card">
         <div class="standard-icon">☪️</div>
-        <div>
-          <div class="standard-name">Halal Assurance System</div>
-          <div class="standard-desc">Halal Certification &amp; Compliance</div>
-        </div>
+        <div><div class="standard-name">Halal Assurance System</div><div class="standard-desc">Halal Certification &amp; Compliance</div></div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -1483,12 +1522,12 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.exp-item,.edu-card,.project-card,.cert-card,.standard-card').forEach(el => observer.observe(el));
-document.querySelectorAll('.edu-card').forEach((el,i)  => el.style.transitionDelay=(i*.12)+'s');
-document.querySelectorAll('.exp-item').forEach((el,i)   => el.style.transitionDelay=(i*.10)+'s');
-document.querySelectorAll('.cert-card').forEach((el,i)  => el.style.transitionDelay=(i*.10)+'s');
-document.querySelectorAll('.standard-card').forEach((el,i) => el.style.transitionDelay=(i*.07)+'s');
+document.querySelectorAll('.edu-card').forEach((el,i)     => el.style.transitionDelay = (i * 0.12) + 's');
+document.querySelectorAll('.exp-item').forEach((el,i)     => el.style.transitionDelay = (i * 0.10) + 's');
+document.querySelectorAll('.cert-card').forEach((el,i)    => el.style.transitionDelay = (i * 0.10) + 's');
+document.querySelectorAll('.standard-card').forEach((el,i)=> el.style.transitionDelay = (i * 0.07) + 's');
 
-/* ── Skill tabs (area-based, no click toggle) ── */
+/* ── Skill tabs ── */
 const skillsInteractive = document.getElementById('skillsInteractive');
 
 function switchTab(btn, tabId) {
@@ -1499,8 +1538,8 @@ function switchTab(btn, tabId) {
   const panel = document.getElementById(tabId);
   if (skillsPrompt) skillsPrompt.classList.add('hidden');
   panel.classList.add('active');
-  panel.querySelectorAll('.skill-card').forEach(el => el.classList.remove('visible'));
   panel.querySelectorAll('.skill-card').forEach((el, i) => {
+    el.classList.remove('visible');
     el.style.transitionDelay = (i * 0.08) + 's';
     setTimeout(() => el.classList.add('visible'), 10);
   });
@@ -1513,167 +1552,108 @@ function resetSkillTabsPrompt() {
   if (skillsPrompt) skillsPrompt.classList.remove('hidden');
 }
 
-const skillTabButtons = Array.from(document.querySelectorAll('.skill-tab-btn'));
-skillTabButtons.forEach(btn => {
+document.querySelectorAll('.skill-tab-btn').forEach(btn => {
   const tabId = btn.getAttribute('data-tab');
   if (!tabId) return;
-  btn.addEventListener('mouseenter', () => switchTab(btn, tabId));
-  btn.addEventListener('focus', () => switchTab(btn, tabId));
-  btn.addEventListener('touchstart', () => switchTab(btn, tabId), { passive: true });
+  btn.addEventListener('mouseenter',  () => switchTab(btn, tabId));
+  btn.addEventListener('focus',       () => switchTab(btn, tabId));
+  btn.addEventListener('touchstart',  () => switchTab(btn, tabId), { passive: true });
 });
 if (skillsInteractive) {
   skillsInteractive.addEventListener('mouseleave', () => resetSkillTabsPrompt());
 }
 
-/* ── Active nav ── */
+/* ── Active nav highlight ── */
 const sections = document.querySelectorAll('section[id]');
 const navLinks  = document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-  navLinks.forEach(a => { a.style.color = a.getAttribute('href')==='#'+current ? 'var(--blue)' : ''; });
+  navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : ''; });
 });
 
-/* ── Milestone data ── */
+/* ══ ROADMAP ══ */
 const milestones = [
-  { year:'2023', role:'💃 Publicity Officer', org:'Monash Dance Fusion Club', period:'Jan 2023 – Dec 2023 · 1 yr', tags:['Social Media','Publicity','Creative Design'] },
-  { year:'2023', role:'🌿 Publicity Officer', org:'Monash Health Ambassador', period:'Jul 2023 – Dec 2023 · 6 mos', tags:['Health & Wellness','Publicity','Awareness'] },
-  { year:'2023', role:'♻️ Publicity Officer', org:'Monash Green Rep Network', period:'Jul 2023 – Dec 2023 · 6 mos', tags:['Sustainability','Publicity','Advocacy'] },
-  { year:'2024', role:'🎯 Event Coordinator', org:'Monash Career Peer', period:'Jan 2024 – Jun 2024 · 6 mos', tags:['Event Management','Career Dev','Leadership'] },
-  { year:'2024', role:'📊 Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'] },
-  { year:'2024', role:'🔭 Publicity Officer', org:'Monash Science Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Publicity','Science Outreach','Design'] },
-  { year:'2025', role:'📣 Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Comms'] },
+  { icon:'💃', year:'2023', role:'Publicity Officer', org:'Monash Dance Fusion Club', period:'Jan 2023 – Dec 2023 · 1 yr',         tags:['Social Media','Publicity','Creative Design'] },
+  { icon:'🌿', year:'2023', role:'Publicity Officer', org:'Monash Health Ambassador',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Health & Wellness','Publicity','Awareness'] },
+  { icon:'♻️', year:'2023', role:'Publicity Officer', org:'Monash Green Rep Network',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Sustainability','Publicity','Advocacy'] },
+  { icon:'🎯', year:'2024', role:'Event Coordinator', org:'Monash Career Peer',         period:'Jan 2024 – Jun 2024 · 6 mos',        tags:['Event Management','Career Dev','Leadership'] },
+  { icon:'📊', year:'2024', role:'Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'] },
+  { icon:'🔭', year:'2024', role:'Publicity Officer', org:'Monash Science Club',         period:'Jul 2024 – Dec 2024 · 6 mos',        tags:['Publicity','Science Outreach','Design'] },
+  { icon:'📣', year:'2025', role:'Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Communications'] },
 ];
 
-const panel   = document.getElementById('roadInfoPanel');
-const pYear   = document.getElementById('panelYear');
-const pRole   = document.getElementById('panelRole');
-const pOrg    = document.getElementById('panelOrg');
-const pTags   = document.getElementById('panelTags');
-const svgWrap = document.getElementById('roadSvgWrap');
-const mainSvg = document.getElementById('roadMainSvg');
-const roadStops = Array.from(document.querySelectorAll('.road-stop'));
-let roadCurrentStop = 0;
-let roadWasDragging = false;
+const panelIcon = document.getElementById('panelIcon');
+const panelYear = document.getElementById('panelYear');
+const panelRole = document.getElementById('panelRole');
+const panelOrg  = document.getElementById('panelOrg');
+const panelTags = document.getElementById('panelTags');
 
-function renderRoadDetails(idx) {
+const roadStops   = Array.from(document.querySelectorAll('.road-stop'));
+let   activeIdx   = -1;   // nothing selected yet
+
+function renderPanel(idx) {
   const m = milestones[idx];
-  if (!m || !panel) return;
-  pYear.textContent = `${m.year} · ${m.period}`;
-  pRole.textContent = m.role;
-  pOrg.textContent = m.org;
-  pTags.innerHTML = m.tags.map(t => `<span class="panel-tag">${t}</span>`).join('');
+  if (!m) return;
+  panelIcon.textContent = m.icon;
+  panelYear.textContent = m.year + ' · ' + m.period;
+  panelRole.textContent = m.role;
+  panelOrg.textContent  = m.org;
+  panelTags.innerHTML   = m.tags.map(t => `<span class="panel-tag">${t}</span>`).join('');
 }
 
-function setActiveRoadStop(idx) {
-  roadStops.forEach((stop, stopIdx) => {
-    stop.classList.toggle('active', stopIdx === idx);
+function activateStop(idx) {
+  if (idx === activeIdx) return;
+  activeIdx = idx;
+
+  roadStops.forEach((stop, i) => {
+    stop.classList.toggle('active', i === idx);
   });
+
+  renderPanel(idx);
 }
 
-function ensureRoadStopVisible(idx, behavior = 'smooth') {
-  if (!svgWrap || !mainSvg) return;
-  if (svgWrap.scrollWidth <= svgWrap.clientWidth + 2) return;
-  const targetStop = roadStops[idx];
-  if (!targetStop) return;
-  const targetRect = targetStop.getBoundingClientRect();
-  const wrapRect = svgWrap.getBoundingClientRect();
-  const targetCenter = svgWrap.scrollLeft + (targetRect.left - wrapRect.left) + (targetRect.width / 2);
-  const desiredLeft = Math.max(0, Math.min(
-    targetCenter - (svgWrap.clientWidth / 2),
-    svgWrap.scrollWidth - svgWrap.clientWidth
-  ));
+/* Click / tap each stop */
+roadStops.forEach(stop => {
+  const idx = parseInt(stop.getAttribute('data-idx'), 10);
 
-  try {
-    svgWrap.scrollTo({ left: desiredLeft, behavior });
-  } catch (_) {
-    svgWrap.scrollLeft = desiredLeft;
-  }
-}
-
-function moveRoadTo(targetIdx) {
-  const idx = Math.max(0, Math.min(targetIdx, roadStops.length - 1));
-  if (!roadStops.length) return;
-  if (idx === roadCurrentStop) return;
-  roadCurrentStop = idx;
-  setActiveRoadStop(idx);
-  const behavior = window.matchMedia('(max-width: 900px)').matches ? 'smooth' : 'auto';
-  ensureRoadStopVisible(idx, behavior);
-  renderRoadDetails(idx);
-}
-
-if (svgWrap) {
-  let pointerStartX = null;
-  let pointerStartY = null;
-  let dragging = false;
-  const dragThreshold = 9;
-
-  svgWrap.addEventListener('pointerdown', e => {
-    pointerStartX = e.clientX;
-    pointerStartY = e.clientY;
-    dragging = false;
+  /* Both click and pointerup to cover mouse + touch reliably */
+  stop.addEventListener('click', e => {
+    e.stopPropagation();
+    activateStop(idx);
   });
-  svgWrap.addEventListener('pointermove', e => {
-    if (pointerStartX === null || pointerStartY === null) return;
-    if (Math.abs(e.clientX - pointerStartX) > dragThreshold || Math.abs(e.clientY - pointerStartY) > dragThreshold) {
-      dragging = true;
+
+  /* Keyboard: Enter / Space */
+  stop.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      activateStop(idx);
     }
-  });
-  const endPointer = () => {
-    roadWasDragging = dragging;
-    pointerStartX = null;
-    pointerStartY = null;
-    dragging = false;
-    setTimeout(() => { roadWasDragging = false; }, 40);
-  };
-  svgWrap.addEventListener('pointerup', endPointer);
-  svgWrap.addEventListener('pointercancel', endPointer);
-}
-
-roadStops.forEach(el => {
-  el.addEventListener('click', () => {
-    if (roadWasDragging) return;
-    const idx = parseInt(el.getAttribute('data-idx'), 10);
-    moveRoadTo(idx);
   });
 });
 
-if (roadStops.length) {
-  setActiveRoadStop(0);
-  renderRoadDetails(0);
-  ensureRoadStopVisible(0, 'auto');
-  setTimeout(() => ensureRoadStopVisible(roadCurrentStop, 'auto'), 0);
-}
+/* Auto-select first stop on load */
+activateStop(0);
 
 /* ── Form ── */
 function handleSend(btn) {
-  btn.textContent = '✓ Sent!';
+  btn.textContent  = '✓ Sent!';
   btn.style.background = '#1e7e40';
   btn.disabled = true;
   btn.style.cursor = 'default';
 }
 
+/* ── Mobile menu ── */
 const mobileMenu = document.querySelector('.nav-links');
-function closeMenu() {
-  if (!mobileMenu) return;
-  mobileMenu.classList.remove('open');
-}
-function toggleMenu() {
-  if (!mobileMenu) return;
-  mobileMenu.classList.toggle('open');
-}
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', closeMenu);
-});
+function closeMenu() { if (mobileMenu) mobileMenu.classList.remove('open'); }
+function toggleMenu() { if (mobileMenu) mobileMenu.classList.toggle('open'); }
+document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('click', e => {
   if (window.innerWidth > 900) return;
   if (!mobileMenu || !mobileMenu.classList.contains('open')) return;
   if (!e.target.closest('nav')) closeMenu();
 });
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 900) closeMenu();
-  ensureRoadStopVisible(roadCurrentStop, 'auto');
-});
+window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
 </script>
 </body>
 </html>
