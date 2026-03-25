@@ -159,16 +159,19 @@ section { padding: 80px 48px; }
 .section-divider { height: 3px; background: linear-gradient(to right, var(--blue), #a8d8f5, transparent); }
 
 .section-kicker {
-  font-family: var(--font-main); font-size: 13px; font-weight: 700;
-  letter-spacing: 0.04em; text-transform: none;
-  color: white; margin-bottom: 14px;
-  display: inline-flex; align-items: center;
+  font-family: var(--font-main); font-size: clamp(13px, 1.35vw, 16px); font-weight: 600;
+  letter-spacing: 0.01em; text-transform: none;
+  color: #fff; margin-bottom: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
   background: var(--blue);
-  padding: 9px 16px;
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 10px 18px;
   border-radius: 12px;
-  box-shadow: 0 8px 18px rgba(26,127,212,0.24);
+  line-height: 1.15;
+  box-shadow: 0 8px 18px rgba(20, 104, 176, 0.24);
 }
-.section-kicker::before { content: none; display: none; }
+.section-kicker::before,
+.section-kicker::after { content: none; display: none; }
 .section-title {
   font-family: var(--font-main); font-size: clamp(28px, 3.5vw, 42px);
   font-weight: 800; color: var(--ink); line-height: 1.15; margin-bottom: 48px;
@@ -534,16 +537,19 @@ section { padding: 80px 48px; }
 .standard-name { font-family: var(--font-main); font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.35; }
 .standard-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .standards-label {
-  font-family: var(--font-main); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: none;
-  color: white; margin: 40px 0 16px;
-  display: inline-flex; align-items: center;
+  font-family: var(--font-main); font-size: clamp(12px, 1.3vw, 15px); font-weight: 600;
+  letter-spacing: 0.01em; text-transform: none;
+  color: #fff; margin: 40px 0 16px;
+  display: inline-flex; align-items: center; justify-content: center;
   background: var(--blue);
-  padding: 9px 16px;
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 10px 18px;
   border-radius: 12px;
-  box-shadow: 0 8px 18px rgba(26,127,212,0.24);
+  line-height: 1.15;
+  box-shadow: 0 8px 18px rgba(20, 104, 176, 0.24);
 }
-.standards-label::before { content: none; display: none; }
+.standards-label::before,
+.standards-label::after { content: none; display: none; }
 
 /* ══ CONTACT ══ */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
