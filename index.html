@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Edric Fendy — Food Science & Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,6 +61,7 @@ nav {
   color: var(--ink-mid); text-decoration: none; transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--blue); }
+.nav-links a.active { color: var(--blue); }
 .nav-cta {
   font-family: var(--font-main); font-size: 13px; font-weight: 600;
   color: white; background: var(--blue);
@@ -1054,7 +1057,7 @@ footer {
     <div class="nav-logo">EF</div>
     <span class="nav-name-text">Edric <span>Fendy</span></span>
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="primaryNav">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#education">Education</a>
@@ -1065,7 +1068,7 @@ footer {
     <a href="#contact">Contact</a>
   </div>
   <a href="#contact" class="nav-cta">Get in Touch</a>
-  <button class="nav-hamburger" onclick="toggleMenu(this)">
+  <button class="nav-hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1734,7 +1737,7 @@ footer {
             <div class="contact-icon">📞</div>
             <div><div class="contact-label">Phone</div><div class="contact-value">+60 14-7118560</div></div>
           </a>
-          <a href="https://www.linkedin.com/in/edric-fendy-71b0a6240/" target="_blank" class="contact-card">
+          <a href="https://www.linkedin.com/in/edric-fendy-71b0a6240/" target="_blank" rel="noopener noreferrer" class="contact-card">
             <div class="contact-icon">🔗</div>
             <div><div class="contact-label">LinkedIn</div><div class="contact-value">Connect with me</div></div>
           </a>
@@ -1745,13 +1748,13 @@ footer {
         </div>
       </div>
       <div>
-        <div class="contact-form">
-          <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" placeholder="Your name"></div>
-          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="your.email@example.com"></div>
-          <div class="form-group"><label class="form-label">Subject</label><input class="form-input" type="text" placeholder="What's this about?"></div>
-          <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" placeholder="Tell me more..."></textarea></div>
-          <button class="form-submit" onclick="handleSend(this)">Send Message →</button>
-        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group"><label class="form-label" for="contactName">Name</label><input id="contactName" name="name" class="form-input" type="text" placeholder="Your name" required autocomplete="name"></div>
+          <div class="form-group"><label class="form-label" for="contactEmail">Email</label><input id="contactEmail" name="email" class="form-input" type="email" placeholder="your.email@example.com" required autocomplete="email"></div>
+          <div class="form-group"><label class="form-label" for="contactSubject">Subject</label><input id="contactSubject" name="subject" class="form-input" type="text" placeholder="What's this about?" autocomplete="off"></div>
+          <div class="form-group"><label class="form-label" for="contactMessage">Message</label><textarea id="contactMessage" name="message" class="form-input" placeholder="Tell me more..." required></textarea></div>
+          <button class="form-submit" type="submit">Send Message →</button>
+        </form>
       </div>
     </div>
   </div>
@@ -1771,7 +1774,7 @@ footer {
     <a href="#certifications">Certifications</a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="footer-copy">© 2025 Edric Fendy</div>
+  <div class="footer-copy">© <span id="footerYear">2026</span> Edric Fendy</div>
 </footer>
 
 <script>
@@ -1797,6 +1800,7 @@ function activateSkillTab(tabId) {
     const isActive = button.getAttribute('data-tab') === tabId;
     button.classList.toggle('active', isActive);
     button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    button.setAttribute('tabindex', isActive ? '0' : '-1');
     if (isActive) hasActive = true;
   });
 
@@ -1819,17 +1823,47 @@ skillTabButtons.forEach(button => {
   if (!tabId) return;
   button.setAttribute('aria-controls', tabId);
   button.setAttribute('aria-selected', 'false');
+  button.setAttribute('tabindex', '-1');
   button.addEventListener('click', () => activateSkillTab(tabId));
   button.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       activateSkillTab(tabId);
+      return;
+    }
+
+    const currentIndex = skillTabButtons.indexOf(button);
+    if (currentIndex < 0) return;
+
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      skillTabButtons[(currentIndex + 1) % skillTabButtons.length].focus();
+      return;
+    }
+
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      skillTabButtons[(currentIndex - 1 + skillTabButtons.length) % skillTabButtons.length].focus();
+      return;
+    }
+
+    if (e.key === 'Home') {
+      e.preventDefault();
+      skillTabButtons[0].focus();
+      return;
+    }
+
+    if (e.key === 'End') {
+      e.preventDefault();
+      skillTabButtons[skillTabButtons.length - 1].focus();
     }
   });
 });
 
 skillTabPanels.forEach(panel => panel.setAttribute('aria-hidden', 'true'));
-if (skillsPrompt) skillsPrompt.classList.remove('hidden');
+if (skillTabButtons.length > 0) {
+  activateSkillTab(skillTabButtons[0].getAttribute('data-tab'));
+}
 
 /* ── Active nav highlight ── */
 const sections = document.querySelectorAll('section[id]');
@@ -1837,7 +1871,10 @@ const navLinks  = document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-  navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : ''; });
+  navLinks.forEach(a => {
+    const isCurrent = a.getAttribute('href') === '#' + current;
+    a.classList.toggle('active', isCurrent);
+  });
 });
 
 /* ══ ROADMAP ══ */
@@ -1910,7 +1947,9 @@ function activateStop(idx) {
   activeIdx = idx;
 
   roadStops.forEach((stop, i) => {
-    stop.classList.toggle('active', i === idx);
+    const isActive = i === idx;
+    stop.classList.toggle('active', isActive);
+    stop.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 
   renderPanel(idx);
@@ -1919,6 +1958,7 @@ function activateStop(idx) {
 /* Click / tap each stop */
 roadStops.forEach(stop => {
   const idx = parseInt(stop.getAttribute('data-idx'), 10);
+  stop.setAttribute('aria-pressed', 'false');
 
   /* Both click and pointerup to cover mouse + touch reliably */
   stop.addEventListener('click', e => {
@@ -1939,24 +1979,90 @@ roadStops.forEach(stop => {
 activateStop(0);
 
 /* ── Form ── */
-function handleSend(btn) {
-  btn.textContent  = '✓ Sent!';
-  btn.style.background = '#1e7e40';
-  btn.disabled = true;
-  btn.style.cursor = 'default';
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const submitButton = form.querySelector('.form-submit');
+    const nameField = form.elements.namedItem('name');
+    const emailField = form.elements.namedItem('email');
+    const subjectField = form.elements.namedItem('subject');
+    const messageField = form.elements.namedItem('message');
+    const name = nameField ? String(nameField.value).trim() : '';
+    const email = emailField ? String(emailField.value).trim() : '';
+    const subject = subjectField ? String(subjectField.value).trim() : '';
+    const message = messageField ? String(messageField.value).trim() : '';
+
+    if (!name || !email || !message) return;
+
+    const mailSubject = subject || 'Portfolio contact message';
+    const mailBody = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      '',
+      'Message:',
+      message
+    ].join('\n');
+
+    if (submitButton) {
+      submitButton.textContent = 'Opening Email...';
+      submitButton.disabled = true;
+    }
+
+    window.location.href = `mailto:edricfendy45@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+    form.reset();
+
+    window.setTimeout(() => {
+      if (submitButton) {
+        submitButton.textContent = 'Send Message →';
+        submitButton.disabled = false;
+      }
+    }, 1200);
+  });
 }
 
 /* ── Mobile menu ── */
 const mobileMenu = document.querySelector('.nav-links');
-function closeMenu() { if (mobileMenu) mobileMenu.classList.remove('open'); }
-function toggleMenu() { if (mobileMenu) mobileMenu.classList.toggle('open'); }
+const mobileMenuToggle = document.querySelector('.nav-hamburger');
+function syncMobileMenuState() {
+  if (!mobileMenu) return;
+  const isDesktop = window.innerWidth > 900;
+  if (isDesktop) mobileMenu.classList.remove('open');
+  const isOpen = mobileMenu.classList.contains('open');
+
+  if (mobileMenuToggle) {
+    mobileMenuToggle.setAttribute('aria-expanded', isDesktop ? 'false' : (isOpen ? 'true' : 'false'));
+  }
+  mobileMenu.setAttribute('aria-hidden', isDesktop ? 'false' : (isOpen ? 'false' : 'true'));
+}
+function closeMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.remove('open');
+  syncMobileMenuState();
+}
+function toggleMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.toggle('open');
+  syncMobileMenuState();
+}
 document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('click', e => {
   if (window.innerWidth > 900) return;
   if (!mobileMenu || !mobileMenu.classList.contains('open')) return;
   if (!e.target.closest('nav')) closeMenu();
 });
-window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMenu();
+});
+window.addEventListener('resize', syncMobileMenuState);
+syncMobileMenuState();
+
+const footerYear = document.getElementById('footerYear');
+if (footerYear) {
+  footerYear.textContent = String(new Date().getFullYear());
+}
 </script>
 </body>
 </html>
