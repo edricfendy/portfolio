@@ -172,11 +172,6 @@ section { padding: 80px 48px; }
 }
 .section-kicker::before,
 .section-kicker::after { content: none; display: none; }
-.section-title {
-  font-family: var(--font-main); font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 800; color: var(--ink); line-height: 1.15; margin-bottom: 48px;
-}
-.section-title span { color: var(--blue); }
 
 /* ══ ABOUT ══ */
 .about-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 72px; align-items: start; }
@@ -222,21 +217,26 @@ section { padding: 80px 48px; }
 /* ══ EXPERIENCE ══ */
 .exp-timeline { display: flex; flex-direction: column; }
 .exp-item {
-  display: grid; grid-template-columns: 200px 1fr;
-  gap: 48px; padding: 40px 0;
+  padding: 40px 0;
   border-top: 1px solid var(--border);
   opacity: 0; transform: translateY(20px);
   transition: opacity 0.55s ease, transform 0.55s ease;
 }
 .exp-item.visible { opacity: 1; transform: translateY(0); }
 .exp-item:last-child { border-bottom: 1px solid var(--border); }
+.exp-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
 .exp-date {
   font-family: var(--font-main); font-size: 12px; font-weight: 600;
   color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase;
-  line-height: 1.6; margin-bottom: 6px;
+  line-height: 1.6; margin-bottom: 2px;
 }
-.exp-location { font-size: 12px; color: var(--muted); }
-.exp-role { font-family: var(--font-main); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.exp-location { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.exp-role { font-family: var(--font-main); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; line-height: 1.25; }
 .exp-company {
   font-family: var(--font-main); font-size: 13px; font-weight: 600;
   color: var(--blue); margin-bottom: 18px;
@@ -244,18 +244,21 @@ section { padding: 80px 48px; }
 }
 .exp-company::before { content: ''; width: 14px; height: 2px; background: var(--blue); }
 .exp-company.exp-company-logo {
-  padding: 3px 8px;
+  padding: 0;
   gap: 0;
-  border-radius: 7px;
-  border: 1px solid #d9e7f4;
-  background: #fff;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 .exp-company.exp-company-logo::before { content: none; display: none; }
 .exp-company-logo img {
   display: block;
-  height: 32px;
+  height: auto;
   width: auto;
-  max-width: 100%;
+  max-width: min(220px, 34vw);
+  max-height: 48px;
   object-fit: contain;
 }
 .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
@@ -996,7 +999,12 @@ footer {
   #hero { padding: 90px 20px 72px; min-height: auto; }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .lang-card { position: static; }
-  .exp-item { grid-template-columns: 1fr; gap: 10px; padding: 32px 0; }
+  .exp-item { padding: 32px 0; }
+  .exp-head { gap: 12px; margin-bottom: 14px; }
+  .exp-company-logo img {
+    max-width: min(190px, 48vw);
+    max-height: 40px;
+  }
   .edu-grid, .skills-grid, .cert-grid, .standards-grid { grid-template-columns: 1fr; }
   .skills-grid-2 { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1201,7 +1209,7 @@ footer {
   <div class="hero-content">
     <div class="hero-label">Food Science &amp; Technology Professional</div>
     <h1 class="hero-name">Edric Fendy</h1>
-    <p class="hero-title">R&amp;D Specialist · QA/QC Expert · Publicity Officer</p>
+    <p class="hero-title">Aspiring Food Scientist for FMCG Innovation</p>
     <p class="hero-desc">
       Bachelor's graduate from <strong>Monash University</strong> with hands-on experience in Research &amp; Development, Quality Assurance, and Food Certification at leading food companies across the region.
     </p>
@@ -1252,14 +1260,16 @@ footer {
     <div class="section-kicker">Work Experience</div>
     <div class="exp-timeline">
       <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Nov 2024 — Feb 2025</div>
-          <div class="exp-location">📍 Subang Jaya, Selangor, Malaysia</div>
-        </div>
         <div class="exp-body">
-          <div class="exp-role">R&D Specialist Intern</div>
-          <div class="exp-company exp-company-logo">
-            <img src="assets/company-logos/mamee-double-decker.svg" alt="Mamee-Double Decker logo" loading="lazy" decoding="async">
+          <div class="exp-head">
+            <div class="exp-company exp-company-logo">
+              <img src="assets/company-logos/mamee-double-decker.svg" alt="Mamee-Double Decker logo" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="exp-role">R&D Specialist Intern</div>
+              <div class="exp-date">Nov 2024 — Feb 2025</div>
+              <div class="exp-location">📍 Subang Jaya, Selangor, Malaysia</div>
+            </div>
           </div>
           <ul class="exp-bullets">
             <li>Assisted in crisps seasoning trials and prepared finished samples for client requests</li>
@@ -1269,14 +1279,16 @@ footer {
         </div>
       </div>
       <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Dec 2023 — Feb 2024</div>
-          <div class="exp-location">📍 Petaling Jaya, Selangor, Malaysia</div>
-        </div>
         <div class="exp-body">
-          <div class="exp-role">QA/QC Specialist Intern</div>
-          <div class="exp-company exp-company-logo">
-            <img src="assets/company-logos/amazin-graze.svg" alt="amazin'graze logo" loading="lazy" decoding="async">
+          <div class="exp-head">
+            <div class="exp-company exp-company-logo">
+              <img src="assets/company-logos/amazin-graze.svg" alt="amazin'graze logo" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="exp-role">QA/QC Specialist Intern</div>
+              <div class="exp-date">Dec 2023 — Feb 2024</div>
+              <div class="exp-location">📍 Petaling Jaya, Selangor, Malaysia</div>
+            </div>
           </div>
           <ul class="exp-bullets">
             <li>Ensured all unit operations complied with GMP and HACCP practices</li>
@@ -1286,14 +1298,16 @@ footer {
         </div>
       </div>
       <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Dec 2022 — Feb 2023</div>
-          <div class="exp-location">📍 Kuala Lumpur, Malaysia</div>
-        </div>
         <div class="exp-body">
-          <div class="exp-role">Food Certification Intern</div>
-          <div class="exp-company exp-company-logo">
-            <img src="assets/company-logos/interfinite.svg" alt="Interfinite logo" loading="lazy" decoding="async">
+          <div class="exp-head">
+            <div class="exp-company exp-company-logo">
+              <img src="assets/company-logos/interfinite.svg" alt="Interfinite logo" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="exp-role">Food Certification Intern</div>
+              <div class="exp-date">Dec 2022 — Feb 2023</div>
+              <div class="exp-location">📍 Kuala Lumpur, Malaysia</div>
+            </div>
           </div>
           <ul class="exp-bullets">
             <li>Managed clients' Halal renewal applications and GMP, HACCP manuals for compliance</li>
