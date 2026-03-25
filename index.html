@@ -243,6 +243,21 @@ section { padding: 80px 48px; }
   display: inline-flex; align-items: center; gap: 6px;
 }
 .exp-company::before { content: ''; width: 14px; height: 2px; background: var(--blue); }
+.exp-company.exp-company-logo {
+  padding: 3px 8px;
+  gap: 0;
+  border-radius: 7px;
+  border: 1px solid #d9e7f4;
+  background: #fff;
+}
+.exp-company.exp-company-logo::before { content: none; display: none; }
+.exp-company-logo img {
+  display: block;
+  height: 24px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
 .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .exp-bullets li {
   font-size: 14px; color: var(--ink-mid); padding-left: 18px;
@@ -1245,7 +1260,9 @@ footer {
         </div>
         <div class="exp-body">
           <div class="exp-role">R&D Specialist Intern</div>
-          <div class="exp-company">Mamee-Double Decker</div>
+          <div class="exp-company exp-company-logo">
+            <img src="assets/company-logos/mamee-double-decker.svg" alt="Mamee-Double Decker logo" loading="lazy" decoding="async">
+          </div>
           <ul class="exp-bullets">
             <li>Assisted in crisps seasoning trials and prepared finished samples for client requests</li>
             <li>Supported pilot production runs and interpreted triangle test sensory evaluation reports</li>
@@ -1260,7 +1277,9 @@ footer {
         </div>
         <div class="exp-body">
           <div class="exp-role">QA/QC Specialist Intern</div>
-          <div class="exp-company">Amazin Graze</div>
+          <div class="exp-company exp-company-logo">
+            <img src="assets/company-logos/amazin-graze.svg" alt="amazin'graze logo" loading="lazy" decoding="async">
+          </div>
           <ul class="exp-bullets">
             <li>Ensured all unit operations complied with GMP and HACCP practices</li>
             <li>Ensured food labelling requirements were met for both import and export distribution</li>
@@ -1275,7 +1294,9 @@ footer {
         </div>
         <div class="exp-body">
           <div class="exp-role">Food Certification Intern</div>
-          <div class="exp-company">Interfinite</div>
+          <div class="exp-company exp-company-logo">
+            <img src="assets/company-logos/interfinite.svg" alt="Interfinite logo" loading="lazy" decoding="async">
+          </div>
           <ul class="exp-bullets">
             <li>Managed clients' Halal renewal applications and GMP, HACCP manuals for compliance</li>
             <li>Conducted external audits on clients' premises and reviewed documentation for certificate compliance</li>
