@@ -270,6 +270,49 @@ section { padding: 80px 48px; }
 .project-meta { font-size: 13px; color: rgba(255,255,255,0.65); position: relative; z-index: 1; }
 .project-body { padding: 36px 44px; }
 .project-desc { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 28px; }
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  text-decoration: none;
+  margin-bottom: 18px;
+}
+.project-link:hover { text-decoration: underline; }
+.project-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 26px;
+}
+.project-media-card {
+  background: #f7fbff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.project-media-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #eef6ff;
+}
+.project-media-caption {
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--blue-dark);
+  padding: 8px 10px;
+  line-height: 1.35;
+}
 .achievement-box {
   display: flex; gap: 16px; align-items: flex-start;
   background: var(--blue-light); border-left: 4px solid var(--blue);
@@ -874,6 +917,7 @@ footer {
   .road-journey-wrap { padding: 24px 18px 24px; border-radius: 12px; }
   .road-header { flex-direction: column; gap: 10px; }
   .road-legend { align-self: flex-start; }
+  .project-media-grid { grid-template-columns: 1fr; }
   .skills-interactive { display: block; }
   .skills-tabs {
     display: grid;
@@ -1038,9 +1082,9 @@ footer {
           <div class="lang-card-title">🌐 &nbsp;Languages</div>
           <div class="lang-row"><span class="lang-name">Bahasa Indonesia</span><span class="lang-level native">Native</span></div>
           <div class="lang-row"><span class="lang-name">English</span><span class="lang-level fluent">Fluent</span></div>
-          <div class="lang-row"><span class="lang-name">Hokkien</span><span class="lang-level fluent">Fluent</span></div>
+          <div class="lang-row"><span class="lang-name">Hokkien</span><span class="lang-level native">Native</span></div>
           <div class="lang-row"><span class="lang-name">Malay</span><span class="lang-level conversant">Conversant</span></div>
-          <div class="lang-row"><span class="lang-name">Mandarin</span><span class="lang-level conversant">Conversant</span></div>
+          <div class="lang-row"><span class="lang-name">Chinese</span><span class="lang-level conversant">Conversant</span></div>
         </div>
       </div>
     </div>
@@ -1136,6 +1180,17 @@ footer {
       </div>
       <div class="project-body">
         <p class="project-desc">Developed a healthy instant noodle incorporating dried sunflower microgreen powder, combining cutting-edge nutrition science with convenience food innovation. The project encompassed full product formulation, sensory evaluation methodologies, and rigorous market analysis to create a commercially viable, health-forward noodle product ready for market entry.</p>
+        <a class="project-link" href="https://www.monash.edu.my/pages/latest/articles/2024/fst-students-lead-the-way-with-sustainable-food-innovations" target="_blank" rel="noopener">Monash Feature Article ↗</a>
+        <div class="project-media-grid">
+          <figure class="project-media-card">
+            <img src="assets/project-previews/packaging-labelling.png" alt="Packaging Labelling" loading="lazy" decoding="async">
+            <figcaption class="project-media-caption">Packaging Labelling</figcaption>
+          </figure>
+          <figure class="project-media-card">
+            <img src="assets/project-previews/process-flow-diagram.png" alt="Process Flow Diagram" loading="lazy" decoding="async">
+            <figcaption class="project-media-caption">Process Flow Diagram</figcaption>
+          </figure>
+        </div>
         <div class="achievement-box">
           <div class="achievement-icon">🏆</div>
           <div>
