@@ -84,7 +84,7 @@ nav {
   min-height: 500px;
   background: linear-gradient(135deg, #1a7fd4 0%, #2092e8 45%, #1468b0 100%);
   overflow: hidden;
-  display: flex; align-items: center;
+  display: flex; align-items: center; justify-content: space-between; gap: clamp(28px, 6vw, 86px);
   padding: 110px 48px 100px;
 }
 .hero-sci-bg {
@@ -122,7 +122,55 @@ nav {
   inset: 0;
   opacity: 0.98;
 }
-.hero-content { position: relative; z-index: 2; max-width: 620px; }
+.hero-content { position: relative; z-index: 2; max-width: 620px; flex: 1 1 560px; }
+.hero-profile-wrap {
+  position: relative;
+  z-index: 2;
+  width: min(340px, 35vw);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hero-profile-wrap::after {
+  content: '';
+  position: absolute;
+  width: 116%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.14);
+  transform: translate(4%, 7%);
+  pointer-events: none;
+}
+.hero-profile-orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,0.38), rgba(255,255,255,0.08) 62%, rgba(255,255,255,0) 100%),
+    linear-gradient(165deg, rgba(255,255,255,0.25), rgba(255,255,255,0.04));
+  border: 2px solid rgba(255,255,255,0.22);
+  box-shadow: 0 24px 44px rgba(6,35,64,0.34);
+}
+.hero-profile-frame {
+  position: relative;
+  width: 84%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  padding: 7px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(255,255,255,0.46));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.38), 0 10px 26px rgba(4,28,51,0.28);
+}
+.hero-profile-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  background: #cfe2f6;
+}
 .hero-label {
   font-family: var(--font-main); font-size: 12px; font-weight: 600;
   letter-spacing: 0.18em; text-transform: uppercase;
@@ -599,6 +647,7 @@ footer {
 .hero-title  { animation: fadeUp 0.6s ease-out 0.3s both; }
 .hero-desc   { animation: fadeUp 0.6s ease-out 0.4s both; }
 .hero-btns   { animation: fadeUp 0.6s ease-out 0.5s both; }
+.hero-profile-wrap { animation: fadeUp 0.6s ease-out 0.35s both; }
 @keyframes heroGlowShift {
   0%   { transform: translate3d(-1.5%, -1.5%, 0) scale(1); opacity: 0.9; }
   100% { transform: translate3d(1.5%, 1.5%, 0) scale(1.08); opacity: 1; }
@@ -972,7 +1021,9 @@ footer {
   .nav-links a:last-child { border-bottom: none; }
   .nav-hamburger { display: flex; }
   section { padding: 60px 20px; }
-  #hero { padding: 90px 20px 72px; min-height: auto; }
+  #hero { padding: 90px 20px 72px; min-height: auto; flex-direction: column; align-items: flex-start; gap: 26px; }
+  .hero-content { max-width: none; }
+  .hero-profile-wrap { order: -1; align-self: center; width: min(300px, 78vw); }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .lang-card { position: static; }
   .exp-item { padding: 24px 20px; }
@@ -1002,6 +1053,7 @@ footer {
 @media (max-width: 560px) {
   .skills-overline { font-size: 11px; }
   .skill-pill { font-size: 11px; }
+  .hero-profile-wrap { width: min(250px, 82vw); }
 }
 </style>
 </head>
@@ -1177,6 +1229,12 @@ footer {
       <a href="#experience" class="btn-outline-white">View Experience</a>
     </div>
   </div>
+  <aside class="hero-profile-wrap" aria-label="Edric Fendy portrait">
+    <div class="hero-profile-orb" aria-hidden="true"></div>
+    <div class="hero-profile-frame">
+      <img src="assets/profile/edric-profile.jpg" alt="Portrait of Edric Fendy" class="hero-profile-img" loading="eager" decoding="async">
+    </div>
+  </aside>
 </section>
 
 <div class="section-divider"></div>
