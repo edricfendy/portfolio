@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Edric Fendy — Food Science & Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,6 +61,7 @@ nav {
   color: var(--ink-mid); text-decoration: none; transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--blue); }
+.nav-links a.active { color: var(--blue); }
 .nav-cta {
   font-family: var(--font-main); font-size: 13px; font-weight: 600;
   color: white; background: var(--blue);
@@ -172,11 +175,6 @@ section { padding: 80px 48px; }
 }
 .section-kicker::before,
 .section-kicker::after { content: none; display: none; }
-.section-title {
-  font-family: var(--font-main); font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 800; color: var(--ink); line-height: 1.15; margin-bottom: 48px;
-}
-.section-title span { color: var(--blue); }
 
 /* ══ ABOUT ══ */
 .about-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 72px; align-items: start; }
@@ -222,21 +220,26 @@ section { padding: 80px 48px; }
 /* ══ EXPERIENCE ══ */
 .exp-timeline { display: flex; flex-direction: column; }
 .exp-item {
-  display: grid; grid-template-columns: 200px 1fr;
-  gap: 48px; padding: 40px 0;
+  padding: 40px 0;
   border-top: 1px solid var(--border);
   opacity: 0; transform: translateY(20px);
   transition: opacity 0.55s ease, transform 0.55s ease;
 }
 .exp-item.visible { opacity: 1; transform: translateY(0); }
 .exp-item:last-child { border-bottom: 1px solid var(--border); }
+.exp-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
 .exp-date {
   font-family: var(--font-main); font-size: 12px; font-weight: 600;
   color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase;
-  line-height: 1.6; margin-bottom: 6px;
+  line-height: 1.6; margin-bottom: 2px;
 }
-.exp-location { font-size: 12px; color: var(--muted); }
-.exp-role { font-family: var(--font-main); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.exp-location { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.exp-role { font-family: var(--font-main); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; line-height: 1.25; }
 .exp-company {
   font-family: var(--font-main); font-size: 13px; font-weight: 600;
   color: var(--blue); margin-bottom: 18px;
@@ -244,18 +247,21 @@ section { padding: 80px 48px; }
 }
 .exp-company::before { content: ''; width: 14px; height: 2px; background: var(--blue); }
 .exp-company.exp-company-logo {
-  padding: 3px 8px;
+  padding: 0;
   gap: 0;
-  border-radius: 7px;
-  border: 1px solid #d9e7f4;
-  background: #fff;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  margin-bottom: 0;
+  flex-shrink: 0;
 }
 .exp-company.exp-company-logo::before { content: none; display: none; }
 .exp-company-logo img {
   display: block;
-  height: 32px;
+  height: auto;
   width: auto;
-  max-width: 100%;
+  max-width: min(220px, 34vw);
+  max-height: 48px;
   object-fit: contain;
 }
 .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
@@ -377,139 +383,101 @@ section { padding: 80px 48px; }
 .achievement-text { font-size: 14px; color: var(--ink-mid); }
 .achievement-text strong { color: var(--ink); font-weight: 700; }
 
-/* ══ SKILLS — TABBED ══ */
-.skills-interactive {
-  display: grid;
-  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
-}
-.skills-chat-stage {
-  position: relative;
-  min-height: 0;
-  margin-top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.skills-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 0;
-}
-.skill-tab-btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-family: var(--font-main); font-size: 12px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  text-align: left;
-  min-height: 56px;
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1.5px solid var(--border);
-  background: white;
-  color: var(--muted);
-  cursor: pointer;
-  pointer-events: auto;
-  transition: all 0.2s;
-}
-.skill-tab-btn:hover { border-color: var(--blue); color: var(--blue); }
-.skill-tab-btn.active {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: white;
-  box-shadow: 0 8px 18px rgba(26,127,212,0.18);
-}
-
-.skill-tab-panel {
-  display: none;
-  position: relative;
-  width: 100%;
-  max-height: none;
-  overflow: visible;
-  background: #ffffff;
-  border: 1px solid #c7daec;
+/* ══ SKILLS — SHOWCASE ══ */
+.skills-showcase {
+  background: #f3f6fa;
+  border: 1px solid #cedff0;
   border-radius: 16px;
-  box-shadow: 0 8px 22px rgba(24, 89, 149, 0.10), 0 2px 8px rgba(0,0,0,0.04);
-  padding: 16px;
-  z-index: 2;
+  padding: clamp(30px, 5vw, 52px);
+  box-shadow: 0 8px 26px rgba(20, 104, 176, 0.10);
 }
-.skill-tab-panel.active {
-  display: block;
-  animation: chatPanelIn 0.22s ease both;
-}
-@keyframes chatPanelIn {
-  from { opacity: 0; transform: translateY(8px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.skills-prompt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.skills-intro {
+  max-width: 760px;
+  margin: 0 auto 34px;
   text-align: center;
+}
+.skills-overline {
   font-family: var(--font-main);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #6c8198;
-  border: 1px dashed #c6d8e8;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.75);
-  min-height: 340px;
-  padding: 20px;
+  color: var(--blue);
+  margin-bottom: 16px;
 }
-.skills-prompt.hidden { display: none; }
-
-.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.skills-grid-2 { grid-template-columns: repeat(2, 1fr); }
-.skill-card {
-  background: white; border: 1px solid var(--border);
-  border-radius: 8px; padding: 28px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+.skills-heading {
+  font-family: var(--font-main);
+  font-size: clamp(36px, 4.3vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #111827;
+  margin-bottom: 14px;
 }
-.skill-card.visible { opacity: 1; transform: translateY(0); }
-.skill-card:hover { box-shadow: 0 6px 24px rgba(26,127,212,0.10); transform: translateY(-3px) !important; }
-.skill-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-.skill-card-icon { width: 42px; height: 42px; border-radius: 8px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.skill-card-title { font-family: var(--font-main); font-size: 15px; font-weight: 700; color: var(--ink); }
-.skill-tags { display: flex; flex-direction: column; gap: 8px; }
-.skill-tag {
-  font-size: 13px; color: var(--ink-mid); padding: 8px 12px;
-  background: var(--blue-pale); border: 1px solid var(--border); border-radius: 4px;
-  display: flex; align-items: center; gap: 8px; transition: all 0.15s;
+.skills-subtitle {
+  font-size: 15px;
+  color: #66788d;
+  line-height: 1.7;
 }
-.skill-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.skill-tag:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
-
-.skills-chat-stage .skills-grid {
-  grid-template-columns: 1fr;
-  gap: 12px;
+.skills-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
 }
-.skills-chat-stage .skills-grid-2 {
-  grid-template-columns: 1fr;
-}
-.skills-chat-stage .skill-card {
-  padding: 18px;
+.skills-showcase-card {
+  background: #fff;
+  border: 1px solid #d7e2ee;
   border-radius: 12px;
-  border-color: #d5e3f1;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-  opacity: 1;
-  transform: none;
+  padding: 22px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s ease;
 }
-
-.skill-subgroup {
-  font-family: var(--font-main); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted); margin: 14px 0 6px; padding-bottom: 4px;
-  border-bottom: 1px solid var(--border);
+.skills-showcase-card.visible { opacity: 1; transform: translateY(0); }
+.skills-showcase-card:hover { box-shadow: 0 10px 24px rgba(26,127,212,0.13); transform: translateY(-3px) !important; }
+.skill-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
 }
-.skill-subgroup:first-of-type { margin-top: 0; }
+.skill-card-symbol {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: #fff;
+  font-size: 17px;
+}
+.skill-card-headline {
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #1f2937;
+}
+.skill-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  background: #e8eff7;
+  border: 1px solid #d2ddea;
+  border-radius: 9px;
+  padding: 7px 11px;
+  line-height: 1.2;
+}
 
 /* ══ CERTIFICATIONS ══ */
 .cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -996,45 +964,33 @@ footer {
   #hero { padding: 90px 20px 72px; min-height: auto; }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .lang-card { position: static; }
-  .exp-item { grid-template-columns: 1fr; gap: 10px; padding: 32px 0; }
-  .edu-grid, .skills-grid, .cert-grid, .standards-grid { grid-template-columns: 1fr; }
-  .skills-grid-2 { grid-template-columns: 1fr; }
+  .exp-item { padding: 32px 0; }
+  .exp-head { gap: 12px; margin-bottom: 14px; }
+  .exp-company-logo img {
+    max-width: min(190px, 48vw);
+    max-height: 40px;
+  }
+  .edu-grid, .cert-grid, .standards-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
   .road-journey-wrap { padding: 24px 18px 24px; border-radius: 12px; }
   .road-header { flex-direction: column; gap: 10px; }
   .road-legend { align-self: flex-start; }
   .project-media-grid { grid-template-columns: 1fr; }
-  .skills-interactive { display: block; }
-  .skills-tabs {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .skill-tab-btn {
-    white-space: normal;
-    min-height: 58px;
-    padding: 10px 12px;
-  }
-  .skills-chat-stage { min-height: 0; margin-top: 0; }
-  .skills-prompt { min-height: 88px; padding: 14px; font-size: 11px; }
-  .skill-tab-panel {
-    position: relative;
-    top: auto !important;
-    left: auto !important;
-    width: 100% !important;
-    max-height: none;
-    margin-top: 12px;
-    padding: 14px;
-  }
+  .skills-showcase { padding: 26px 18px; border-radius: 12px; }
+  .skills-intro { margin-bottom: 24px; }
+  .skills-heading { font-size: clamp(30px, 7.2vw, 40px); }
+  .skills-card-grid { grid-template-columns: 1fr; gap: 14px; }
+  .skills-showcase-card { padding: 18px; }
+  .skill-card-headline { font-size: 20px; }
   .road-main-svg { min-width: 860px; }
   .road-info-panel { flex-direction: column; gap: 12px; padding: 16px; }
   .panel-icon-wrap { width: 38px; height: 38px; font-size: 17px; }
 }
 
 @media (max-width: 560px) {
-  .skills-tabs { grid-template-columns: 1fr; }
+  .skills-overline { font-size: 11px; }
+  .skill-pill { font-size: 11px; }
 }
 </style>
 </head>
@@ -1046,7 +1002,7 @@ footer {
     <div class="nav-logo">EF</div>
     <span class="nav-name-text">Edric <span>Fendy</span></span>
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="primaryNav">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#education">Education</a>
@@ -1057,7 +1013,7 @@ footer {
     <a href="#contact">Contact</a>
   </div>
   <a href="#contact" class="nav-cta">Get in Touch</a>
-  <button class="nav-hamburger" onclick="toggleMenu(this)">
+  <button class="nav-hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1201,7 +1157,7 @@ footer {
   <div class="hero-content">
     <div class="hero-label">Food Science &amp; Technology Professional</div>
     <h1 class="hero-name">Edric Fendy</h1>
-    <p class="hero-title">R&amp;D Specialist · QA/QC Expert · Publicity Officer</p>
+    <p class="hero-title">Aspiring Food Scientist for FMCG Innovation</p>
     <p class="hero-desc">
       Bachelor's graduate from <strong>Monash University</strong> with hands-on experience in Research &amp; Development, Quality Assurance, and Food Certification at leading food companies across the region.
     </p>
@@ -1252,14 +1208,16 @@ footer {
     <div class="section-kicker">Work Experience</div>
     <div class="exp-timeline">
       <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Nov 2024 — Feb 2025</div>
-          <div class="exp-location">📍 Subang Jaya, Selangor, Malaysia</div>
-        </div>
         <div class="exp-body">
-          <div class="exp-role">R&D Specialist Intern</div>
-          <div class="exp-company exp-company-logo">
-            <img src="assets/company-logos/mamee-double-decker.svg" alt="Mamee-Double Decker logo" loading="lazy" decoding="async">
+          <div class="exp-head">
+            <div class="exp-company exp-company-logo">
+              <img src="assets/company-logos/mamee-double-decker.svg" alt="Mamee-Double Decker logo" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="exp-role">R&D Specialist Intern</div>
+              <div class="exp-date">Nov 2024 — Feb 2025</div>
+              <div class="exp-location">📍 Subang Jaya, Selangor, Malaysia</div>
+            </div>
           </div>
           <ul class="exp-bullets">
             <li>Assisted in crisps seasoning trials and prepared finished samples for client requests</li>
@@ -1269,14 +1227,16 @@ footer {
         </div>
       </div>
       <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Dec 2023 — Feb 2024</div>
-          <div class="exp-location">📍 Petaling Jaya, Selangor, Malaysia</div>
-        </div>
         <div class="exp-body">
-          <div class="exp-role">QA/QC Specialist Intern</div>
-          <div class="exp-company exp-company-logo">
-            <img src="assets/company-logos/amazin-graze.svg" alt="amazin'graze logo" loading="lazy" decoding="async">
+          <div class="exp-head">
+            <div class="exp-company exp-company-logo">
+              <img src="assets/company-logos/amazin-graze.svg" alt="amazin'graze logo" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="exp-role">QA/QC Specialist Intern</div>
+              <div class="exp-date">Dec 2023 — Feb 2024</div>
+              <div class="exp-location">📍 Petaling Jaya, Selangor, Malaysia</div>
+            </div>
           </div>
           <ul class="exp-bullets">
             <li>Ensured all unit operations complied with GMP and HACCP practices</li>
@@ -1286,14 +1246,16 @@ footer {
         </div>
       </div>
       <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-date">Dec 2022 — Feb 2023</div>
-          <div class="exp-location">📍 Kuala Lumpur, Malaysia</div>
-        </div>
         <div class="exp-body">
-          <div class="exp-role">Food Certification Intern</div>
-          <div class="exp-company exp-company-logo">
-            <img src="assets/company-logos/interfinite.svg" alt="Interfinite logo" loading="lazy" decoding="async">
+          <div class="exp-head">
+            <div class="exp-company exp-company-logo">
+              <img src="assets/company-logos/interfinite.svg" alt="Interfinite logo" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="exp-role">Food Certification Intern</div>
+              <div class="exp-date">Dec 2022 — Feb 2023</div>
+              <div class="exp-location">📍 Kuala Lumpur, Malaysia</div>
+            </div>
           </div>
           <ul class="exp-bullets">
             <li>Managed clients' Halal renewal applications and GMP, HACCP manuals for compliance</li>
@@ -1493,152 +1455,73 @@ footer {
 <!-- ══ SKILLS ══ -->
 <section id="skills" class="bg-pale">
   <div class="container">
-    <div class="section-kicker">Skills &amp; Expertise</div>
-    <div class="skills-interactive" id="skillsInteractive">
-      <div class="skills-tabs" role="tablist">
-        <button class="skill-tab-btn" data-tab="tab-lab"        role="tab">Lab &amp; Instruments</button>
-        <button class="skill-tab-btn" data-tab="tab-compliance" role="tab">Compliance</button>
-        <button class="skill-tab-btn" data-tab="tab-sensory"    role="tab">Sensory &amp; Chemical</button>
-        <button class="skill-tab-btn" data-tab="tab-micro"      role="tab">Microbiology</button>
-        <button class="skill-tab-btn" data-tab="tab-processing" role="tab">Processing &amp; Packaging</button>
-        <button class="skill-tab-btn" data-tab="tab-tech"       role="tab">Technical</button>
+    <div class="skills-showcase">
+      <div class="skills-intro">
+        <div class="skills-overline">Skills &amp; Expertise</div>
+        <h2 class="skills-heading">What I bring to the table</h2>
+        <p class="skills-subtitle">A comprehensive look at the methods, instruments, and systems I use to develop safe, stable, and market-ready food products.</p>
       </div>
-      <div class="skills-chat-stage" id="skillsChatStage">
-        <div class="skills-prompt" id="skillsPrompt">Choose a competency heading to view the list</div>
-
-        <div class="skill-tab-panel" id="tab-tech">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">⌨️</div><div class="skill-card-title">Software &amp; Digital</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Microsoft Office Suite</div>
-                <div class="skill-tag">Adobe Photoshop</div>
-                <div class="skill-tag">Canva</div>
-                <div class="skill-tag">Web Development</div>
-                <div class="skill-tag">Python</div>
-              </div>
-            </div>
+      <div class="skills-card-grid">
+        <article class="skills-showcase-card">
+          <div class="skill-card-top">
+            <div class="skill-card-symbol">🔬</div>
+            <h3 class="skill-card-headline">Lab &amp; Product Development</h3>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-lab">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Analytical Instruments</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">pH Meter</div>
-                <div class="skill-tag">Colorimeter</div>
-                <div class="skill-tag">Texture Analyser</div>
-                <div class="skill-tag">Moisture Analyser</div>
-                <div class="skill-tag">Water Activity Meter</div>
-                <div class="skill-tag">Oxygen Analyser</div>
-                <div class="skill-tag">Brix-Salinity Meter</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">⚗️</div><div class="skill-card-title">Spectroscopy &amp; Chromatography</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Gas Chromatography (GC)</div>
-                <div class="skill-tag">High Performance Liquid Chromatography (HPLC)</div>
-                <div class="skill-tag">UV-Visible Spectrophotometry</div>
-                <div class="skill-tag">Fourier Transform Infrared Spectroscopy (FTIR)</div>
-                <div class="skill-tag">Atomic Absorption Spectroscopy (AAS)</div>
-                <div class="skill-tag">Mass Spectrometry (MS)</div>
-              </div>
-            </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill">pH Meter</span>
+            <span class="skill-pill">Colorimeter</span>
+            <span class="skill-pill">Texture Analyser</span>
+            <span class="skill-pill">Moisture Analyser</span>
+            <span class="skill-pill">Water Activity Meter</span>
+            <span class="skill-pill">Oxygen Analyser</span>
+            <span class="skill-pill">Brix-Salinity Meter</span>
+            <span class="skill-pill">Triangle Test</span>
+            <span class="skill-pill">Preference Test</span>
+            <span class="skill-pill">Sensory Panels</span>
+            <span class="skill-pill">Titration</span>
+            <span class="skill-pill">Shelf Life Evaluation</span>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-processing">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🏭</div><div class="skill-card-title">Pilot Plant Equipment</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Spray Dryer</div>
-                <div class="skill-tag">Heat Plate Exchanger</div>
-                <div class="skill-tag">Membrane Filtration</div>
-                <div class="skill-tag">Freeze Dryer</div>
-                <div class="skill-tag">Convection Oven</div>
-                <div class="skill-tag">Vacuum Oven</div>
-                <div class="skill-tag">Bioreactor</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">📦</div><div class="skill-card-title">Packaging &amp; Shelf Life</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Modified Atmosphere Packaging (MAP)</div>
-                <div class="skill-tag">Oxygen &amp; Moisture Analysis</div>
-                <div class="skill-tag">Shelf Life Evaluation</div>
-              </div>
-            </div>
+        </article>
+        <article class="skills-showcase-card">
+          <div class="skill-card-top">
+            <div class="skill-card-symbol">🧪</div>
+            <h3 class="skill-card-headline">Processing &amp; Analysis</h3>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-sensory">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">👅</div><div class="skill-card-title">Sensory &amp; Consumer Testing</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Triangle Test</div>
-                <div class="skill-tag">Preference Test</div>
-                <div class="skill-tag">Sensory Evaluation Panels</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🧫</div><div class="skill-card-title">Chemical Analysis</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Titration</div>
-                <div class="skill-tag">Kjeldahl Method (Protein Analysis)</div>
-                <div class="skill-tag">Soxhlet Extraction (Fat Analysis)</div>
-                <div class="skill-tag">Iodine Starch Test</div>
-              </div>
-            </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill">Spray Dryer</span>
+            <span class="skill-pill">Freeze Dryer</span>
+            <span class="skill-pill">Membrane Filtration</span>
+            <span class="skill-pill">Heat Plate Exchanger</span>
+            <span class="skill-pill">Convection Oven</span>
+            <span class="skill-pill">Vacuum Oven</span>
+            <span class="skill-pill">Bioreactor</span>
+            <span class="skill-pill">Gas Chromatography (GC)</span>
+            <span class="skill-pill">HPLC</span>
+            <span class="skill-pill">UV-Vis Spectrophotometry</span>
+            <span class="skill-pill">FTIR</span>
+            <span class="skill-pill">Mass Spectrometry (MS)</span>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-micro">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🦠</div><div class="skill-card-title">Aseptic &amp; Culture Techniques</div></div>
-              <div class="skill-tags">
-                <div class="skill-subgroup">Inoculation Methods</div>
-                <div class="skill-tag">Pour Plating</div>
-                <div class="skill-tag">Streak Plating</div>
-                <div class="skill-tag">Serial Dilution</div>
-                <div class="skill-subgroup">Microscopy</div>
-                <div class="skill-tag">Gram Staining</div>
-                <div class="skill-tag">Microscopy Techniques</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🔭</div><div class="skill-card-title">Identification &amp; Selective Media</div></div>
-              <div class="skill-tags">
-                <div class="skill-subgroup">Biochemical Tests</div>
-                <div class="skill-tag">Catalase Test</div>
-                <div class="skill-tag">Coagulase Test</div>
-                <div class="skill-subgroup">Media &amp; Isolation</div>
-                <div class="skill-tag">Selective Media Preparation</div>
-              </div>
-            </div>
+        </article>
+        <article class="skills-showcase-card">
+          <div class="skill-card-top">
+            <div class="skill-card-symbol">🛡️</div>
+            <h3 class="skill-card-headline">Compliance &amp; Technical</h3>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-compliance">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🛡️</div><div class="skill-card-title">Standards &amp; Systems</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">GMP (Good Manufacturing Practice)</div>
-                <div class="skill-tag">HACCP (Codex Alimentarius)</div>
-                <div class="skill-tag">Halal Assurance System</div>
-                <div class="skill-tag">Food Safety Management</div>
-                <div class="skill-tag">ISO 9001:2015</div>
-                <div class="skill-tag">FSSC 22000</div>
-              </div>
-            </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill">GMP</span>
+            <span class="skill-pill">HACCP</span>
+            <span class="skill-pill">Halal Assurance System</span>
+            <span class="skill-pill">Food Safety Management</span>
+            <span class="skill-pill">ISO 9001:2015</span>
+            <span class="skill-pill">FSSC 22000</span>
+            <span class="skill-pill">Modified Atmosphere Packaging</span>
+            <span class="skill-pill">Microsoft Office</span>
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">Web Development</span>
+            <span class="skill-pill">Adobe Photoshop</span>
+            <span class="skill-pill">Canva</span>
           </div>
-        </div>
-
+        </article>
       </div>
     </div>
   </div>
@@ -1720,7 +1603,7 @@ footer {
             <div class="contact-icon">📞</div>
             <div><div class="contact-label">Phone</div><div class="contact-value">+60 14-7118560</div></div>
           </a>
-          <a href="https://www.linkedin.com/in/edric-fendy-71b0a6240/" target="_blank" class="contact-card">
+          <a href="https://www.linkedin.com/in/edric-fendy-71b0a6240/" target="_blank" rel="noopener noreferrer" class="contact-card">
             <div class="contact-icon">🔗</div>
             <div><div class="contact-label">LinkedIn</div><div class="contact-value">Connect with me</div></div>
           </a>
@@ -1731,13 +1614,13 @@ footer {
         </div>
       </div>
       <div>
-        <div class="contact-form">
-          <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" placeholder="Your name"></div>
-          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="your.email@example.com"></div>
-          <div class="form-group"><label class="form-label">Subject</label><input class="form-input" type="text" placeholder="What's this about?"></div>
-          <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" placeholder="Tell me more..."></textarea></div>
-          <button class="form-submit" onclick="handleSend(this)">Send Message →</button>
-        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group"><label class="form-label" for="contactName">Name</label><input id="contactName" name="name" class="form-input" type="text" placeholder="Your name" required autocomplete="name"></div>
+          <div class="form-group"><label class="form-label" for="contactEmail">Email</label><input id="contactEmail" name="email" class="form-input" type="email" placeholder="your.email@example.com" required autocomplete="email"></div>
+          <div class="form-group"><label class="form-label" for="contactSubject">Subject</label><input id="contactSubject" name="subject" class="form-input" type="text" placeholder="What's this about?" autocomplete="off"></div>
+          <div class="form-group"><label class="form-label" for="contactMessage">Message</label><textarea id="contactMessage" name="message" class="form-input" placeholder="Tell me more..." required></textarea></div>
+          <button class="form-submit" type="submit">Send Message →</button>
+        </form>
       </div>
     </div>
   </div>
@@ -1757,7 +1640,7 @@ footer {
     <a href="#certifications">Certifications</a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="footer-copy">© 2025 Edric Fendy</div>
+  <div class="footer-copy">© <span id="footerYear">2026</span> Edric Fendy</div>
 </footer>
 
 <script>
@@ -1765,57 +1648,12 @@ footer {
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
-document.querySelectorAll('.exp-item,.edu-card,.project-card,.cert-card,.standard-card').forEach(el => observer.observe(el));
+document.querySelectorAll('.exp-item,.edu-card,.project-card,.skills-showcase-card,.cert-card,.standard-card').forEach(el => observer.observe(el));
 document.querySelectorAll('.edu-card').forEach((el,i)     => el.style.transitionDelay = (i * 0.12) + 's');
 document.querySelectorAll('.exp-item').forEach((el,i)     => el.style.transitionDelay = (i * 0.10) + 's');
+document.querySelectorAll('.skills-showcase-card').forEach((el,i) => el.style.transitionDelay = (i * 0.08) + 's');
 document.querySelectorAll('.cert-card').forEach((el,i)    => el.style.transitionDelay = (i * 0.10) + 's');
 document.querySelectorAll('.standard-card').forEach((el,i)=> el.style.transitionDelay = (i * 0.07) + 's');
-
-/* ── Skill section: click to reveal ── */
-const skillTabButtons = Array.from(document.querySelectorAll('.skill-tab-btn'));
-const skillTabPanels  = Array.from(document.querySelectorAll('.skill-tab-panel'));
-const skillsPrompt    = document.getElementById('skillsPrompt');
-
-function activateSkillTab(tabId) {
-  let hasActive = false;
-
-  skillTabButtons.forEach(button => {
-    const isActive = button.getAttribute('data-tab') === tabId;
-    button.classList.toggle('active', isActive);
-    button.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    if (isActive) hasActive = true;
-  });
-
-  skillTabPanels.forEach(panel => {
-    const isActive = panel.id === tabId;
-    panel.classList.toggle('active', isActive);
-    panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-    if (isActive) {
-      panel.querySelectorAll('.skill-card').forEach(card => card.classList.add('visible'));
-    }
-  });
-
-  if (skillsPrompt) {
-    skillsPrompt.classList.toggle('hidden', hasActive);
-  }
-}
-
-skillTabButtons.forEach(button => {
-  const tabId = button.getAttribute('data-tab');
-  if (!tabId) return;
-  button.setAttribute('aria-controls', tabId);
-  button.setAttribute('aria-selected', 'false');
-  button.addEventListener('click', () => activateSkillTab(tabId));
-  button.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      activateSkillTab(tabId);
-    }
-  });
-});
-
-skillTabPanels.forEach(panel => panel.setAttribute('aria-hidden', 'true'));
-if (skillsPrompt) skillsPrompt.classList.remove('hidden');
 
 /* ── Active nav highlight ── */
 const sections = document.querySelectorAll('section[id]');
@@ -1823,7 +1661,10 @@ const navLinks  = document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-  navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : ''; });
+  navLinks.forEach(a => {
+    const isCurrent = a.getAttribute('href') === '#' + current;
+    a.classList.toggle('active', isCurrent);
+  });
 });
 
 /* ══ ROADMAP ══ */
@@ -1896,7 +1737,9 @@ function activateStop(idx) {
   activeIdx = idx;
 
   roadStops.forEach((stop, i) => {
-    stop.classList.toggle('active', i === idx);
+    const isActive = i === idx;
+    stop.classList.toggle('active', isActive);
+    stop.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 
   renderPanel(idx);
@@ -1905,6 +1748,7 @@ function activateStop(idx) {
 /* Click / tap each stop */
 roadStops.forEach(stop => {
   const idx = parseInt(stop.getAttribute('data-idx'), 10);
+  stop.setAttribute('aria-pressed', 'false');
 
   /* Both click and pointerup to cover mouse + touch reliably */
   stop.addEventListener('click', e => {
@@ -1925,24 +1769,90 @@ roadStops.forEach(stop => {
 activateStop(0);
 
 /* ── Form ── */
-function handleSend(btn) {
-  btn.textContent  = '✓ Sent!';
-  btn.style.background = '#1e7e40';
-  btn.disabled = true;
-  btn.style.cursor = 'default';
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const submitButton = form.querySelector('.form-submit');
+    const nameField = form.elements.namedItem('name');
+    const emailField = form.elements.namedItem('email');
+    const subjectField = form.elements.namedItem('subject');
+    const messageField = form.elements.namedItem('message');
+    const name = nameField ? String(nameField.value).trim() : '';
+    const email = emailField ? String(emailField.value).trim() : '';
+    const subject = subjectField ? String(subjectField.value).trim() : '';
+    const message = messageField ? String(messageField.value).trim() : '';
+
+    if (!name || !email || !message) return;
+
+    const mailSubject = subject || 'Portfolio contact message';
+    const mailBody = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      '',
+      'Message:',
+      message
+    ].join('\n');
+
+    if (submitButton) {
+      submitButton.textContent = 'Opening Email...';
+      submitButton.disabled = true;
+    }
+
+    window.location.href = `mailto:edricfendy45@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+    form.reset();
+
+    window.setTimeout(() => {
+      if (submitButton) {
+        submitButton.textContent = 'Send Message →';
+        submitButton.disabled = false;
+      }
+    }, 1200);
+  });
 }
 
 /* ── Mobile menu ── */
 const mobileMenu = document.querySelector('.nav-links');
-function closeMenu() { if (mobileMenu) mobileMenu.classList.remove('open'); }
-function toggleMenu() { if (mobileMenu) mobileMenu.classList.toggle('open'); }
+const mobileMenuToggle = document.querySelector('.nav-hamburger');
+function syncMobileMenuState() {
+  if (!mobileMenu) return;
+  const isDesktop = window.innerWidth > 900;
+  if (isDesktop) mobileMenu.classList.remove('open');
+  const isOpen = mobileMenu.classList.contains('open');
+
+  if (mobileMenuToggle) {
+    mobileMenuToggle.setAttribute('aria-expanded', isDesktop ? 'false' : (isOpen ? 'true' : 'false'));
+  }
+  mobileMenu.setAttribute('aria-hidden', isDesktop ? 'false' : (isOpen ? 'false' : 'true'));
+}
+function closeMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.remove('open');
+  syncMobileMenuState();
+}
+function toggleMenu() {
+  if (!mobileMenu) return;
+  mobileMenu.classList.toggle('open');
+  syncMobileMenuState();
+}
 document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('click', e => {
   if (window.innerWidth > 900) return;
   if (!mobileMenu || !mobileMenu.classList.contains('open')) return;
   if (!e.target.closest('nav')) closeMenu();
 });
-window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMenu();
+});
+window.addEventListener('resize', syncMobileMenuState);
+syncMobileMenuState();
+
+const footerYear = document.getElementById('footerYear');
+if (footerYear) {
+  footerYear.textContent = String(new Date().getFullYear());
+}
 </script>
 </body>
 </html>
