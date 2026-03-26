@@ -383,139 +383,101 @@ section { padding: 80px 48px; }
 .achievement-text { font-size: 14px; color: var(--ink-mid); }
 .achievement-text strong { color: var(--ink); font-weight: 700; }
 
-/* ══ SKILLS — TABBED ══ */
-.skills-interactive {
-  display: grid;
-  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
-}
-.skills-chat-stage {
-  position: relative;
-  min-height: 0;
-  margin-top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.skills-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 0;
-}
-.skill-tab-btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-family: var(--font-main); font-size: 12px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  text-align: left;
-  min-height: 56px;
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1.5px solid var(--border);
-  background: white;
-  color: var(--muted);
-  cursor: pointer;
-  pointer-events: auto;
-  transition: all 0.2s;
-}
-.skill-tab-btn:hover { border-color: var(--blue); color: var(--blue); }
-.skill-tab-btn.active {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: white;
-  box-shadow: 0 8px 18px rgba(26,127,212,0.18);
-}
-
-.skill-tab-panel {
-  display: none;
-  position: relative;
-  width: 100%;
-  max-height: none;
-  overflow: visible;
-  background: #ffffff;
-  border: 1px solid #c7daec;
+/* ══ SKILLS — SHOWCASE ══ */
+.skills-showcase {
+  background: #f3f6fa;
+  border: 1px solid #cedff0;
   border-radius: 16px;
-  box-shadow: 0 8px 22px rgba(24, 89, 149, 0.10), 0 2px 8px rgba(0,0,0,0.04);
-  padding: 16px;
-  z-index: 2;
+  padding: clamp(30px, 5vw, 52px);
+  box-shadow: 0 8px 26px rgba(20, 104, 176, 0.10);
 }
-.skill-tab-panel.active {
-  display: block;
-  animation: chatPanelIn 0.22s ease both;
-}
-@keyframes chatPanelIn {
-  from { opacity: 0; transform: translateY(8px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.skills-prompt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.skills-intro {
+  max-width: 760px;
+  margin: 0 auto 34px;
   text-align: center;
+}
+.skills-overline {
   font-family: var(--font-main);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #6c8198;
-  border: 1px dashed #c6d8e8;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.75);
-  min-height: 340px;
-  padding: 20px;
+  color: var(--blue);
+  margin-bottom: 16px;
 }
-.skills-prompt.hidden { display: none; }
-
-.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.skills-grid-2 { grid-template-columns: repeat(2, 1fr); }
-.skill-card {
-  background: white; border: 1px solid var(--border);
-  border-radius: 8px; padding: 28px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+.skills-heading {
+  font-family: var(--font-main);
+  font-size: clamp(36px, 4.3vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #111827;
+  margin-bottom: 14px;
 }
-.skill-card.visible { opacity: 1; transform: translateY(0); }
-.skill-card:hover { box-shadow: 0 6px 24px rgba(26,127,212,0.10); transform: translateY(-3px) !important; }
-.skill-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-.skill-card-icon { width: 42px; height: 42px; border-radius: 8px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.skill-card-title { font-family: var(--font-main); font-size: 15px; font-weight: 700; color: var(--ink); }
-.skill-tags { display: flex; flex-direction: column; gap: 8px; }
-.skill-tag {
-  font-size: 13px; color: var(--ink-mid); padding: 8px 12px;
-  background: var(--blue-pale); border: 1px solid var(--border); border-radius: 4px;
-  display: flex; align-items: center; gap: 8px; transition: all 0.15s;
+.skills-subtitle {
+  font-size: 15px;
+  color: #66788d;
+  line-height: 1.7;
 }
-.skill-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.skill-tag:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
-
-.skills-chat-stage .skills-grid {
-  grid-template-columns: 1fr;
-  gap: 12px;
+.skills-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
 }
-.skills-chat-stage .skills-grid-2 {
-  grid-template-columns: 1fr;
-}
-.skills-chat-stage .skill-card {
-  padding: 18px;
+.skills-showcase-card {
+  background: #fff;
+  border: 1px solid #d7e2ee;
   border-radius: 12px;
-  border-color: #d5e3f1;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-  opacity: 1;
-  transform: none;
+  padding: 22px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s ease;
 }
-
-.skill-subgroup {
-  font-family: var(--font-main); font-size: 10px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted); margin: 14px 0 6px; padding-bottom: 4px;
-  border-bottom: 1px solid var(--border);
+.skills-showcase-card.visible { opacity: 1; transform: translateY(0); }
+.skills-showcase-card:hover { box-shadow: 0 10px 24px rgba(26,127,212,0.13); transform: translateY(-3px) !important; }
+.skill-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
 }
-.skill-subgroup:first-of-type { margin-top: 0; }
+.skill-card-symbol {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: #fff;
+  font-size: 17px;
+}
+.skill-card-headline {
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #1f2937;
+}
+.skill-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  background: #e8eff7;
+  border: 1px solid #d2ddea;
+  border-radius: 9px;
+  padding: 7px 11px;
+  line-height: 1.2;
+}
 
 /* ══ CERTIFICATIONS ══ */
 .cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -1008,44 +970,27 @@ footer {
     max-width: min(190px, 48vw);
     max-height: 40px;
   }
-  .edu-grid, .skills-grid, .cert-grid, .standards-grid { grid-template-columns: 1fr; }
-  .skills-grid-2 { grid-template-columns: 1fr; }
+  .edu-grid, .cert-grid, .standards-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
   .road-journey-wrap { padding: 24px 18px 24px; border-radius: 12px; }
   .road-header { flex-direction: column; gap: 10px; }
   .road-legend { align-self: flex-start; }
   .project-media-grid { grid-template-columns: 1fr; }
-  .skills-interactive { display: block; }
-  .skills-tabs {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .skill-tab-btn {
-    white-space: normal;
-    min-height: 58px;
-    padding: 10px 12px;
-  }
-  .skills-chat-stage { min-height: 0; margin-top: 0; }
-  .skills-prompt { min-height: 88px; padding: 14px; font-size: 11px; }
-  .skill-tab-panel {
-    position: relative;
-    top: auto !important;
-    left: auto !important;
-    width: 100% !important;
-    max-height: none;
-    margin-top: 12px;
-    padding: 14px;
-  }
+  .skills-showcase { padding: 26px 18px; border-radius: 12px; }
+  .skills-intro { margin-bottom: 24px; }
+  .skills-heading { font-size: clamp(30px, 7.2vw, 40px); }
+  .skills-card-grid { grid-template-columns: 1fr; gap: 14px; }
+  .skills-showcase-card { padding: 18px; }
+  .skill-card-headline { font-size: 20px; }
   .road-main-svg { min-width: 860px; }
   .road-info-panel { flex-direction: column; gap: 12px; padding: 16px; }
   .panel-icon-wrap { width: 38px; height: 38px; font-size: 17px; }
 }
 
 @media (max-width: 560px) {
-  .skills-tabs { grid-template-columns: 1fr; }
+  .skills-overline { font-size: 11px; }
+  .skill-pill { font-size: 11px; }
 }
 </style>
 </head>
@@ -1510,152 +1455,73 @@ footer {
 <!-- ══ SKILLS ══ -->
 <section id="skills" class="bg-pale">
   <div class="container">
-    <div class="section-kicker">Skills &amp; Expertise</div>
-    <div class="skills-interactive" id="skillsInteractive">
-      <div class="skills-tabs" role="tablist">
-        <button class="skill-tab-btn" data-tab="tab-lab"        role="tab">Lab &amp; Instruments</button>
-        <button class="skill-tab-btn" data-tab="tab-compliance" role="tab">Compliance</button>
-        <button class="skill-tab-btn" data-tab="tab-sensory"    role="tab">Sensory &amp; Chemical</button>
-        <button class="skill-tab-btn" data-tab="tab-micro"      role="tab">Microbiology</button>
-        <button class="skill-tab-btn" data-tab="tab-processing" role="tab">Processing &amp; Packaging</button>
-        <button class="skill-tab-btn" data-tab="tab-tech"       role="tab">Technical</button>
+    <div class="skills-showcase">
+      <div class="skills-intro">
+        <div class="skills-overline">Skills &amp; Expertise</div>
+        <h2 class="skills-heading">What I bring to the table</h2>
+        <p class="skills-subtitle">A comprehensive look at the methods, instruments, and systems I use to develop safe, stable, and market-ready food products.</p>
       </div>
-      <div class="skills-chat-stage" id="skillsChatStage">
-        <div class="skills-prompt" id="skillsPrompt">Choose a competency heading to view the list</div>
-
-        <div class="skill-tab-panel" id="tab-tech">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">⌨️</div><div class="skill-card-title">Software &amp; Digital</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Microsoft Office Suite</div>
-                <div class="skill-tag">Adobe Photoshop</div>
-                <div class="skill-tag">Canva</div>
-                <div class="skill-tag">Web Development</div>
-                <div class="skill-tag">Python</div>
-              </div>
-            </div>
+      <div class="skills-card-grid">
+        <article class="skills-showcase-card">
+          <div class="skill-card-top">
+            <div class="skill-card-symbol">🔬</div>
+            <h3 class="skill-card-headline">Lab &amp; Product Development</h3>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-lab">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🔬</div><div class="skill-card-title">Analytical Instruments</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">pH Meter</div>
-                <div class="skill-tag">Colorimeter</div>
-                <div class="skill-tag">Texture Analyser</div>
-                <div class="skill-tag">Moisture Analyser</div>
-                <div class="skill-tag">Water Activity Meter</div>
-                <div class="skill-tag">Oxygen Analyser</div>
-                <div class="skill-tag">Brix-Salinity Meter</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">⚗️</div><div class="skill-card-title">Spectroscopy &amp; Chromatography</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Gas Chromatography (GC)</div>
-                <div class="skill-tag">High Performance Liquid Chromatography (HPLC)</div>
-                <div class="skill-tag">UV-Visible Spectrophotometry</div>
-                <div class="skill-tag">Fourier Transform Infrared Spectroscopy (FTIR)</div>
-                <div class="skill-tag">Atomic Absorption Spectroscopy (AAS)</div>
-                <div class="skill-tag">Mass Spectrometry (MS)</div>
-              </div>
-            </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill">pH Meter</span>
+            <span class="skill-pill">Colorimeter</span>
+            <span class="skill-pill">Texture Analyser</span>
+            <span class="skill-pill">Moisture Analyser</span>
+            <span class="skill-pill">Water Activity Meter</span>
+            <span class="skill-pill">Oxygen Analyser</span>
+            <span class="skill-pill">Brix-Salinity Meter</span>
+            <span class="skill-pill">Triangle Test</span>
+            <span class="skill-pill">Preference Test</span>
+            <span class="skill-pill">Sensory Panels</span>
+            <span class="skill-pill">Titration</span>
+            <span class="skill-pill">Shelf Life Evaluation</span>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-processing">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🏭</div><div class="skill-card-title">Pilot Plant Equipment</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Spray Dryer</div>
-                <div class="skill-tag">Heat Plate Exchanger</div>
-                <div class="skill-tag">Membrane Filtration</div>
-                <div class="skill-tag">Freeze Dryer</div>
-                <div class="skill-tag">Convection Oven</div>
-                <div class="skill-tag">Vacuum Oven</div>
-                <div class="skill-tag">Bioreactor</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">📦</div><div class="skill-card-title">Packaging &amp; Shelf Life</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Modified Atmosphere Packaging (MAP)</div>
-                <div class="skill-tag">Oxygen &amp; Moisture Analysis</div>
-                <div class="skill-tag">Shelf Life Evaluation</div>
-              </div>
-            </div>
+        </article>
+        <article class="skills-showcase-card">
+          <div class="skill-card-top">
+            <div class="skill-card-symbol">🧪</div>
+            <h3 class="skill-card-headline">Processing &amp; Analysis</h3>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-sensory">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">👅</div><div class="skill-card-title">Sensory &amp; Consumer Testing</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Triangle Test</div>
-                <div class="skill-tag">Preference Test</div>
-                <div class="skill-tag">Sensory Evaluation Panels</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🧫</div><div class="skill-card-title">Chemical Analysis</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">Titration</div>
-                <div class="skill-tag">Kjeldahl Method (Protein Analysis)</div>
-                <div class="skill-tag">Soxhlet Extraction (Fat Analysis)</div>
-                <div class="skill-tag">Iodine Starch Test</div>
-              </div>
-            </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill">Spray Dryer</span>
+            <span class="skill-pill">Freeze Dryer</span>
+            <span class="skill-pill">Membrane Filtration</span>
+            <span class="skill-pill">Heat Plate Exchanger</span>
+            <span class="skill-pill">Convection Oven</span>
+            <span class="skill-pill">Vacuum Oven</span>
+            <span class="skill-pill">Bioreactor</span>
+            <span class="skill-pill">Gas Chromatography (GC)</span>
+            <span class="skill-pill">HPLC</span>
+            <span class="skill-pill">UV-Vis Spectrophotometry</span>
+            <span class="skill-pill">FTIR</span>
+            <span class="skill-pill">Mass Spectrometry (MS)</span>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-micro">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🦠</div><div class="skill-card-title">Aseptic &amp; Culture Techniques</div></div>
-              <div class="skill-tags">
-                <div class="skill-subgroup">Inoculation Methods</div>
-                <div class="skill-tag">Pour Plating</div>
-                <div class="skill-tag">Streak Plating</div>
-                <div class="skill-tag">Serial Dilution</div>
-                <div class="skill-subgroup">Microscopy</div>
-                <div class="skill-tag">Gram Staining</div>
-                <div class="skill-tag">Microscopy Techniques</div>
-              </div>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🔭</div><div class="skill-card-title">Identification &amp; Selective Media</div></div>
-              <div class="skill-tags">
-                <div class="skill-subgroup">Biochemical Tests</div>
-                <div class="skill-tag">Catalase Test</div>
-                <div class="skill-tag">Coagulase Test</div>
-                <div class="skill-subgroup">Media &amp; Isolation</div>
-                <div class="skill-tag">Selective Media Preparation</div>
-              </div>
-            </div>
+        </article>
+        <article class="skills-showcase-card">
+          <div class="skill-card-top">
+            <div class="skill-card-symbol">🛡️</div>
+            <h3 class="skill-card-headline">Compliance &amp; Technical</h3>
           </div>
-        </div>
-
-        <div class="skill-tab-panel" id="tab-compliance">
-          <div class="skills-grid">
-            <div class="skill-card">
-              <div class="skill-card-header"><div class="skill-card-icon">🛡️</div><div class="skill-card-title">Standards &amp; Systems</div></div>
-              <div class="skill-tags">
-                <div class="skill-tag">GMP (Good Manufacturing Practice)</div>
-                <div class="skill-tag">HACCP (Codex Alimentarius)</div>
-                <div class="skill-tag">Halal Assurance System</div>
-                <div class="skill-tag">Food Safety Management</div>
-                <div class="skill-tag">ISO 9001:2015</div>
-                <div class="skill-tag">FSSC 22000</div>
-              </div>
-            </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill">GMP</span>
+            <span class="skill-pill">HACCP</span>
+            <span class="skill-pill">Halal Assurance System</span>
+            <span class="skill-pill">Food Safety Management</span>
+            <span class="skill-pill">ISO 9001:2015</span>
+            <span class="skill-pill">FSSC 22000</span>
+            <span class="skill-pill">Modified Atmosphere Packaging</span>
+            <span class="skill-pill">Microsoft Office</span>
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">Web Development</span>
+            <span class="skill-pill">Adobe Photoshop</span>
+            <span class="skill-pill">Canva</span>
           </div>
-        </div>
-
+        </article>
       </div>
     </div>
   </div>
@@ -1782,88 +1648,12 @@ footer {
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
-document.querySelectorAll('.exp-item,.edu-card,.project-card,.cert-card,.standard-card').forEach(el => observer.observe(el));
+document.querySelectorAll('.exp-item,.edu-card,.project-card,.skills-showcase-card,.cert-card,.standard-card').forEach(el => observer.observe(el));
 document.querySelectorAll('.edu-card').forEach((el,i)     => el.style.transitionDelay = (i * 0.12) + 's');
 document.querySelectorAll('.exp-item').forEach((el,i)     => el.style.transitionDelay = (i * 0.10) + 's');
+document.querySelectorAll('.skills-showcase-card').forEach((el,i) => el.style.transitionDelay = (i * 0.08) + 's');
 document.querySelectorAll('.cert-card').forEach((el,i)    => el.style.transitionDelay = (i * 0.10) + 's');
 document.querySelectorAll('.standard-card').forEach((el,i)=> el.style.transitionDelay = (i * 0.07) + 's');
-
-/* ── Skill section: click to reveal ── */
-const skillTabButtons = Array.from(document.querySelectorAll('.skill-tab-btn'));
-const skillTabPanels  = Array.from(document.querySelectorAll('.skill-tab-panel'));
-const skillsPrompt    = document.getElementById('skillsPrompt');
-
-function activateSkillTab(tabId) {
-  let hasActive = false;
-
-  skillTabButtons.forEach(button => {
-    const isActive = button.getAttribute('data-tab') === tabId;
-    button.classList.toggle('active', isActive);
-    button.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    button.setAttribute('tabindex', isActive ? '0' : '-1');
-    if (isActive) hasActive = true;
-  });
-
-  skillTabPanels.forEach(panel => {
-    const isActive = panel.id === tabId;
-    panel.classList.toggle('active', isActive);
-    panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-    if (isActive) {
-      panel.querySelectorAll('.skill-card').forEach(card => card.classList.add('visible'));
-    }
-  });
-
-  if (skillsPrompt) {
-    skillsPrompt.classList.toggle('hidden', hasActive);
-  }
-}
-
-skillTabButtons.forEach(button => {
-  const tabId = button.getAttribute('data-tab');
-  if (!tabId) return;
-  button.setAttribute('aria-controls', tabId);
-  button.setAttribute('aria-selected', 'false');
-  button.setAttribute('tabindex', '-1');
-  button.addEventListener('click', () => activateSkillTab(tabId));
-  button.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      activateSkillTab(tabId);
-      return;
-    }
-
-    const currentIndex = skillTabButtons.indexOf(button);
-    if (currentIndex < 0) return;
-
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-      e.preventDefault();
-      skillTabButtons[(currentIndex + 1) % skillTabButtons.length].focus();
-      return;
-    }
-
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      e.preventDefault();
-      skillTabButtons[(currentIndex - 1 + skillTabButtons.length) % skillTabButtons.length].focus();
-      return;
-    }
-
-    if (e.key === 'Home') {
-      e.preventDefault();
-      skillTabButtons[0].focus();
-      return;
-    }
-
-    if (e.key === 'End') {
-      e.preventDefault();
-      skillTabButtons[skillTabButtons.length - 1].focus();
-    }
-  });
-});
-
-skillTabPanels.forEach(panel => panel.setAttribute('aria-hidden', 'true'));
-if (skillTabButtons.length > 0) {
-  activateSkillTab(skillTabButtons[0].getAttribute('data-tab'));
-}
 
 /* ── Active nav highlight ── */
 const sections = document.querySelectorAll('section[id]');
