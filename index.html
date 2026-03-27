@@ -50,38 +50,43 @@ body {
 /* ══ NAV ══ */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-  height: 64px; padding: 0 48px;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  height: 70px;
+  padding: 0 clamp(20px, 2.6vw, 48px);
+  background: #f7f9fc;
+  border-bottom: 2px solid #2c86da;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: clamp(18px, 2.8vw, 40px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;
 }
-.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
 .nav-logo {
   width: 38px; height: 38px; border-radius: 50%;
-  background: var(--blue);
+  background: linear-gradient(145deg, #2f91e1, #1a7fd4);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-main); font-size: 13px; font-weight: 700; color: white;
+  box-shadow: 0 4px 10px rgba(26,127,212,0.2);
 }
-.nav-name-text { font-family: var(--font-main); font-weight: 600; font-size: 16px; color: #000; }
-.nav-name-text span { color: #000; font-weight: 300; }
-.nav-links { display: flex; gap: 24px; }
+.nav-name-text { font-family: var(--font-main); font-weight: 700; font-size: 16px; color: #1a2a3d; }
+.nav-name-text span { color: #5b6b7f; font-weight: 400; }
+.nav-links { display: flex; align-items: center; justify-content: center; gap: clamp(16px, 2vw, 30px); min-width: 0; }
 .nav-links a {
   font-family: var(--font-main); font-size: 13px; font-weight: 500;
-  color: var(--ink-mid); text-decoration: none; transition: color 0.2s;
+  color: #33485f; text-decoration: none; transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--blue); }
 .nav-links a.active { color: var(--blue); }
 .nav-cta {
-  font-family: var(--font-main); font-size: 13px; font-weight: 600;
+  font-family: var(--font-main); font-size: 13px; font-weight: 700;
   color: white; background: var(--blue);
   border: none; border-radius: 4px;
-  padding: 9px 22px; cursor: pointer; text-decoration: none;
-  transition: background 0.2s, transform 0.15s;
+  padding: 10px 22px; cursor: pointer; text-decoration: none;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
-.nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+.nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 5px 12px rgba(20,104,176,0.22); }
 .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 1px; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: #24364a; border-radius: 1px; }
 
 /* ══ HERO ══ */
 #hero {
@@ -231,30 +236,6 @@ nav {
   text-decoration: none; cursor: pointer; background: transparent; transition: all 0.2s;
 }
 .btn-outline-white:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.7); color: #fff; }
-.hero-status-badge {
-  position: absolute;
-  left: -10px;
-  bottom: 28px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,0.96);
-  color: #28415b;
-  font-family: var(--font-main);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(183,211,240,0.9);
-  box-shadow: 0 14px 24px rgba(8,36,92,0.25);
-}
-.hero-status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #2bc267;
-  box-shadow: 0 0 0 3px rgba(43,194,103,0.2);
-}
 
 /* ══ SECTION BASE ══ */
 section { padding: 80px 48px; }
@@ -1109,7 +1090,12 @@ footer {
 
 /* ══ RESPONSIVE ══ */
 @media (max-width: 900px) {
-  nav { padding: 0 20px; }
+  nav {
+    height: 64px;
+    padding: 0 20px;
+    grid-template-columns: auto auto;
+    column-gap: 12px;
+  }
   .nav-cta { display: none; }
   .nav-links {
     display: none;
@@ -1136,10 +1122,6 @@ footer {
   #hero { padding: 90px 20px 72px; min-height: auto; flex-direction: column; align-items: flex-start; gap: 28px; }
   .hero-content { max-width: none; width: 100%; }
   .hero-profile-wrap { order: -1; align-self: center; width: min(300px, 80vw); }
-  .hero-status-badge {
-    position: static;
-    margin-top: -6px;
-  }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .lang-card { position: static; }
   .exp-item { padding: var(--card-pad-mobile); }
@@ -1361,10 +1343,6 @@ footer {
     <div class="hero-profile-orb" aria-hidden="true"></div>
     <div class="hero-profile-frame">
       <img src="assets/profile/edric-profile.jpg" alt="Portrait of Edric Fendy" class="hero-profile-img" loading="eager" decoding="async">
-    </div>
-    <div class="hero-status-badge" aria-label="Currently open to work">
-      <span class="hero-status-dot" aria-hidden="true"></span>
-      <span>Open to Work</span>
     </div>
   </aside>
 </section>
@@ -1763,7 +1741,7 @@ footer {
         <div class="cert-badge">🐍</div>
         <div class="cert-name">Data Science with Python</div>
         <div class="cert-issuer">BINUS University · Python for Data Science</div>
-        <div class="cert-footer"><div class="cert-year">Feb 2026</div><div class="cert-status active">Active</div></div>
+        <div class="cert-footer"><div class="cert-year">Feb 2026</div><div class="cert-status completed">Completed</div></div>
       </div>
       <div class="cert-card">
         <div class="cert-badge">💻</div>
