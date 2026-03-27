@@ -20,6 +20,9 @@
   --card-border: #d7e2ee;
   --card-shadow: 0 2px 10px rgba(0,0,0,0.05);
   --card-shadow-hover: 0 10px 24px rgba(26,127,212,0.13);
+  --card-radius: 12px;
+  --card-pad: 22px;
+  --card-pad-mobile: 18px;
   --white:      #ffffff;
   --ink:        #1a2535;
   --ink-mid:    #3a4a5c;
@@ -228,6 +231,55 @@ section { padding: 80px 48px; }
 }
 .section-kicker::before,
 .section-kicker::after { content: none; display: none; }
+.section-theme-panel {
+  background: var(--surface-soft);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: clamp(30px, 5vw, 52px);
+  box-shadow: 0 8px 26px rgba(20, 104, 176, 0.10);
+}
+.section-head {
+  max-width: 760px;
+  margin: 0 auto 34px;
+  text-align: center;
+}
+.section-overline {
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-main);
+  font-size: clamp(36px, 4.3vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #111827;
+  margin-bottom: 14px;
+}
+.section-subtitle {
+  font-size: 15px;
+  color: #66788d;
+  line-height: 1.7;
+}
+.section-theme-panel .section-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+  display: inline-block;
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  line-height: 1.2;
+}
 
 /* ══ ABOUT ══ */
 .about-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 72px; align-items: start; }
@@ -246,7 +298,7 @@ section { padding: 80px 48px; }
 }
 .lang-card {
   background: #fff; border: 1px solid var(--card-border);
-  border-radius: 12px; padding: 28px;
+  border-radius: var(--card-radius); padding: var(--card-pad);
   box-shadow: var(--card-shadow);
   position: sticky; top: 80px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
@@ -277,8 +329,8 @@ section { padding: 80px 48px; }
 .exp-item {
   background: #fff;
   border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 30px 32px;
+  border-radius: var(--card-radius);
+  padding: var(--card-pad);
   box-shadow: var(--card-shadow);
   opacity: 0; transform: translateY(20px);
   transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -336,7 +388,7 @@ section { padding: 80px 48px; }
 .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .edu-card {
   background: #fff; border: 1px solid var(--card-border);
-  border-radius: 12px; padding: 36px;
+  border-radius: var(--card-radius); padding: var(--card-pad);
   border-top: 3px solid var(--blue);
   box-shadow: var(--card-shadow);
   opacity: 0; transform: translateY(16px);
@@ -352,7 +404,7 @@ section { padding: 80px 48px; }
 /* ══ PROJECTS ══ */
 .project-card {
   background: #fff; border: 1px solid var(--card-border);
-  border-radius: 12px; overflow: hidden;
+  border-radius: var(--card-radius); overflow: hidden;
   box-shadow: var(--card-shadow);
   opacity: 0; transform: translateY(16px);
   transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -384,7 +436,7 @@ section { padding: 80px 48px; }
   margin-bottom: 8px; position: relative; z-index: 1;
 }
 .project-meta { font-size: 13px; color: rgba(255,255,255,0.65); position: relative; z-index: 1; }
-.project-body { padding: 36px 44px; }
+.project-body { padding: var(--card-pad); }
 .project-desc { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 28px; }
 .project-link {
   display: inline-flex;
@@ -409,7 +461,7 @@ section { padding: 80px 48px; }
 .project-media-card {
   background: #f7fbff;
   border: 1px solid var(--card-border);
-  border-radius: 10px;
+  border-radius: var(--card-radius);
   overflow: hidden;
 }
 .project-media-card img {
@@ -485,8 +537,8 @@ section { padding: 80px 48px; }
 .skills-showcase-card {
   background: #fff;
   border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 22px;
+  border-radius: var(--card-radius);
+  padding: var(--card-pad);
   box-shadow: var(--card-shadow);
   opacity: 0;
   transform: translateY(16px);
@@ -542,7 +594,7 @@ section { padding: 80px 48px; }
 .cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .cert-card {
   background: #fff; border: 1px solid var(--card-border);
-  border-radius: 12px; padding: 26px;
+  border-radius: var(--card-radius); padding: var(--card-pad);
   border-bottom: 3px solid var(--blue);
   box-shadow: var(--card-shadow);
   display: flex; flex-direction: column;
@@ -566,7 +618,7 @@ section { padding: 80px 48px; }
 }
 .standard-card {
   background: #fff; border: 1px solid var(--card-border);
-  border-radius: 12px; padding: 20px 22px;
+  border-radius: var(--card-radius); padding: var(--card-pad);
   border-left: 4px solid var(--blue);
   box-shadow: var(--card-shadow);
   display: flex; align-items: center; gap: 12px;
@@ -592,6 +644,20 @@ section { padding: 80px 48px; }
 }
 .standards-label::before,
 .standards-label::after { content: none; display: none; }
+.section-theme-panel .standards-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 40px 0 16px;
+  display: inline-block;
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
 
 /* ══ CONTACT ══ */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
@@ -600,7 +666,7 @@ section { padding: 80px 48px; }
 .contact-card {
   display: flex; gap: 14px; align-items: center;
   background: #fff; border: 1px solid var(--card-border);
-  border-radius: 12px; padding: 14px 18px;
+  border-radius: var(--card-radius); padding: var(--card-pad);
   text-decoration: none; color: var(--ink);
   box-shadow: var(--card-shadow);
   transition: all 0.2s;
@@ -700,12 +766,12 @@ footer {
 /* ══ ROADMAP — REDESIGNED TO MATCH THEME ══ */
 .road-journey-wrap {
   position: relative;
-  background: var(--blue);
+  background: #e9eef5;
   border-radius: 16px;
   padding: 36px 36px 32px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 8px 32px rgba(26,127,212,0.25);
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 8px 26px rgba(20, 104, 176, 0.10);
 }
 
 /* Subtle dot-grid texture */
@@ -713,7 +779,7 @@ footer {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(26,127,212,0.10) 1px, transparent 1px);
   background-size: 28px 28px;
   pointer-events: none;
   border-radius: 16px;
@@ -725,7 +791,7 @@ footer {
   position: absolute;
   top: -60px; right: -60px;
   width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(26,127,212,0.15) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -741,24 +807,24 @@ footer {
 .road-header-title {
   font-family: var(--font-main);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
+  color: var(--blue);
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 8px;
 }
-.road-header-title::before { content: ''; width: 28px; height: 2px; background: rgba(255,255,255,0.6); }
+.road-header-title::before { content: ''; width: 28px; height: 2px; background: rgba(26,127,212,0.55); }
 .road-header-sub {
   font-family: var(--font-main);
   font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 800;
-  color: #fff;
+  color: #111827;
   line-height: 1.15;
 }
-.road-header-sub span { color: rgba(255,255,255,0.75); font-weight: 300; }
+.road-header-sub span { color: #64748b; font-weight: 300; }
 .road-legend {
   display: flex;
   align-items: center;
@@ -766,16 +832,16 @@ footer {
   font-family: var(--font-main);
   font-size: 11px;
   font-weight: 600;
-  color: rgba(255,255,255,0.65);
+  color: #4b617c;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
   padding: 8px 14px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: #eef4fb;
+  border: 1px solid #d3dfec;
   border-radius: 20px;
 }
-.road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; flex-shrink: 0; }
+.road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
 
 /* ── Scroll container ── */
 .road-svg-wrap {
@@ -802,21 +868,21 @@ footer {
 /* ── Track line ── */
 .road-track {
   fill: none;
-  stroke: rgba(255,255,255,0.35);
+  stroke: rgba(26,127,212,0.28);
   stroke-width: 2;
   stroke-dasharray: 6 4;
 }
 
 /* ── Connector verticals ── */
 .road-connector {
-  stroke: rgba(255,255,255,0.3);
+  stroke: rgba(26,127,212,0.24);
   stroke-width: 1.5;
   stroke-dasharray: 3 3;
 }
 
 /* ── Year dot on axis ── */
 .axis-dot {
-  fill: rgba(255,255,255,0.5);
+  fill: rgba(26,127,212,0.42);
 }
 
 /* ── Year label ── */
@@ -824,7 +890,7 @@ footer {
   font-family: var(--font-main);
   font-size: 11px;
   font-weight: 700;
-  fill: rgba(255,255,255,0.55);
+  fill: #5f7390;
   text-anchor: middle;
   letter-spacing: 0.08em;
 }
@@ -834,7 +900,7 @@ footer {
   font-family: var(--font-main);
   font-size: 11px;
   font-weight: 600;
-  fill: rgba(255,255,255,0.85);
+  fill: #25384f;
   text-anchor: middle;
   letter-spacing: 0.02em;
 }
@@ -852,7 +918,7 @@ footer {
 /* Ring (visible when active/hover) */
 .stop-ring {
   fill: none;
-  stroke: rgba(255,255,255,0.4);
+  stroke: rgba(26,127,212,0.4);
   stroke-width: 2.5;
   opacity: 0;
   transition: opacity 0.2s ease, r 0.2s ease;
@@ -860,8 +926,8 @@ footer {
 
 /* Outer circle */
 .stop-core {
-  fill: rgba(255,255,255,0.18);
-  stroke: rgba(255,255,255,0.55);
+  fill: #dce9f7;
+  stroke: #7eaeda;
   stroke-width: 1.8;
   transition: fill 0.2s ease, stroke 0.2s ease, r 0.2s ease;
 }
@@ -869,7 +935,7 @@ footer {
 /* Inner accent ring */
 .stop-inner {
   fill: none;
-  stroke: rgba(255,255,255,0.5);
+  stroke: rgba(26,127,212,0.45);
   stroke-width: 1.5;
   transition: stroke 0.2s ease;
 }
@@ -879,7 +945,7 @@ footer {
   font-family: var(--font-main);
   font-size: 14px;
   font-weight: 700;
-  fill: white;
+  fill: var(--blue-dark);
   text-anchor: middle;
   dominant-baseline: central;
   pointer-events: none;
@@ -889,15 +955,15 @@ footer {
 /* Hover state (non-touch) */
 @media (hover: hover) and (pointer: fine) {
   .road-stop:hover .stop-ring  { opacity: 1; }
-  .road-stop:hover .stop-core  { fill: rgba(255,255,255,0.28); stroke: white; }
-  .road-stop:hover .stop-inner { stroke: rgba(255,255,255,0.75); }
+  .road-stop:hover .stop-core  { fill: #cfe2f6; stroke: var(--blue); }
+  .road-stop:hover .stop-inner { stroke: var(--blue-dark); }
 }
 
 /* Active/selected state */
-.road-stop.active .stop-ring  { opacity: 1; stroke: white; stroke-width: 3; }
-.road-stop.active .stop-core  { fill: white; stroke: white; }
-.road-stop.active .stop-inner { stroke: var(--blue); }
-.road-stop.active .stop-icon  { fill: var(--blue); }
+.road-stop.active .stop-ring  { opacity: 1; stroke: var(--blue-dark); stroke-width: 3; }
+.road-stop.active .stop-core  { fill: var(--blue); stroke: var(--blue-dark); }
+.road-stop.active .stop-inner { stroke: #fff; }
+.road-stop.active .stop-icon  { fill: #fff; }
 
 /* ── Info panel — redesigned to match theme ── */
 .road-info-panel {
@@ -906,8 +972,8 @@ footer {
   margin-top: 20px;
   background: #fff;
   border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 18px 22px;
+  border-radius: var(--card-radius);
+  padding: var(--card-pad);
   box-shadow: var(--card-shadow);
   display: flex;
   align-items: flex-start;
@@ -971,7 +1037,7 @@ footer {
 .panel-media-card {
   background: #f4f9ff;
   border: 1px solid var(--card-border);
-  border-radius: 10px;
+  border-radius: var(--card-radius);
   overflow: hidden;
 }
 .panel-media-card img {
@@ -993,7 +1059,7 @@ footer {
 }
 
 /* Keyboard focus for accessibility */
-.road-stop:focus-visible .stop-ring { opacity: 1; stroke: white; }
+.road-stop:focus-visible .stop-ring { opacity: 1; stroke: var(--blue-dark); }
 
 /* ══ RESPONSIVE ══ */
 @media (max-width: 900px) {
@@ -1026,7 +1092,7 @@ footer {
   .hero-profile-wrap { order: -1; align-self: center; width: min(300px, 78vw); }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .lang-card { position: static; }
-  .exp-item { padding: 24px 20px; }
+  .exp-item { padding: var(--card-pad-mobile); }
   .exp-head { gap: 12px; margin-bottom: 14px; }
   .exp-company-logo img {
     max-width: min(190px, 48vw);
@@ -1039,18 +1105,30 @@ footer {
   .road-header { flex-direction: column; gap: 10px; }
   .road-legend { align-self: flex-start; }
   .project-media-grid { grid-template-columns: 1fr; }
+  .section-theme-panel { padding: 26px 18px; border-radius: 12px; }
+  .section-head { margin-bottom: 24px; }
+  .section-title { font-size: clamp(30px, 7.2vw, 40px); }
   .skills-showcase { padding: 26px 18px; border-radius: 12px; }
   .skills-intro { margin-bottom: 24px; }
   .skills-heading { font-size: clamp(30px, 7.2vw, 40px); }
   .skills-card-grid { grid-template-columns: 1fr; gap: 14px; }
-  .skills-showcase-card { padding: 18px; }
   .skill-card-headline { font-size: 20px; }
   .road-main-svg { min-width: 860px; }
-  .road-info-panel { flex-direction: column; gap: 12px; padding: 16px; }
+  .road-info-panel { flex-direction: column; gap: 12px; padding: var(--card-pad-mobile); }
   .panel-icon-wrap { width: 38px; height: 38px; font-size: 17px; }
+  .lang-card,
+  .edu-card,
+  .project-body,
+  .skills-showcase-card,
+  .cert-card,
+  .standard-card,
+  .contact-card { padding: var(--card-pad-mobile); }
 }
 
 @media (max-width: 560px) {
+  .section-overline,
+  .section-theme-panel .standards-label { font-size: 11px; }
+  .section-subtitle { font-size: 14px; }
   .skills-overline { font-size: 11px; }
   .skill-pill { font-size: 11px; }
   .hero-profile-wrap { width: min(250px, 82vw); }
@@ -1241,8 +1319,12 @@ footer {
 
 <!-- ══ ABOUT ══ -->
 <section id="about" class="bg-white">
-  <div class="container">
-    <div class="section-kicker">About Me</div>
+  <div class="container section-theme-panel">
+    <div class="section-head">
+      <div class="section-overline">About Me</div>
+      <h2 class="section-title">Food science with purpose</h2>
+      <p class="section-subtitle">A profile of my values, technical strengths, and long-term focus in FMCG product innovation.</p>
+    </div>
     <div class="about-grid">
       <div>
         <p class="about-text">I am an <strong>analytical and self-driven Food Science graduate</strong> who thrives in dynamic environments, continuously adapting and learning to overcome challenges.</p>
@@ -1273,8 +1355,12 @@ footer {
 
 <!-- ══ EXPERIENCE ══ -->
 <section id="experience" class="bg-pale">
-  <div class="container">
-    <div class="section-kicker">Work Experience</div>
+  <div class="container section-theme-panel">
+    <div class="section-head">
+      <div class="section-overline">Work Experience</div>
+      <h2 class="section-title">Hands-on industry exposure</h2>
+      <p class="section-subtitle">Internship experiences across R&amp;D, QA/QC, and food certification in real manufacturing environments.</p>
+    </div>
     <div class="exp-timeline">
       <div class="exp-item">
         <div class="exp-body">
@@ -1340,8 +1426,12 @@ footer {
 
 <!-- ══ EDUCATION ══ -->
 <section id="education" class="bg-white">
-  <div class="container">
-    <div class="section-kicker">Education</div>
+  <div class="container section-theme-panel">
+    <div class="section-head">
+      <div class="section-overline">Education</div>
+      <h2 class="section-title">Academic foundation</h2>
+      <p class="section-subtitle">Formal training in food science and technology, with practical focus on product development and safety.</p>
+    </div>
     <div class="edu-grid">
       <div class="edu-card">
         <span class="edu-icon">🎓</span>
@@ -1357,8 +1447,12 @@ footer {
 
 <!-- ══ PROJECTS ══ -->
 <section id="projects" class="bg-pale">
-  <div class="container">
-    <div class="section-kicker">Featured Projects</div>
+  <div class="container section-theme-panel">
+    <div class="section-head">
+      <div class="section-overline">Featured Projects</div>
+      <h2 class="section-title">Applied innovation work</h2>
+      <p class="section-subtitle">A showcase of product development projects combining nutrition, sensory validation, and market viability.</p>
+    </div>
     <div class="project-card">
       <div class="project-card-header">
         <div class="project-tag">FST3850 · Food Product Development</div>
@@ -1394,8 +1488,12 @@ footer {
 
 <!-- ══ EXTRACURRICULAR — ROADMAP ══ -->
 <section id="extracurricular" class="bg-white">
-  <div class="container">
-    <div class="section-kicker">Extracurricular Activities</div>
+  <div class="container section-theme-panel">
+    <div class="section-head">
+      <div class="section-overline">Extracurricular Activities</div>
+      <h2 class="section-title">Leadership beyond academics</h2>
+      <p class="section-subtitle">A timeline of committee roles, campaigns, and outreach initiatives from 2023 to 2025.</p>
+    </div>
 
     <div class="road-journey-wrap">
       <div class="road-header">
@@ -1600,8 +1698,12 @@ footer {
 
 <!-- ══ CERTIFICATIONS ══ -->
 <section id="certifications" class="bg-white">
-  <div class="container">
-    <div class="section-kicker">Certifications</div>
+  <div class="container section-theme-panel">
+    <div class="section-head">
+      <div class="section-overline">Certifications</div>
+      <h2 class="section-title">Credentials and standards</h2>
+      <p class="section-subtitle">Professional learning credentials and quality frameworks that support safe, compliant product development.</p>
+    </div>
     <div class="cert-grid">
       <div class="cert-card">
         <div class="cert-badge">🐍</div>
@@ -1628,7 +1730,7 @@ footer {
         <div class="cert-footer"><div class="cert-year">Aug 2017</div><div class="cert-status completed">Completed</div></div>
       </div>
     </div>
-    <div class="standards-label">📜 &nbsp;Standards &amp; Frameworks</div>
+    <div class="standards-label">Standards &amp; Frameworks</div>
     <div class="standards-grid">
       <div class="standard-card">
         <div class="standard-icon">🏅</div>
@@ -1658,8 +1760,12 @@ footer {
 
 <!-- ══ CONTACT ══ -->
 <section id="contact" class="bg-pale">
-  <div class="container">
-    <div class="section-kicker">Get In Touch</div>
+  <div class="container section-theme-panel">
+    <div class="section-head">
+      <div class="section-overline">Get In Touch</div>
+      <h2 class="section-title">Let&apos;s connect</h2>
+      <p class="section-subtitle">I am open to opportunities, collaborations, and conversations related to food science and innovation.</p>
+    </div>
     <div class="contact-grid">
       <div>
         <p class="contact-lead">Feel free to reach out for collaborations, opportunities, or just a friendly chat about food science and innovation!</p>
