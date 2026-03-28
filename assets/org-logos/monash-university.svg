@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="300" viewBox="0 0 860 300" role="img" aria-label="Monash University logo">
+  <rect width="860" height="300" fill="#ececec"/>
+  <g transform="translate(34,44)">
+    <path d="M0 0h160v112c0 55-35 102-80 126C35 214 0 167 0 112Z" fill="#111"/>
+    <path d="M80 30l54 42H26Z" fill="#fff"/>
+    <circle cx="80" cy="84" r="9" fill="#fff"/>
+    <circle cx="56" cy="106" r="8" fill="#fff"/>
+    <circle cx="104" cy="106" r="8" fill="#fff"/>
+    <path d="M24 164q56 24 112 0" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <text x="80" y="208" text-anchor="middle" fill="#fff" font-size="16" font-family="Montserrat, Arial, sans-serif" font-weight="700">ANCORA</text>
+  </g>
+  <g fill="#111" font-family="Montserrat, Arial, sans-serif">
+    <text x="250" y="122" font-size="94" font-weight="500" letter-spacing="1.5">MONASH</text>
+    <text x="250" y="226" font-size="92" font-weight="300">University</text>
+  </g>
+</svg>

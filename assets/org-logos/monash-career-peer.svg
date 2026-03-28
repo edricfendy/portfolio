@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Monash Career Peer logo">
+  <rect width="256" height="256" fill="#ececec"/>
+  <g stroke="#111" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M34 188h88"/>
+    <path d="M54 188v-26h26"/>
+    <path d="M80 162v-24h26"/>
+    <path d="M106 138v-24h26"/>
+  </g>
+  <g fill="#111">
+    <circle cx="72" cy="88" r="9"/>
+    <path d="M60 106h20l18 22-14 12-8-10-8 16H54l10-24z"/>
+    <rect x="32" y="110" width="22" height="18" transform="rotate(-35 43 119)"/>
+  </g>
+  <text x="94" y="125" font-family="Montserrat, Arial, sans-serif" font-size="15" fill="#222" letter-spacing="0.6">MONASH CAREER PEER</text>
+  <text x="96" y="176" font-family="Montserrat, Arial, sans-serif" font-size="56" letter-spacing="10" fill="#111">MCP</text>
+</svg>

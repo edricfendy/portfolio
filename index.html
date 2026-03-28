@@ -496,22 +496,25 @@ section { padding: 80px 48px; }
 }
 .exp-company::before { content: ''; width: 14px; height: 2px; background: var(--blue); }
 .exp-company.exp-company-logo {
-  padding: 0;
-  gap: 0;
-  border-radius: 0;
-  border: none;
-  background: transparent;
+  width: clamp(150px, 22vw, 220px);
+  min-height: 58px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: 1px solid #d8e4f1;
+  background: #fff;
   margin-bottom: 0;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .exp-company.exp-company-logo::before { content: none; display: none; }
 .exp-company-logo img {
   display: block;
-  height: auto;
-  width: auto;
-  max-width: min(220px, 34vw);
-  max-height: 48px;
+  width: 100%;
+  height: 44px;
   object-fit: contain;
+  object-position: center;
 }
 .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .exp-bullets li {
@@ -535,7 +538,13 @@ section { padding: 80px 48px; }
 }
 .edu-card.visible { opacity: 1; transform: translateY(0); }
 .edu-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-3px) !important; }
-.edu-icon { font-size: 32px; margin-bottom: 18px; display: block; }
+.edu-logo-wrap { margin-bottom: 16px; }
+.edu-logo {
+  display: block;
+  width: min(340px, 100%);
+  height: auto;
+  object-fit: contain;
+}
 .edu-school { font-family: var(--font-main); font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
 .edu-degree { font-size: 14px; color: var(--ink-mid); margin-bottom: 10px; line-height: 1.5; }
 .edu-dates { font-family: var(--font-main); font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.04em; text-transform: uppercase; }
@@ -1037,7 +1046,7 @@ footer {
 /* ── Caption above/below stop ── */
 .stop-caption {
   font-family: var(--font-main);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   fill: #25384f;
   text-anchor: middle;
@@ -1090,6 +1099,7 @@ footer {
   pointer-events: none;
   transition: fill 0.2s ease;
 }
+.stop-logo { pointer-events: none; }
 
 /* Hover state (non-touch) */
 @media (hover: hover) and (pointer: fine) {
@@ -1121,12 +1131,19 @@ footer {
 }
 
 .panel-icon-wrap {
-  width: 44px; height: 44px;
+  width: 52px; height: 52px;
   border-radius: 10px;
-  background: var(--blue-light);
+  background: #fff;
+  border: 1px solid #d8e6f2;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
   flex-shrink: 0;
+  overflow: hidden;
+}
+.panel-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 5px;
 }
 
 .panel-content { flex: 1; min-width: 0; }
@@ -1241,9 +1258,13 @@ footer {
   .lang-card { position: static; }
   .exp-item { padding: var(--card-pad-mobile); }
   .exp-head { gap: 12px; margin-bottom: 14px; }
+  .exp-company.exp-company-logo {
+    width: clamp(150px, 54vw, 210px);
+    min-height: 52px;
+    padding: 5px 8px;
+  }
   .exp-company-logo img {
-    max-width: min(190px, 48vw);
-    max-height: 40px;
+    height: 38px;
   }
   .edu-grid, .cert-grid, .standards-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1262,7 +1283,7 @@ footer {
   .skill-card-headline { font-size: 20px; }
   .road-main-svg { min-width: 860px; }
   .road-info-panel { flex-direction: column; gap: 12px; padding: var(--card-pad-mobile); }
-  .panel-icon-wrap { width: 38px; height: 38px; font-size: 17px; }
+  .panel-icon-wrap { width: 44px; height: 44px; }
   .lang-card,
   .edu-card,
   .project-body,
@@ -1495,8 +1516,8 @@ footer {
         <div class="lang-card">
           <div class="lang-card-title">🌐 Languages</div>
           <div class="lang-row"><span class="lang-name">Bahasa Indonesia</span><span class="lang-level native">Native</span></div>
-          <div class="lang-row"><span class="lang-name">English</span><span class="lang-level fluent">Fluent</span></div>
           <div class="lang-row"><span class="lang-name">Hokkien</span><span class="lang-level native">Native</span></div>
+          <div class="lang-row"><span class="lang-name">English</span><span class="lang-level fluent">Fluent</span></div>
           <div class="lang-row"><span class="lang-name">Malay</span><span class="lang-level conversant">Conversant</span></div>
           <div class="lang-row"><span class="lang-name">Chinese</span><span class="lang-level conversant">Conversant</span></div>
         </div>
@@ -1588,7 +1609,9 @@ footer {
     </div>
     <div class="edu-grid">
       <div class="edu-card">
-        <span class="edu-icon">🎓</span>
+        <div class="edu-logo-wrap">
+          <img src="assets/org-logos/monash-university.svg" alt="Monash University logo" class="edu-logo" loading="lazy" decoding="async">
+        </div>
         <div class="edu-school">Monash University</div>
         <div class="edu-degree">Bachelor of Science — Food Science &amp; Technology</div>
         <div class="edu-dates">2021 – 2024 · Subang Jaya, Malaysia</div>
@@ -1673,87 +1696,87 @@ footer {
           <text class="stop-year" x="790" y="168">2025</text>
 
           <!-- Stop 0: Dance Fusion — above -->
-          <text class="stop-caption" x="70"  y="42">Dance Fusion Club</text>
+          <text class="stop-caption" x="70"  y="42">Dance Fusion Club (2023)</text>
           <line class="road-connector" x1="70"  y1="58"  x2="70"  y2="132"/>
           <circle class="axis-dot" cx="70"  cy="150" r="3"/>
           <g class="road-stop" data-idx="0" tabindex="0" role="button" aria-label="Dance Fusion Club" transform="translate(70,80)">
             <circle class="stop-ring"  r="28"/>
             <circle class="stop-core"  r="21"/>
             <circle class="stop-inner" r="15"/>
-            <text class="stop-icon">♪</text>
+            <image class="stop-logo" href="assets/org-logos/monash-dance-fusion-club.svg" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
           </g>
 
           <!-- Stop 1: Health Ambassador — below -->
-          <text class="stop-caption" x="190" y="260">Health Ambassador</text>
+          <text class="stop-caption" x="190" y="260">Health Ambassador (2023)</text>
           <line class="road-connector" x1="190" y1="168" x2="190" y2="232"/>
           <circle class="axis-dot" cx="190" cy="150" r="3"/>
           <g class="road-stop" data-idx="1" tabindex="0" role="button" aria-label="Health Ambassador" transform="translate(190,220)">
             <circle class="stop-ring"  r="28"/>
             <circle class="stop-core"  r="21"/>
             <circle class="stop-inner" r="15"/>
-            <text class="stop-icon">✚</text>
+            <image class="stop-logo" href="assets/org-logos/monash-health-ambassador.svg" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
           </g>
 
           <!-- Stop 2: Green Rep — above -->
-          <text class="stop-caption" x="310" y="42">Green Rep Network</text>
+          <text class="stop-caption" x="310" y="42">Green Rep Network (2023)</text>
           <line class="road-connector" x1="310" y1="58"  x2="310" y2="132"/>
           <circle class="axis-dot" cx="310" cy="150" r="3"/>
           <g class="road-stop" data-idx="2" tabindex="0" role="button" aria-label="Green Rep Network" transform="translate(310,80)">
             <circle class="stop-ring"  r="28"/>
             <circle class="stop-core"  r="21"/>
             <circle class="stop-inner" r="15"/>
-            <text class="stop-icon">♻</text>
+            <image class="stop-logo" href="assets/org-logos/monash-green-representative-network.svg" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
           </g>
 
           <!-- Stop 3: Career Peer — below -->
-          <text class="stop-caption" x="430" y="260">Career Peer</text>
+          <text class="stop-caption" x="430" y="260">Career Peer (2024)</text>
           <line class="road-connector" x1="430" y1="168" x2="430" y2="232"/>
           <circle class="axis-dot" cx="430" cy="150" r="3"/>
           <g class="road-stop" data-idx="3" tabindex="0" role="button" aria-label="Career Peer" transform="translate(430,220)">
             <circle class="stop-ring"  r="28"/>
             <circle class="stop-core"  r="21"/>
             <circle class="stop-inner" r="15"/>
-            <text class="stop-icon">★</text>
+            <image class="stop-logo" href="assets/org-logos/monash-career-peer.svg" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
           </g>
 
           <!-- Stop 4: Accounting & Finance — above -->
-          <text class="stop-caption" x="550" y="42">Accounting &amp; Finance</text>
+          <text class="stop-caption" x="550" y="42">Accounting &amp; Finance (2024)</text>
           <line class="road-connector" x1="550" y1="58"  x2="550" y2="132"/>
           <circle class="axis-dot" cx="550" cy="150" r="3"/>
           <g class="road-stop" data-idx="4" tabindex="0" role="button" aria-label="Accounting and Finance Club" transform="translate(550,80)">
             <circle class="stop-ring"  r="28"/>
             <circle class="stop-core"  r="21"/>
             <circle class="stop-inner" r="15"/>
-            <text class="stop-icon">▦</text>
+            <image class="stop-logo" href="assets/org-logos/monash-accounting-finance-club.svg" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
           </g>
 
           <!-- Stop 5: Science Club — below -->
-          <text class="stop-caption" x="670" y="260">Science Club</text>
+          <text class="stop-caption" x="670" y="260">Science Club (2024)</text>
           <line class="road-connector" x1="670" y1="168" x2="670" y2="232"/>
           <circle class="axis-dot" cx="670" cy="150" r="3"/>
           <g class="road-stop" data-idx="5" tabindex="0" role="button" aria-label="Science Club" transform="translate(670,220)">
             <circle class="stop-ring"  r="28"/>
             <circle class="stop-core"  r="21"/>
             <circle class="stop-inner" r="15"/>
-            <text class="stop-icon">⚗</text>
+            <image class="stop-logo" href="assets/org-logos/monash-science-club.svg" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
           </g>
 
           <!-- Stop 6: Volunteer — above -->
-          <text class="stop-caption" x="790" y="42">Volunteer Program</text>
+          <text class="stop-caption" x="790" y="42">Volunteer Program (2025)</text>
           <line class="road-connector" x1="790" y1="58"  x2="790" y2="132"/>
           <circle class="axis-dot" cx="790" cy="150" r="3"/>
           <g class="road-stop" data-idx="6" tabindex="0" role="button" aria-label="Volunteer Program" transform="translate(790,80)">
             <circle class="stop-ring"  r="28"/>
             <circle class="stop-core"  r="21"/>
             <circle class="stop-inner" r="15"/>
-            <text class="stop-icon">♥</text>
+            <image class="stop-logo" href="assets/org-logos/monash-volunteer-program.svg" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
           </g>
         </svg>
       </div>
 
       <!-- Info panel -->
       <div class="road-info-panel" id="roadInfoPanel">
-        <div class="panel-icon-wrap" id="panelIcon">💃</div>
+        <div class="panel-icon-wrap" id="panelIcon"><img src="assets/org-logos/monash-dance-fusion-club.svg" alt="Monash Dance Fusion Club logo" loading="lazy" decoding="async"></div>
         <div class="panel-content">
           <div class="panel-year" id="panelYear"></div>
           <div class="panel-role" id="panelRole"></div>
@@ -1994,27 +2017,36 @@ window.addEventListener('scroll', () => {
 
 /* ══ ROADMAP ══ */
 const milestones = [
-  { icon:'💃', year:'2023', role:'Publicity Officer', org:'Monash Dance Fusion Club', period:'Jan 2023 – Dec 2023 · 1 yr',         tags:['Social Media','Publicity','Creative Design'], images:[
+  { icon:'💃', logo:'assets/org-logos/monash-dance-fusion-club.svg', year:'2023', role:'Publicity Officer', org:'Monash Dance Fusion Club', period:'Jan 2023 – Dec 2023 · 1 yr',         tags:['Social Media','Publicity','Creative Design'], images:[
+    { label:'Monash Dance Fusion Club Logo', src:'assets/org-logos/monash-dance-fusion-club.svg' },
     { label:'MDFC Social Dance Workshop', src:'assets/activity-previews/mdfc-main.png' },
     { label:'Member Recruitment & Weekly Class', src:'assets/activity-previews/mdfc-member-recruitment-weekly-class.png' }
   ] },
-  { icon:'🌿', year:'2023', role:'Publicity Officer', org:'Monash Health Ambassador',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Health & Wellness','Publicity','Awareness'], images:[
+  { icon:'🌿', logo:'assets/org-logos/monash-health-ambassador.svg', year:'2023', role:'Publicity Officer', org:'Monash Health Ambassador',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Health & Wellness','Publicity','Awareness'], images:[
+    { label:'Monash Health Ambassador Logo', src:'assets/org-logos/monash-health-ambassador.svg' },
     { label:'Tree Planting Days', src:'assets/activity-previews/mha-tree-planting-days.png' },
     { label:'Orientation Night', src:'assets/activity-previews/mha-orientation-night.png' }
   ] },
-  { icon:'♻️', year:'2023', role:'Publicity Officer', org:'Monash Green Rep Network',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Sustainability','Publicity','Advocacy'] },
-  { icon:'🎯', year:'2024', role:'Event Coordinator', org:'Monash Career Peer',         period:'Jan 2024 – Jun 2024 · 6 mos',        tags:['Event Management','Career Dev','Leadership'] },
-  { icon:'📊', year:'2024', role:'Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'], images:[
+  { icon:'♻️', logo:'assets/org-logos/monash-green-representative-network.svg', year:'2023', role:'Publicity Officer', org:'Monash Green Rep Network',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Sustainability','Publicity','Advocacy'], images:[
+    { label:'Monash Green Representative Network Logo', src:'assets/org-logos/monash-green-representative-network.svg' }
+  ] },
+  { icon:'🎯', logo:'assets/org-logos/monash-career-peer.svg', year:'2024', role:'Event Coordinator', org:'Monash Career Peer',         period:'Jan 2024 – Jun 2024 · 6 mos',        tags:['Event Management','Career Dev','Leadership'], images:[
+    { label:'Monash Career Peer Logo', src:'assets/org-logos/monash-career-peer.svg' }
+  ] },
+  { icon:'📊', logo:'assets/org-logos/monash-accounting-finance-club.svg', year:'2024', role:'Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'], images:[
+    { label:'Monash Accounting & Finance Club Logo', src:'assets/org-logos/monash-accounting-finance-club.svg' },
     { label:'Club Loyalty Program', src:'assets/mafc/previews/club-loyalty-program.png' },
     { label:'Maximize LinkedIn Presence (BDO)', src:'assets/mafc/previews/maximize-linkedin-presence-bdo.png' },
     { label:'PwC Company Tour', src:'assets/mafc/previews/pwc-company-tour.png' }
   ] },
-  { icon:'🔭', year:'2024', role:'Publicity Officer', org:'Monash Science Club',         period:'Jul 2024 – Dec 2024 · 6 mos',        tags:['Publicity','Science Outreach','Design'], images:[
+  { icon:'🔭', logo:'assets/org-logos/monash-science-club.svg', year:'2024', role:'Publicity Officer', org:'Monash Science Club',         period:'Jul 2024 – Dec 2024 · 6 mos',        tags:['Publicity','Science Outreach','Design'], images:[
+    { label:'Monash Science Club Logo', src:'assets/org-logos/monash-science-club.svg' },
     { label:'Eppendorf Company Tour Recap', src:'assets/activity-previews/msc-eppendorf.png' },
     { label:'LyreBird Feature', src:'assets/activity-previews/msc-lyrebird.png' },
     { label:'Mosquito Feature', src:'assets/activity-previews/msc-mosquito.png' }
   ] },
-  { icon:'📣', year:'2025', role:'Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Communications'], images:[
+  { icon:'📣', logo:'assets/org-logos/monash-volunteer-program.svg', year:'2025', role:'Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Communications'], images:[
+    { label:'Monash University Volunteer Program Logo', src:'assets/org-logos/monash-volunteer-program.svg' },
     { label:'WWF Volunteer Recruitment', src:'assets/activity-previews/muvp-wwf-volunteer-recruitment.png' },
     { label:'Shelter Home Recruitment', src:'assets/activity-previews/muvp-shelter-home-recruitment.png' },
     { label:'Flooding Mitigation Recruitment', src:'assets/activity-previews/muvp-flooding-mitigation-recruitment.png' }
@@ -2034,7 +2066,13 @@ let   activeIdx   = -1;   // nothing selected yet
 function renderPanel(idx) {
   const m = milestones[idx];
   if (!m) return;
-  panelIcon.textContent = m.icon;
+  if (panelIcon) {
+    if (m.logo) {
+      panelIcon.innerHTML = `<img src=\"${m.logo}\" alt=\"${m.org} logo\" loading=\"lazy\" decoding=\"async\">`;
+    } else {
+      panelIcon.textContent = m.icon || '';
+    }
+  }
   panelYear.textContent = m.year + ' · ' + m.period;
   panelRole.textContent = m.role;
   panelOrg.textContent  = m.org;

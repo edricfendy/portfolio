@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Monash Health Ambassador logo">
+  <rect width="256" height="256" fill="#d7aa48"/>
+  <circle cx="128" cy="128" r="92" fill="none" stroke="#fff" stroke-width="8"/>
+  <path d="M128 36a92 92 0 0 1 0 184" fill="#fff"/>
+  <path d="M128 54c-34 0-62 33-62 74s28 74 62 74c-30-12-50-40-50-74s20-62 50-74z" fill="#d7aa48"/>
+  <circle cx="111" cy="116" r="5" fill="#fff"/>
+  <path d="M98 139q13 12 31 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M170 66c14 10 15 26-2 34" stroke="#fff" stroke-width="6" fill="none"/>
+  <path d="M189 142c-14-8-21-19-18-31" stroke="#fff" stroke-width="6" fill="none"/>
+  <text x="128" y="28" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="18" font-weight="700" fill="#fff" letter-spacing="2">AMBASSADORS</text>
+  <text x="128" y="244" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="14" font-weight="700" fill="#fff" letter-spacing="2">MENTAL HEALTH</text>
+</svg>

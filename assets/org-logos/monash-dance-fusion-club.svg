@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Monash Dance Fusion Club logo">
+  <rect width="256" height="256" fill="#f5f5f5"/>
+  <rect x="48" y="22" width="136" height="184" fill="#fff" stroke="#a8a8a8" stroke-width="6"/>
+  <path d="M72 74h88" stroke="#cfcfcf" stroke-width="2"/>
+  <text x="72" y="74" font-family="Montserrat, Arial, sans-serif" font-size="52" font-weight="800" fill="#111">M</text>
+  <text x="142" y="74" font-family="Montserrat, Arial, sans-serif" font-size="52" font-weight="800" fill="#111">D</text>
+  <text x="142" y="144" font-family="Montserrat, Arial, sans-serif" font-size="52" font-weight="800" fill="#111">C</text>
+  <path d="M97 137c7-12 14-18 20-18 8 0 12 8 5 14-5 4-7 8-2 16l9 14-6 4-11-15c-7-9-18-8-24 3l-7-4c7-13 12-14 16-14z" fill="#111"/>
+  <path d="M91 112a5 5 0 1 0 10 0 5 5 0 1 0-10 0Z" fill="#111"/>
+</svg>
