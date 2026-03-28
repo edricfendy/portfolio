@@ -538,6 +538,13 @@ section { padding: 80px 48px; }
 }
 .edu-card.visible { opacity: 1; transform: translateY(0); }
 .edu-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-3px) !important; }
+.edu-logo-wrap { margin-bottom: 16px; }
+.edu-logo {
+  display: block;
+  width: min(340px, 100%);
+  height: auto;
+  object-fit: contain;
+}
 .edu-degree { font-size: 14px; color: var(--ink-mid); margin-bottom: 10px; line-height: 1.5; }
 .edu-dates { font-family: var(--font-main); font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.04em; text-transform: uppercase; }
 
@@ -1601,6 +1608,9 @@ footer {
     </div>
     <div class="edu-grid">
       <div class="edu-card">
+        <div class="edu-logo-wrap">
+          <img src="assets/org-logos/monash-university.png" alt="Monash University logo" class="edu-logo" loading="lazy" decoding="async">
+        </div>
         <div class="edu-degree">Bachelor of Science — Food Science &amp; Technology</div>
         <div class="edu-dates">2021 – 2024 · Subang Jaya, Malaysia</div>
       </div>
