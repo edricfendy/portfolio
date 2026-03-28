@@ -538,14 +538,6 @@ section { padding: 80px 48px; }
 }
 .edu-card.visible { opacity: 1; transform: translateY(0); }
 .edu-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-3px) !important; }
-.edu-logo-wrap { margin-bottom: 16px; }
-.edu-logo {
-  display: block;
-  width: min(340px, 100%);
-  height: auto;
-  object-fit: contain;
-}
-.edu-school { font-family: var(--font-main); font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
 .edu-degree { font-size: 14px; color: var(--ink-mid); margin-bottom: 10px; line-height: 1.5; }
 .edu-dates { font-family: var(--font-main); font-size: 12px; font-weight: 600; color: var(--blue); letter-spacing: 0.04em; text-transform: uppercase; }
 
@@ -1132,18 +1124,18 @@ footer {
 
 .panel-icon-wrap {
   width: 52px; height: 52px;
-  border-radius: 10px;
-  background: #fff;
-  border: 1px solid #d8e6f2;
+  border-radius: 0;
+  background: transparent;
+  border: none;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 .panel-icon-wrap img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 5px;
+  padding: 0;
 }
 
 .panel-content { flex: 1; min-width: 0; }
@@ -1609,10 +1601,6 @@ footer {
     </div>
     <div class="edu-grid">
       <div class="edu-card">
-        <div class="edu-logo-wrap">
-          <img src="assets/org-logos/monash-university.png" alt="Monash University logo" class="edu-logo" loading="lazy" decoding="async">
-        </div>
-        <div class="edu-school">Monash University</div>
         <div class="edu-degree">Bachelor of Science — Food Science &amp; Technology</div>
         <div class="edu-dates">2021 – 2024 · Subang Jaya, Malaysia</div>
       </div>
@@ -2018,35 +2006,26 @@ window.addEventListener('scroll', () => {
 /* ══ ROADMAP ══ */
 const milestones = [
   { icon:'💃', logo:'assets/org-logos/monash-dance-fusion-club.png', year:'2023', role:'Publicity Officer', org:'Monash Dance Fusion Club', period:'Jan 2023 – Dec 2023 · 1 yr',         tags:['Social Media','Publicity','Creative Design'], images:[
-    { label:'Monash Dance Fusion Club Logo', src:'assets/org-logos/monash-dance-fusion-club.png' },
     { label:'MDFC Social Dance Workshop', src:'assets/activity-previews/mdfc-main.png' },
     { label:'Member Recruitment & Weekly Class', src:'assets/activity-previews/mdfc-member-recruitment-weekly-class.png' }
   ] },
   { icon:'🌿', logo:'assets/org-logos/monash-health-ambassador.png', year:'2023', role:'Publicity Officer', org:'Monash Health Ambassador',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Health & Wellness','Publicity','Awareness'], images:[
-    { label:'Monash Health Ambassador Logo', src:'assets/org-logos/monash-health-ambassador.png' },
     { label:'Tree Planting Days', src:'assets/activity-previews/mha-tree-planting-days.png' },
     { label:'Orientation Night', src:'assets/activity-previews/mha-orientation-night.png' }
   ] },
-  { icon:'♻️', logo:'assets/org-logos/monash-green-representative-network.png', year:'2023', role:'Publicity Officer', org:'Monash Green Rep Network',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Sustainability','Publicity','Advocacy'], images:[
-    { label:'Monash Green Representative Network Logo', src:'assets/org-logos/monash-green-representative-network.png' }
-  ] },
-  { icon:'🎯', logo:'assets/org-logos/monash-career-peer.png', year:'2024', role:'Event Coordinator', org:'Monash Career Peer',         period:'Jan 2024 – Jun 2024 · 6 mos',        tags:['Event Management','Career Dev','Leadership'], images:[
-    { label:'Monash Career Peer Logo', src:'assets/org-logos/monash-career-peer.png' }
-  ] },
+  { icon:'♻️', logo:'assets/org-logos/monash-green-representative-network.png', year:'2023', role:'Publicity Officer', org:'Monash Green Rep Network',  period:'Jul 2023 – Dec 2023 · 6 mos',        tags:['Sustainability','Publicity','Advocacy'] },
+  { icon:'🎯', logo:'assets/org-logos/monash-career-peer.png', year:'2024', role:'Event Coordinator', org:'Monash Career Peer',         period:'Jan 2024 – Jun 2024 · 6 mos',        tags:['Event Management','Career Dev','Leadership'] },
   { icon:'📊', logo:'assets/org-logos/monash-accounting-finance-club.png', year:'2024', role:'Publicity Officer', org:'Monash Accounting & Finance Club', period:'Jul 2024 – Dec 2024 · 6 mos', tags:['Marketing','Content Creation','Club'], images:[
-    { label:'Monash Accounting & Finance Club Logo', src:'assets/org-logos/monash-accounting-finance-club.png' },
     { label:'Club Loyalty Program', src:'assets/mafc/previews/club-loyalty-program.png' },
     { label:'Maximize LinkedIn Presence (BDO)', src:'assets/mafc/previews/maximize-linkedin-presence-bdo.png' },
     { label:'PwC Company Tour', src:'assets/mafc/previews/pwc-company-tour.png' }
   ] },
   { icon:'🔭', logo:'assets/org-logos/monash-science-club.png', year:'2024', role:'Publicity Officer', org:'Monash Science Club',         period:'Jul 2024 – Dec 2024 · 6 mos',        tags:['Publicity','Science Outreach','Design'], images:[
-    { label:'Monash Science Club Logo', src:'assets/org-logos/monash-science-club.png' },
     { label:'Eppendorf Company Tour Recap', src:'assets/activity-previews/msc-eppendorf.png' },
     { label:'LyreBird Feature', src:'assets/activity-previews/msc-lyrebird.png' },
     { label:'Mosquito Feature', src:'assets/activity-previews/msc-mosquito.png' }
   ] },
   { icon:'📣', logo:'assets/org-logos/monash-volunteer-program.png', year:'2025', role:'Publicity Officer', org:'Monash University Volunteer Program', period:'Jan 2025 – May 2025 · 5 mos', tags:['Publicity','Volunteering','Communications'], images:[
-    { label:'Monash University Volunteer Program Logo', src:'assets/org-logos/monash-volunteer-program.png' },
     { label:'WWF Volunteer Recruitment', src:'assets/activity-previews/muvp-wwf-volunteer-recruitment.png' },
     { label:'Shelter Home Recruitment', src:'assets/activity-previews/muvp-shelter-home-recruitment.png' },
     { label:'Flooding Mitigation Recruitment', src:'assets/activity-previews/muvp-flooding-mitigation-recruitment.png' }
