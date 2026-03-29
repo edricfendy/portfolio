@@ -326,17 +326,19 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
 /* ══ ABOUT ══ */
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
-  gap: 56px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr);
+  gap: clamp(20px, 3vw, 30px);
+  align-items: stretch;
 }
 .about-main {
   position: relative;
-  background: #fff;
+  background: linear-gradient(165deg, #ffffff 0%, #f5faff 100%);
   border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  padding: clamp(20px, 2.4vw, 30px);
+  border-radius: calc(var(--card-radius) + 4px);
+  padding: clamp(24px, 3vw, 34px);
   box-shadow: var(--card-shadow);
+  display: grid;
+  gap: 18px;
   overflow: hidden;
 }
 .about-main::before {
@@ -345,76 +347,115 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(to right, var(--blue), #8ec7f0);
+  height: 5px;
+  background: linear-gradient(to right, var(--blue-dark), #2f91e1, #8ec7f0);
 }
-.about-text { font-size: 15px; color: var(--ink-mid); line-height: 1.85; margin-bottom: 18px; }
+.about-main::after {
+  content: '';
+  position: absolute;
+  right: -78px;
+  top: -86px;
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,127,212,0.18), transparent 70%);
+  pointer-events: none;
+}
+.about-main > * {
+  position: relative;
+  z-index: 1;
+}
+.about-text { font-size: 15px; color: var(--ink-mid); line-height: 1.9; margin-bottom: 0; }
 .about-text strong { color: var(--ink); font-weight: 600; }
-.about-text:last-of-type { margin-bottom: 20px; }
+.about-text.about-lead {
+  font-family: var(--font-main);
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.65;
+  color: #15283c;
+  max-width: 48ch;
+}
+.about-text + .about-text {
+  padding-top: 4px;
+}
 .about-highlights-title {
   font-family: var(--font-main);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--blue);
-  margin-bottom: 10px;
+  margin-top: 6px;
+  margin-bottom: 4px;
 }
 .about-points {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 .about-point {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 11px;
   font-size: 13px;
   color: var(--ink-mid);
-  line-height: 1.5;
-  background: #f8fbff;
-  border: 1px solid #dbe6f3;
-  border-radius: 10px;
-  padding: 11px 12px;
+  line-height: 1.55;
+  background: #ffffff;
+  border: 1px solid #d4e3f1;
+  border-radius: 12px;
+  padding: 12px;
+  position: relative;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.about-point::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #2f91e1, #79bdf2);
 }
 .about-point:hover {
   border-color: var(--blue);
-  box-shadow: 0 6px 14px rgba(26,127,212,0.12);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(26,127,212,0.12);
+  transform: translateY(-2px);
 }
 .ap-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: var(--blue-light);
-  color: var(--blue);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #e5f1ff, #d8eaff);
+  color: var(--blue-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 16px;
   flex-shrink: 0;
 }
 .lang-card {
   position: sticky;
   top: 80px;
-  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
+  background: linear-gradient(160deg, #0f4a8b 0%, #1562b7 55%, #2f88de 100%);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: calc(var(--card-radius) + 2px);
   padding: var(--card-pad);
-  box-shadow: var(--card-shadow);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 12px 28px rgba(15,74,139,0.28);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .lang-card::before {
   content: '';
-  display: block;
-  width: 100%;
-  height: 3px;
-  border-radius: 999px;
-  background: linear-gradient(to right, var(--blue), #8ec7f0);
-  margin-bottom: 14px;
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--card-radius) + 2px);
+  background: radial-gradient(circle at 85% 12%, rgba(255,255,255,0.2), transparent 38%);
+  pointer-events: none;
 }
-.lang-card:hover { border-color: var(--blue); box-shadow: var(--card-shadow-hover); transform: translateY(-3px); }
+.lang-card:hover { box-shadow: 0 16px 34px rgba(15,74,139,0.34); transform: translateY(-2px); }
+.lang-card > * {
+  position: relative;
+  z-index: 1;
+}
 .lang-card-title {
   display: flex;
   align-items: center;
@@ -422,29 +463,64 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
   font-family: var(--font-main);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
+  color: rgba(255,255,255,0.78);
+  margin-bottom: 14px;
+}
+.lang-card-sub {
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(236,245,255,0.9);
+  margin-bottom: 14px;
+  max-width: 30ch;
 }
 .lang-row {
   display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--border);
+  gap: 8px;
+  padding: 10px 0 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
 }
 .lang-row:last-child { border-bottom: none; }
-.lang-name { font-size: 14px; color: var(--ink); font-weight: 600; }
+.lang-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.lang-name { font-size: 14px; color: #ffffff; font-weight: 600; }
 .lang-level {
   font-family: var(--font-main); font-size: 11px; font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase;
-  padding: 3px 10px; border-radius: 20px;
+  padding: 3px 10px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.36);
 }
-.lang-level.native     { background: #dff5e8; color: #1e7e40; }
-.lang-level.fluent     { background: var(--blue-light); color: var(--blue-dark); }
-.lang-level.conversant { background: #f0eefb; color: #5b47c1; }
+.lang-level.native     { background: rgba(208,245,226,0.95); color: #1a7342; }
+.lang-level.fluent     { background: rgba(229,241,255,0.95); color: #0f4f97; }
+.lang-level.conversant { background: rgba(238,232,253,0.95); color: #4e3da9; }
+.lang-meter {
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.24);
+  overflow: hidden;
+}
+.lang-meter > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(to right, #d9ecff, #ffffff);
+}
+.lang-row.native .lang-meter > span { width: 100%; }
+.lang-row.fluent .lang-meter > span { width: 84%; }
+.lang-row.conversant .lang-meter > span { width: 60%; }
+.lang-card-note {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  font-size: 11px;
+  color: rgba(235,244,255,0.92);
+  line-height: 1.45;
+}
 
 /* ══ EXPERIENCE ══ */
 .exp-timeline { display: flex; flex-direction: column; gap: 16px; }
@@ -898,281 +974,302 @@ footer {
   }
 }
 
-/* ══ ROADMAP — REDESIGNED TO MATCH THEME ══ */
+/* ══ ROADMAP — INTERACTIVE CARDS ══ */
 .road-journey-wrap {
   position: relative;
-  background: #e9eef5;
-  border-radius: 16px;
-  padding: 36px 36px 32px;
+  background: linear-gradient(180deg, #edf4fb 0%, #e4eef9 100%);
+  border-radius: 18px;
+  padding: clamp(22px, 3.2vw, 34px);
   overflow: hidden;
-  border: 1px solid var(--surface-border);
-  box-shadow: 0 8px 26px rgba(20, 104, 176, 0.10);
+  border: 1px solid #c8d9ea;
+  box-shadow: 0 10px 30px rgba(20,104,176,0.12);
 }
-
-/* Subtle dot-grid texture */
 .road-journey-wrap::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(26,127,212,0.10) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(circle, rgba(26,127,212,0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.6;
   pointer-events: none;
-  border-radius: 16px;
 }
-
-/* Decorative corner glow */
 .road-journey-wrap::after {
   content: '';
   position: absolute;
-  top: -60px; right: -60px;
-  width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(26,127,212,0.15) 0%, transparent 70%);
+  right: -120px;
+  top: -120px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(26,127,212,0.2), transparent 72%);
   pointer-events: none;
 }
-
 .road-header {
   position: relative;
   z-index: 2;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 28px;
+  gap: 18px;
+  margin-bottom: 20px;
 }
+.road-header-copy { max-width: 560px; }
 .road-header-title {
   font-family: var(--font-main);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--blue);
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  color: #1e6db8;
   margin-bottom: 8px;
 }
-.road-header-title::before { content: ''; width: 28px; height: 2px; background: rgba(26,127,212,0.55); }
 .road-header-sub {
   font-family: var(--font-main);
-  font-size: clamp(20px, 2.5vw, 28px);
+  font-size: clamp(20px, 2.3vw, 28px);
   font-weight: 800;
-  color: #111827;
-  line-height: 1.15;
+  color: #122235;
+  line-height: 1.2;
 }
-.road-header-sub span { color: #64748b; font-weight: 300; }
 .road-legend {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-main);
   font-size: 11px;
-  font-weight: 600;
-  color: #4b617c;
+  font-weight: 700;
+  color: #365372;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  white-space: nowrap;
   padding: 8px 14px;
-  background: #eef4fb;
-  border: 1px solid #d3dfec;
-  border-radius: 20px;
+  border-radius: 999px;
+  border: 1px solid #c9daed;
+  background: rgba(255,255,255,0.66);
+  white-space: nowrap;
 }
-.road-legend-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-
-/* ── Scroll container ── */
-.road-svg-wrap {
+.road-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+.road-stage-grid {
   position: relative;
   z-index: 2;
-  width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(210px, 1fr);
+  gap: 14px;
+  padding: 44px 4px 10px;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding-bottom: 4px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: #9ec4e8 transparent;
 }
-.road-svg-wrap::-webkit-scrollbar { display: none; }
-
-.road-main-svg {
-  width: 100%;
-  min-width: 860px;
-  height: auto;
-  display: block;
-  overflow: visible;
-  cursor: default;
+.road-stage-grid::-webkit-scrollbar {
+  height: 7px;
 }
-
-/* ── Track line ── */
-.road-track {
-  fill: none;
-  stroke: rgba(26,127,212,0.28);
-  stroke-width: 2;
-  stroke-dasharray: 6 4;
+.road-stage-grid::-webkit-scrollbar-track {
+  background: transparent;
 }
-
-/* ── Connector verticals ── */
-.road-connector {
-  stroke: rgba(26,127,212,0.24);
-  stroke-width: 1.5;
-  stroke-dasharray: 3 3;
+.road-stage-grid::-webkit-scrollbar-thumb {
+  background: #9ec4e8;
+  border-radius: 999px;
 }
-
-/* ── Year dot on axis ── */
-.axis-dot {
-  fill: rgba(26,127,212,0.42);
+.road-stage-grid::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 20px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #8ab9e5, #5ea1dd, #8ab9e5);
 }
-
-/* ── Year label ── */
-.stop-year {
-  font-family: var(--font-main);
-  font-size: 11px;
-  font-weight: 700;
-  fill: #5f7390;
-  text-anchor: middle;
-  letter-spacing: 0.08em;
+.road-stop.road-stage-card {
+  --lane-offset: 0px;
+  appearance: none;
+  border: 1px solid #c8dced;
+  background: linear-gradient(160deg, #ffffff 0%, #f7fbff 100%);
+  border-radius: 14px;
+  padding: 14px 13px 14px;
+  text-align: left;
+  display: grid;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--ink);
+  position: relative;
+  min-height: 152px;
+  scroll-snap-align: start;
+  transform: translateY(var(--lane-offset));
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
 }
-
-/* ── Caption above/below stop ── */
-.stop-caption {
+.road-stop.road-stage-card:nth-child(even) {
+  --lane-offset: 16px;
+}
+.road-stop.road-stage-card::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: -29px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2f89df;
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 2px #a7cbeb;
+}
+.road-stop.road-stage-card::after {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: -14px;
+  width: 2px;
+  height: 14px;
+  background: #8ab9e5;
+}
+.road-stop.road-stage-card:hover {
+  border-color: #8cbce8;
+  box-shadow: 0 8px 16px rgba(20,104,176,0.14);
+  transform: translateY(calc(var(--lane-offset) - 3px));
+}
+.road-stage-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.stage-logo-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #eaf3fc;
+  border: 1px solid #d2e1f0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.stage-logo-wrap img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.stage-year {
   font-family: var(--font-main);
   font-size: 10px;
-  font-weight: 600;
-  fill: #25384f;
-  text-anchor: middle;
-  letter-spacing: 0.02em;
-}
-
-/* ── Stop button group ── */
-.road-stop {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-  outline: none;
-}
-
-/* Ring (visible when active/hover) */
-.stop-ring {
-  fill: none;
-  stroke: rgba(26,127,212,0.4);
-  stroke-width: 2.5;
-  opacity: 0;
-  transition: opacity 0.2s ease, r 0.2s ease;
-}
-
-/* Outer circle */
-.stop-core {
-  fill: #dce9f7;
-  stroke: #7eaeda;
-  stroke-width: 1.8;
-  transition: fill 0.2s ease, stroke 0.2s ease, r 0.2s ease;
-}
-
-/* Inner accent ring */
-.stop-inner {
-  fill: none;
-  stroke: rgba(26,127,212,0.45);
-  stroke-width: 1.5;
-  transition: stroke 0.2s ease;
-}
-
-/* Icon text */
-.stop-icon {
-  font-family: var(--font-main);
-  font-size: 14px;
   font-weight: 700;
-  fill: var(--blue-dark);
-  text-anchor: middle;
-  dominant-baseline: central;
-  pointer-events: none;
-  transition: fill 0.2s ease;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #51708c;
+  background: #e9f3ff;
+  border: 1px solid #cfe2f5;
+  border-radius: 999px;
+  padding: 3px 7px;
 }
-.stop-logo { pointer-events: none; }
-
-/* Hover state (non-touch) */
-@media (hover: hover) and (pointer: fine) {
-  .road-stop:hover .stop-ring  { opacity: 1; }
-  .road-stop:hover .stop-core  { fill: #cfe2f6; stroke: var(--blue); }
-  .road-stop:hover .stop-inner { stroke: var(--blue-dark); }
+.stage-org {
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  color: #1b2d41;
+  line-height: 1.35;
 }
-
-/* Active/selected state */
-.road-stop.active .stop-ring  { opacity: 1; stroke: var(--blue-dark); stroke-width: 3; }
-.road-stop.active .stop-core  { fill: var(--blue); stroke: var(--blue-dark); }
-.road-stop.active .stop-inner { stroke: #fff; }
-.road-stop.active .stop-icon  { fill: #fff; }
-
-/* ── Info panel — redesigned to match theme ── */
+.stage-role {
+  font-size: 11px;
+  font-family: var(--font-main);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5d7590;
+  line-height: 1.4;
+}
+.road-stop.road-stage-card.active {
+  border-color: #2f89df;
+  box-shadow: 0 12px 24px rgba(26,127,212,0.2);
+  transform: translateY(calc(var(--lane-offset) - 4px));
+  background: linear-gradient(170deg, #ffffff 0%, #eff7ff 100%);
+}
+.road-stop.road-stage-card.active .stage-logo-wrap {
+  background: linear-gradient(145deg, #d9ebfd, #cde5fb);
+  border-color: #9cc7ee;
+}
+.road-stop.road-stage-card.active::before {
+  background: #0f6ac0;
+  box-shadow: 0 0 0 2px #7fb2e2;
+}
+.road-stop.road-stage-card:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
 .road-info-panel {
   position: relative;
   z-index: 2;
-  margin-top: 20px;
-  background: #fff;
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  padding: var(--card-pad);
-  box-shadow: var(--card-shadow);
-  display: flex;
-  align-items: flex-start;
+  margin-top: 18px;
+  background: #ffffff;
+  border: 1px solid #c9ddee;
+  border-radius: 14px;
+  padding: clamp(16px, 2.4vw, 24px);
+  box-shadow: 0 10px 20px rgba(20,104,176,0.1);
+  display: grid;
+  grid-template-columns: auto 1fr;
   gap: 16px;
-  min-height: 80px;
 }
-
 .panel-icon-wrap {
-  width: 52px; height: 52px;
-  border-radius: 0;
-  background: transparent;
-  border: none;
-  display: flex; align-items: center; justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: #ebf4fd;
+  border: 1px solid #d5e4f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  overflow: visible;
+  overflow: hidden;
 }
 .panel-icon-wrap img {
-  width: 100%;
-  height: 100%;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
-  padding: 0;
 }
-
-.panel-content { flex: 1; min-width: 0; }
-
+.panel-content { min-width: 0; }
 .panel-year {
   font-family: var(--font-main);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--blue);
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 .panel-role {
   font-family: var(--font-main);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--ink);
-  line-height: 1.3;
-  margin-bottom: 3px;
+  line-height: 1.25;
+  margin-bottom: 4px;
 }
 .panel-org {
   font-size: 13px;
   color: var(--muted);
   margin-bottom: 12px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 .panel-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .panel-tag {
   font-family: var(--font-main);
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--blue-dark);
   background: var(--blue-light);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 3px 10px;
+  border-radius: 999px;
+  padding: 4px 10px;
 }
 .panel-media {
-  margin-top: 12px;
+  margin-top: 14px;
   display: none;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 10px;
@@ -1200,9 +1297,6 @@ footer {
   padding: 7px 8px;
   line-height: 1.35;
 }
-
-/* Keyboard focus for accessibility */
-.road-stop:focus-visible .stop-ring { opacity: 1; stroke: var(--blue-dark); }
 
 /* ══ RESPONSIVE ══ */
 @media (max-width: 900px) {
@@ -1251,7 +1345,7 @@ footer {
   .hero-title { font-size: 16px; }
   .hero-desc { line-height: 1.7; margin-bottom: 24px; }
   .hero-profile-wrap { order: -1; align-self: center; width: min(300px, 80vw); }
-  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-grid { grid-template-columns: 1fr; gap: 22px; }
   .about-main { padding: var(--card-pad-mobile); }
   .about-points { grid-template-columns: 1fr; }
   .lang-card { position: static; }
@@ -1269,8 +1363,19 @@ footer {
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
   .road-journey-wrap { padding: 24px 18px 24px; border-radius: 12px; }
-  .road-header { flex-direction: column; gap: 10px; }
+  .road-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .road-header-sub { font-size: clamp(18px, 5.2vw, 24px); }
   .road-legend { align-self: flex-start; }
+  .road-stage-grid {
+    grid-auto-columns: minmax(220px, 72vw);
+    padding-top: 38px;
+  }
+  .road-stop.road-stage-card {
+    min-height: 140px;
+  }
+  .road-stop.road-stage-card:nth-child(even) {
+    --lane-offset: 10px;
+  }
   .project-media-grid { grid-template-columns: 1fr; }
   .section-theme-panel { padding: 26px 18px; border-radius: 12px; }
   .section-head { margin-bottom: 24px; }
@@ -1280,9 +1385,8 @@ footer {
   .skills-heading { font-size: clamp(30px, 7.2vw, 40px); }
   .skills-card-grid { grid-template-columns: 1fr; gap: 14px; }
   .skill-card-headline { font-size: 20px; }
-  .road-main-svg { min-width: 860px; }
-  .road-info-panel { flex-direction: column; gap: 12px; padding: var(--card-pad-mobile); }
-  .panel-icon-wrap { width: 44px; height: 44px; }
+  .road-info-panel { grid-template-columns: 1fr; gap: 12px; padding: var(--card-pad-mobile); }
+  .panel-icon-wrap { width: 48px; height: 48px; }
   .lang-card,
   .edu-card,
   .project-body,
@@ -1298,6 +1402,8 @@ footer {
   .section-subtitle { font-size: 14px; }
   .skills-overline { font-size: 11px; }
   .skill-pill { font-size: 11px; }
+  .road-stage-grid { grid-auto-columns: 86vw; }
+  .road-stop.road-stage-card:nth-child(even) { --lane-offset: 0px; }
   #hero { align-items: center; text-align: center; }
   .hero-content { text-align: center; }
   .hero-title { font-size: 15px; }
@@ -1499,7 +1605,7 @@ footer {
     </div>
     <div class="about-grid">
       <div class="about-main">
-        <p class="about-text">I am an <strong>analytical and self-driven Food Science graduate</strong> who thrives in dynamic environments, continuously adapting and learning to overcome challenges.</p>
+        <p class="about-text about-lead">I am an <strong>analytical and self-driven Food Science graduate</strong> who thrives in dynamic environments, continuously adapting and learning to overcome challenges.</p>
         <p class="about-text">My passion is in the F&amp;B sector within FMCG, where I aim to create <strong>innovative, sustainable, and nutritious food products</strong> that make a real difference in people's lives.</p>
         <p class="about-text">Through internships, I built hands-on experience in <strong>NPD projects, shelf-life studies, sensory evaluations, and equipment operation</strong>, with strong compliance fundamentals in <strong>GMP, HACCP, ISO 9001:2015, Halal, and MeSTI regulations</strong>. I am eager to grow in food manufacturing through continuous learning.</p>
         <div class="about-highlights-title">Core strengths</div>
@@ -1513,11 +1619,28 @@ footer {
       <div>
         <div class="lang-card">
           <div class="lang-card-title">🌐 Languages</div>
-          <div class="lang-row"><span class="lang-name">Bahasa Indonesia</span><span class="lang-level native">Native</span></div>
-          <div class="lang-row"><span class="lang-name">Hokkien</span><span class="lang-level native">Native</span></div>
-          <div class="lang-row"><span class="lang-name">English</span><span class="lang-level fluent">Fluent</span></div>
-          <div class="lang-row"><span class="lang-name">Malay</span><span class="lang-level conversant">Conversant</span></div>
-          <div class="lang-row"><span class="lang-name">Chinese</span><span class="lang-level conversant">Conversant</span></div>
+          <p class="lang-card-sub">Communication readiness across multicultural teams and cross-functional environments.</p>
+          <div class="lang-row native">
+            <div class="lang-meta"><span class="lang-name">Bahasa Indonesia</span><span class="lang-level native">Native</span></div>
+            <div class="lang-meter"><span></span></div>
+          </div>
+          <div class="lang-row native">
+            <div class="lang-meta"><span class="lang-name">Hokkien</span><span class="lang-level native">Native</span></div>
+            <div class="lang-meter"><span></span></div>
+          </div>
+          <div class="lang-row fluent">
+            <div class="lang-meta"><span class="lang-name">English</span><span class="lang-level fluent">Fluent</span></div>
+            <div class="lang-meter"><span></span></div>
+          </div>
+          <div class="lang-row conversant">
+            <div class="lang-meta"><span class="lang-name">Malay</span><span class="lang-level conversant">Conversant</span></div>
+            <div class="lang-meter"><span></span></div>
+          </div>
+          <div class="lang-row conversant">
+            <div class="lang-meta"><span class="lang-name">Chinese</span><span class="lang-level conversant">Conversant</span></div>
+            <div class="lang-meter"><span></span></div>
+          </div>
+          <div class="lang-card-note">Daily working language: English and Bahasa Indonesia.</div>
         </div>
       </div>
     </div>
@@ -1671,113 +1794,87 @@ footer {
 
     <div class="road-journey-wrap">
       <div class="road-header">
+        <div class="road-header-copy">
+          <div class="road-header-title">Activity Journey</div>
+          <p class="road-header-sub">Tap any role to view achievements, tags, and campaign visuals</p>
+        </div>
         <div class="road-legend">
           <div class="road-legend-dot"></div>
           2023 → 2025
         </div>
       </div>
 
-      <div class="road-svg-wrap" id="roadSvgWrap">
-        <svg class="road-main-svg" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" id="roadMainSvg" aria-label="Leadership milestone timeline">
-          <defs>
-            <filter id="stopGlow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="4" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
+      <div class="road-stage-grid" role="list" aria-label="Leadership milestone cards">
+        <button class="road-stop road-stage-card" type="button" data-idx="0" aria-label="Dance Fusion Club" role="listitem">
+          <div class="road-stage-top">
+            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-dance-fusion-club.png" alt="Dance Fusion Club logo" loading="lazy" decoding="async"></span>
+            <span class="stage-year">2023</span>
+          </div>
+          <div class="stage-org">Dance Fusion Club</div>
+          <div class="stage-role">Publicity Officer</div>
+        </button>
 
-          <!-- Track line -->
-          <line class="road-track" x1="70" y1="150" x2="790" y2="150"/>
-          <text class="stop-year" x="190" y="168">2023</text>
-          <text class="stop-year" x="550" y="168">2024</text>
-          <text class="stop-year" x="790" y="168">2025</text>
+        <button class="road-stop road-stage-card" type="button" data-idx="1" aria-label="Health Ambassador" role="listitem">
+          <div class="road-stage-top">
+            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-health-ambassador.png" alt="Health Ambassador logo" loading="lazy" decoding="async"></span>
+            <span class="stage-year">2023</span>
+          </div>
+          <div class="stage-org">Health Ambassador</div>
+          <div class="stage-role">Publicity Officer</div>
+        </button>
 
-          <!-- Stop 0: Dance Fusion — above -->
-          <text class="stop-caption" x="70"  y="42">Dance Fusion Club (2023)</text>
-          <line class="road-connector" x1="70"  y1="58"  x2="70"  y2="132"/>
-          <circle class="axis-dot" cx="70"  cy="150" r="3"/>
-          <g class="road-stop" data-idx="0" tabindex="0" role="button" aria-label="Dance Fusion Club" transform="translate(70,80)">
-            <circle class="stop-ring"  r="28"/>
-            <circle class="stop-core"  r="21"/>
-            <circle class="stop-inner" r="15"/>
-            <image class="stop-logo" href="assets/org-logos/monash-dance-fusion-club.png" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
-          </g>
+        <button class="road-stop road-stage-card" type="button" data-idx="2" aria-label="Green Rep Network" role="listitem">
+          <div class="road-stage-top">
+            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-green-representative-network.png" alt="Green Representative Network logo" loading="lazy" decoding="async"></span>
+            <span class="stage-year">2023</span>
+          </div>
+          <div class="stage-org">Green Rep Network</div>
+          <div class="stage-role">Publicity Officer</div>
+        </button>
 
-          <!-- Stop 1: Health Ambassador — below -->
-          <text class="stop-caption" x="190" y="260">Health Ambassador (2023)</text>
-          <line class="road-connector" x1="190" y1="168" x2="190" y2="232"/>
-          <circle class="axis-dot" cx="190" cy="150" r="3"/>
-          <g class="road-stop" data-idx="1" tabindex="0" role="button" aria-label="Health Ambassador" transform="translate(190,220)">
-            <circle class="stop-ring"  r="28"/>
-            <circle class="stop-core"  r="21"/>
-            <circle class="stop-inner" r="15"/>
-            <image class="stop-logo" href="assets/org-logos/monash-health-ambassador.png" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
-          </g>
+        <button class="road-stop road-stage-card" type="button" data-idx="3" aria-label="Career Peer" role="listitem">
+          <div class="road-stage-top">
+            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-career-peer.png" alt="Career Peer logo" loading="lazy" decoding="async"></span>
+            <span class="stage-year">2024</span>
+          </div>
+          <div class="stage-org">Career Peer</div>
+          <div class="stage-role">Event Coordinator</div>
+        </button>
 
-          <!-- Stop 2: Green Rep — above -->
-          <text class="stop-caption" x="310" y="42">Green Rep Network (2023)</text>
-          <line class="road-connector" x1="310" y1="58"  x2="310" y2="132"/>
-          <circle class="axis-dot" cx="310" cy="150" r="3"/>
-          <g class="road-stop" data-idx="2" tabindex="0" role="button" aria-label="Green Rep Network" transform="translate(310,80)">
-            <circle class="stop-ring"  r="28"/>
-            <circle class="stop-core"  r="21"/>
-            <circle class="stop-inner" r="15"/>
-            <image class="stop-logo" href="assets/org-logos/monash-green-representative-network.png" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
-          </g>
+        <button class="road-stop road-stage-card" type="button" data-idx="4" aria-label="Accounting and Finance Club" role="listitem">
+          <div class="road-stage-top">
+            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-accounting-finance-club.png" alt="Accounting and Finance Club logo" loading="lazy" decoding="async"></span>
+            <span class="stage-year">2024</span>
+          </div>
+          <div class="stage-org">Accounting &amp; Finance Club</div>
+          <div class="stage-role">Publicity Officer</div>
+        </button>
 
-          <!-- Stop 3: Career Peer — below -->
-          <text class="stop-caption" x="430" y="260">Career Peer (2024)</text>
-          <line class="road-connector" x1="430" y1="168" x2="430" y2="232"/>
-          <circle class="axis-dot" cx="430" cy="150" r="3"/>
-          <g class="road-stop" data-idx="3" tabindex="0" role="button" aria-label="Career Peer" transform="translate(430,220)">
-            <circle class="stop-ring"  r="28"/>
-            <circle class="stop-core"  r="21"/>
-            <circle class="stop-inner" r="15"/>
-            <image class="stop-logo" href="assets/org-logos/monash-career-peer.png" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
-          </g>
+        <button class="road-stop road-stage-card" type="button" data-idx="5" aria-label="Science Club" role="listitem">
+          <div class="road-stage-top">
+            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-science-club.png" alt="Science Club logo" loading="lazy" decoding="async"></span>
+            <span class="stage-year">2024</span>
+          </div>
+          <div class="stage-org">Science Club</div>
+          <div class="stage-role">Publicity Officer</div>
+        </button>
 
-          <!-- Stop 4: Accounting & Finance — above -->
-          <text class="stop-caption" x="550" y="42">Accounting &amp; Finance (2024)</text>
-          <line class="road-connector" x1="550" y1="58"  x2="550" y2="132"/>
-          <circle class="axis-dot" cx="550" cy="150" r="3"/>
-          <g class="road-stop" data-idx="4" tabindex="0" role="button" aria-label="Accounting and Finance Club" transform="translate(550,80)">
-            <circle class="stop-ring"  r="28"/>
-            <circle class="stop-core"  r="21"/>
-            <circle class="stop-inner" r="15"/>
-            <image class="stop-logo" href="assets/org-logos/monash-accounting-finance-club.png" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
-          </g>
-
-          <!-- Stop 5: Science Club — below -->
-          <text class="stop-caption" x="670" y="260">Science Club (2024)</text>
-          <line class="road-connector" x1="670" y1="168" x2="670" y2="232"/>
-          <circle class="axis-dot" cx="670" cy="150" r="3"/>
-          <g class="road-stop" data-idx="5" tabindex="0" role="button" aria-label="Science Club" transform="translate(670,220)">
-            <circle class="stop-ring"  r="28"/>
-            <circle class="stop-core"  r="21"/>
-            <circle class="stop-inner" r="15"/>
-            <image class="stop-logo" href="assets/org-logos/monash-science-club.png" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
-          </g>
-
-          <!-- Stop 6: Volunteer — above -->
-          <text class="stop-caption" x="790" y="42">Volunteer Program (2025)</text>
-          <line class="road-connector" x1="790" y1="58"  x2="790" y2="132"/>
-          <circle class="axis-dot" cx="790" cy="150" r="3"/>
-          <g class="road-stop" data-idx="6" tabindex="0" role="button" aria-label="Volunteer Program" transform="translate(790,80)">
-            <circle class="stop-ring"  r="28"/>
-            <circle class="stop-core"  r="21"/>
-            <circle class="stop-inner" r="15"/>
-            <image class="stop-logo" href="assets/org-logos/monash-volunteer-program.png" x="-12" y="-12" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
-          </g>
-        </svg>
+        <button class="road-stop road-stage-card" type="button" data-idx="6" aria-label="Volunteer Program" role="listitem">
+          <div class="road-stage-top">
+            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-volunteer-program.png" alt="Volunteer Program logo" loading="lazy" decoding="async"></span>
+            <span class="stage-year">2025</span>
+          </div>
+          <div class="stage-org">Volunteer Program</div>
+          <div class="stage-role">Publicity Officer</div>
+        </button>
       </div>
 
-      <!-- Info panel -->
       <div class="road-info-panel" id="roadInfoPanel">
         <div class="panel-icon-wrap" id="panelIcon"><img src="assets/org-logos/monash-dance-fusion-club.png" alt="Monash Dance Fusion Club logo" loading="lazy" decoding="async"></div>
         <div class="panel-content">
           <div class="panel-year" id="panelYear"></div>
           <div class="panel-role" id="panelRole"></div>
-          <div class="panel-org"  id="panelOrg"></div>
+          <div class="panel-org" id="panelOrg"></div>
           <div class="panel-tags" id="panelTags"></div>
           <div class="panel-media" id="panelMedia"></div>
         </div>
@@ -2107,13 +2204,15 @@ roadStops.forEach(stop => {
     activateStop(idx);
   });
 
-  /* Keyboard: Enter / Space */
-  stop.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      activateStop(idx);
-    }
-  });
+  /* Keyboard support for non-button elements */
+  if (stop.tagName.toLowerCase() !== 'button') {
+    stop.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activateStop(idx);
+      }
+    });
+  }
 });
 
 /* Auto-select first stop on load */
