@@ -374,6 +374,36 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
   color: #15283c;
   max-width: 48ch;
 }
+.about-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.about-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #cfe0f2;
+  background: #f7fbff;
+  font-size: 12px;
+  color: #35516d;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 600;
+}
+.about-fact strong {
+  font-family: var(--font-main);
+  font-size: 13px;
+  color: #174f86;
+  letter-spacing: 0.06em;
+}
+.about-main-divider {
+  height: 1px;
+  background: linear-gradient(to right, rgba(26,127,212,0.3), rgba(26,127,212,0.06), transparent 72%);
+  margin: 4px 0 2px;
+}
 .about-text + .about-text {
   padding-top: 4px;
 }
@@ -399,11 +429,12 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
   font-size: 13px;
   color: var(--ink-mid);
   line-height: 1.55;
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fcff 100%);
   border: 1px solid #d4e3f1;
   border-radius: 12px;
   padding: 12px;
   position: relative;
+  overflow: hidden;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .about-point::before {
@@ -416,10 +447,25 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
   border-radius: 999px;
   background: linear-gradient(to bottom, #2f91e1, #79bdf2);
 }
+.about-point::after {
+  content: '';
+  position: absolute;
+  right: -30px;
+  top: -34px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(47,145,225,0.14), transparent 74%);
+  pointer-events: none;
+}
 .about-point:hover {
   border-color: var(--blue);
   box-shadow: 0 8px 16px rgba(26,127,212,0.12);
   transform: translateY(-2px);
+}
+.about-point > div {
+  position: relative;
+  z-index: 1;
 }
 .ap-icon {
   width: 34px;
@@ -432,6 +478,8 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
   justify-content: center;
   font-size: 16px;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 .lang-card {
   position: sticky;
@@ -1029,6 +1077,13 @@ footer {
   color: #122235;
   line-height: 1.2;
 }
+.road-header-note {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #5f7891;
+  line-height: 1.5;
+  max-width: 52ch;
+}
 .road-legend {
   display: inline-flex;
   align-items: center;
@@ -1052,6 +1107,62 @@ footer {
   background: var(--blue);
   flex-shrink: 0;
 }
+.road-stage-shell {
+  position: relative;
+  z-index: 2;
+  padding-inline: 42px;
+}
+.road-stage-shell::before,
+.road-stage-shell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42px;
+  pointer-events: none;
+  z-index: 3;
+}
+.road-stage-shell::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(232,242,252,0.96), rgba(232,242,252,0));
+}
+.road-stage-shell::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(232,242,252,0.96), rgba(232,242,252,0));
+}
+.road-scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-28%);
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid #bad5ee;
+  background: rgba(255,255,255,0.94);
+  color: #3e6286;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+.road-scroll-btn:hover {
+  border-color: #8dbbe5;
+  box-shadow: 0 6px 14px rgba(26,127,212,0.18);
+  color: #1d5f9d;
+}
+.road-scroll-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.road-scroll-btn.prev { left: 4px; }
+.road-scroll-btn.next { right: 4px; }
 .road-stage-grid {
   position: relative;
   z-index: 2;
@@ -1062,18 +1173,11 @@ footer {
   padding: 44px 4px 10px;
   overflow-x: auto;
   scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: #9ec4e8 transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .road-stage-grid::-webkit-scrollbar {
-  height: 7px;
-}
-.road-stage-grid::-webkit-scrollbar-track {
-  background: transparent;
-}
-.road-stage-grid::-webkit-scrollbar-thumb {
-  background: #9ec4e8;
-  border-radius: 999px;
+  display: none;
 }
 .road-stage-grid::before {
   content: '';
@@ -1084,6 +1188,25 @@ footer {
   height: 3px;
   border-radius: 999px;
   background: linear-gradient(to right, #8ab9e5, #5ea1dd, #8ab9e5);
+}
+.road-scroll-progress {
+  position: relative;
+  z-index: 2;
+  margin-top: 6px;
+  margin-left: 42px;
+  margin-right: 42px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(127,176,224,0.26);
+  overflow: hidden;
+}
+.road-scroll-progress > span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(to right, #66a7df, #2f89df);
+  transition: width 0.22s ease;
 }
 .road-stop.road-stage-card {
   --lane-offset: 0px;
@@ -1193,6 +1316,14 @@ footer {
   background: linear-gradient(145deg, #d9ebfd, #cde5fb);
   border-color: #9cc7ee;
 }
+.road-stop.road-stage-card.active .stage-year {
+  background: #d8ebff;
+  border-color: #acd0f1;
+  color: #245e96;
+}
+.road-stop.road-stage-card.active .stage-role {
+  color: #2a5783;
+}
 .road-stop.road-stage-card.active::before {
   background: #0f6ac0;
   box-shadow: 0 0 0 2px #7fb2e2;
@@ -1213,6 +1344,23 @@ footer {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 16px;
+  overflow: hidden;
+}
+.road-info-panel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(to right, #2f89df, #87c0ee, transparent 76%);
+}
+.road-info-panel.is-updating {
+  animation: roadPanelRefresh 0.26s ease;
+}
+@keyframes roadPanelRefresh {
+  0% { transform: translateY(2px); opacity: 0.92; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 .panel-icon-wrap {
   width: 56px;
@@ -1347,6 +1495,8 @@ footer {
   .hero-profile-wrap { order: -1; align-self: center; width: min(300px, 80vw); }
   .about-grid { grid-template-columns: 1fr; gap: 22px; }
   .about-main { padding: var(--card-pad-mobile); }
+  .about-facts { gap: 8px; }
+  .about-fact { font-size: 11px; }
   .about-points { grid-template-columns: 1fr; }
   .lang-card { position: static; }
   .exp-item { padding: var(--card-pad-mobile); }
@@ -1365,10 +1515,23 @@ footer {
   .road-journey-wrap { padding: 24px 18px 24px; border-radius: 12px; }
   .road-header { flex-direction: column; align-items: flex-start; gap: 10px; }
   .road-header-sub { font-size: clamp(18px, 5.2vw, 24px); }
+  .road-header-note { max-width: none; }
   .road-legend { align-self: flex-start; }
+  .road-stage-shell {
+    padding-inline: 0;
+  }
+  .road-stage-shell::before,
+  .road-stage-shell::after,
+  .road-scroll-btn {
+    display: none;
+  }
   .road-stage-grid {
     grid-auto-columns: minmax(220px, 72vw);
     padding-top: 38px;
+  }
+  .road-scroll-progress {
+    margin-left: 0;
+    margin-right: 0;
   }
   .road-stop.road-stage-card {
     min-height: 140px;
@@ -1402,6 +1565,8 @@ footer {
   .section-subtitle { font-size: 14px; }
   .skills-overline { font-size: 11px; }
   .skill-pill { font-size: 11px; }
+  .about-facts { justify-content: center; }
+  .road-header-note { font-size: 11px; }
   .road-stage-grid { grid-auto-columns: 86vw; }
   .road-stop.road-stage-card:nth-child(even) { --lane-offset: 0px; }
   #hero { align-items: center; text-align: center; }
@@ -1606,8 +1771,14 @@ footer {
     <div class="about-grid">
       <div class="about-main">
         <p class="about-text about-lead">I am an <strong>analytical and self-driven Food Science graduate</strong> who thrives in dynamic environments, continuously adapting and learning to overcome challenges.</p>
+        <div class="about-facts" aria-label="Profile highlights">
+          <span class="about-fact"><strong>3</strong> Internships</span>
+          <span class="about-fact"><strong>7</strong> Leadership Roles</span>
+          <span class="about-fact"><strong>5</strong> Languages</span>
+        </div>
         <p class="about-text">My passion is in the F&amp;B sector within FMCG, where I aim to create <strong>innovative, sustainable, and nutritious food products</strong> that make a real difference in people's lives.</p>
         <p class="about-text">Through internships, I built hands-on experience in <strong>NPD projects, shelf-life studies, sensory evaluations, and equipment operation</strong>, with strong compliance fundamentals in <strong>GMP, HACCP, ISO 9001:2015, Halal, and MeSTI regulations</strong>. I am eager to grow in food manufacturing through continuous learning.</p>
+        <div class="about-main-divider" aria-hidden="true"></div>
         <div class="about-highlights-title">Core strengths</div>
         <div class="about-points">
           <div class="about-point"><div class="ap-icon">🧠</div><div>Analytical, adaptive, and self-driven in fast-paced environments</div></div>
@@ -1797,6 +1968,7 @@ footer {
         <div class="road-header-copy">
           <div class="road-header-title">Activity Journey</div>
           <p class="road-header-sub">Tap any role to view achievements, tags, and campaign visuals</p>
+          <p class="road-header-note">Use the arrows or swipe horizontally to browse each role, then select a card to open its details and campaign media.</p>
         </div>
         <div class="road-legend">
           <div class="road-legend-dot"></div>
@@ -1804,72 +1976,77 @@ footer {
         </div>
       </div>
 
-      <div class="road-stage-grid" role="list" aria-label="Leadership milestone cards">
-        <button class="road-stop road-stage-card" type="button" data-idx="0" aria-label="Dance Fusion Club" role="listitem">
-          <div class="road-stage-top">
-            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-dance-fusion-club.png" alt="Dance Fusion Club logo" loading="lazy" decoding="async"></span>
-            <span class="stage-year">2023</span>
-          </div>
-          <div class="stage-org">Dance Fusion Club</div>
-          <div class="stage-role">Publicity Officer</div>
-        </button>
+      <div class="road-stage-shell">
+        <button class="road-scroll-btn prev" id="roadScrollPrev" type="button" aria-label="Scroll activities left">‹</button>
+        <div class="road-stage-grid" id="roadStageGrid" role="list" aria-label="Leadership milestone cards">
+          <button class="road-stop road-stage-card" type="button" data-idx="0" aria-label="Dance Fusion Club" role="listitem">
+            <div class="road-stage-top">
+              <span class="stage-logo-wrap"><img src="assets/org-logos/monash-dance-fusion-club.png" alt="Dance Fusion Club logo" loading="lazy" decoding="async"></span>
+              <span class="stage-year">2023</span>
+            </div>
+            <div class="stage-org">Dance Fusion Club</div>
+            <div class="stage-role">Publicity Officer</div>
+          </button>
 
-        <button class="road-stop road-stage-card" type="button" data-idx="1" aria-label="Health Ambassador" role="listitem">
-          <div class="road-stage-top">
-            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-health-ambassador.png" alt="Health Ambassador logo" loading="lazy" decoding="async"></span>
-            <span class="stage-year">2023</span>
-          </div>
-          <div class="stage-org">Health Ambassador</div>
-          <div class="stage-role">Publicity Officer</div>
-        </button>
+          <button class="road-stop road-stage-card" type="button" data-idx="1" aria-label="Health Ambassador" role="listitem">
+            <div class="road-stage-top">
+              <span class="stage-logo-wrap"><img src="assets/org-logos/monash-health-ambassador.png" alt="Health Ambassador logo" loading="lazy" decoding="async"></span>
+              <span class="stage-year">2023</span>
+            </div>
+            <div class="stage-org">Health Ambassador</div>
+            <div class="stage-role">Publicity Officer</div>
+          </button>
 
-        <button class="road-stop road-stage-card" type="button" data-idx="2" aria-label="Green Rep Network" role="listitem">
-          <div class="road-stage-top">
-            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-green-representative-network.png" alt="Green Representative Network logo" loading="lazy" decoding="async"></span>
-            <span class="stage-year">2023</span>
-          </div>
-          <div class="stage-org">Green Rep Network</div>
-          <div class="stage-role">Publicity Officer</div>
-        </button>
+          <button class="road-stop road-stage-card" type="button" data-idx="2" aria-label="Green Rep Network" role="listitem">
+            <div class="road-stage-top">
+              <span class="stage-logo-wrap"><img src="assets/org-logos/monash-green-representative-network.png" alt="Green Representative Network logo" loading="lazy" decoding="async"></span>
+              <span class="stage-year">2023</span>
+            </div>
+            <div class="stage-org">Green Rep Network</div>
+            <div class="stage-role">Publicity Officer</div>
+          </button>
 
-        <button class="road-stop road-stage-card" type="button" data-idx="3" aria-label="Career Peer" role="listitem">
-          <div class="road-stage-top">
-            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-career-peer.png" alt="Career Peer logo" loading="lazy" decoding="async"></span>
-            <span class="stage-year">2024</span>
-          </div>
-          <div class="stage-org">Career Peer</div>
-          <div class="stage-role">Event Coordinator</div>
-        </button>
+          <button class="road-stop road-stage-card" type="button" data-idx="3" aria-label="Career Peer" role="listitem">
+            <div class="road-stage-top">
+              <span class="stage-logo-wrap"><img src="assets/org-logos/monash-career-peer.png" alt="Career Peer logo" loading="lazy" decoding="async"></span>
+              <span class="stage-year">2024</span>
+            </div>
+            <div class="stage-org">Career Peer</div>
+            <div class="stage-role">Event Coordinator</div>
+          </button>
 
-        <button class="road-stop road-stage-card" type="button" data-idx="4" aria-label="Accounting and Finance Club" role="listitem">
-          <div class="road-stage-top">
-            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-accounting-finance-club.png" alt="Accounting and Finance Club logo" loading="lazy" decoding="async"></span>
-            <span class="stage-year">2024</span>
-          </div>
-          <div class="stage-org">Accounting &amp; Finance Club</div>
-          <div class="stage-role">Publicity Officer</div>
-        </button>
+          <button class="road-stop road-stage-card" type="button" data-idx="4" aria-label="Accounting and Finance Club" role="listitem">
+            <div class="road-stage-top">
+              <span class="stage-logo-wrap"><img src="assets/org-logos/monash-accounting-finance-club.png" alt="Accounting and Finance Club logo" loading="lazy" decoding="async"></span>
+              <span class="stage-year">2024</span>
+            </div>
+            <div class="stage-org">Accounting &amp; Finance Club</div>
+            <div class="stage-role">Publicity Officer</div>
+          </button>
 
-        <button class="road-stop road-stage-card" type="button" data-idx="5" aria-label="Science Club" role="listitem">
-          <div class="road-stage-top">
-            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-science-club.png" alt="Science Club logo" loading="lazy" decoding="async"></span>
-            <span class="stage-year">2024</span>
-          </div>
-          <div class="stage-org">Science Club</div>
-          <div class="stage-role">Publicity Officer</div>
-        </button>
+          <button class="road-stop road-stage-card" type="button" data-idx="5" aria-label="Science Club" role="listitem">
+            <div class="road-stage-top">
+              <span class="stage-logo-wrap"><img src="assets/org-logos/monash-science-club.png" alt="Science Club logo" loading="lazy" decoding="async"></span>
+              <span class="stage-year">2024</span>
+            </div>
+            <div class="stage-org">Science Club</div>
+            <div class="stage-role">Publicity Officer</div>
+          </button>
 
-        <button class="road-stop road-stage-card" type="button" data-idx="6" aria-label="Volunteer Program" role="listitem">
-          <div class="road-stage-top">
-            <span class="stage-logo-wrap"><img src="assets/org-logos/monash-volunteer-program.png" alt="Volunteer Program logo" loading="lazy" decoding="async"></span>
-            <span class="stage-year">2025</span>
-          </div>
-          <div class="stage-org">Volunteer Program</div>
-          <div class="stage-role">Publicity Officer</div>
-        </button>
+          <button class="road-stop road-stage-card" type="button" data-idx="6" aria-label="Volunteer Program" role="listitem">
+            <div class="road-stage-top">
+              <span class="stage-logo-wrap"><img src="assets/org-logos/monash-volunteer-program.png" alt="Volunteer Program logo" loading="lazy" decoding="async"></span>
+              <span class="stage-year">2025</span>
+            </div>
+            <div class="stage-org">Volunteer Program</div>
+            <div class="stage-role">Publicity Officer</div>
+          </button>
+        </div>
+        <button class="road-scroll-btn next" id="roadScrollNext" type="button" aria-label="Scroll activities right">›</button>
       </div>
+      <div class="road-scroll-progress" aria-hidden="true"><span id="roadScrollProgress"></span></div>
 
-      <div class="road-info-panel" id="roadInfoPanel">
+      <div class="road-info-panel" id="roadInfoPanel" aria-live="polite">
         <div class="panel-icon-wrap" id="panelIcon"><img src="assets/org-logos/monash-dance-fusion-club.png" alt="Monash Dance Fusion Club logo" loading="lazy" decoding="async"></div>
         <div class="panel-content">
           <div class="panel-year" id="panelYear"></div>
@@ -2144,9 +2321,38 @@ const panelRole = document.getElementById('panelRole');
 const panelOrg  = document.getElementById('panelOrg');
 const panelTags = document.getElementById('panelTags');
 const panelMedia = document.getElementById('panelMedia');
+const roadInfoPanel = document.getElementById('roadInfoPanel');
 
 const roadStops   = Array.from(document.querySelectorAll('.road-stop'));
+const roadStageGrid = document.getElementById('roadStageGrid');
+const roadScrollPrev = document.getElementById('roadScrollPrev');
+const roadScrollNext = document.getElementById('roadScrollNext');
+const roadScrollProgress = document.getElementById('roadScrollProgress');
 let   activeIdx   = -1;   // nothing selected yet
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function updateRoadScrollUI() {
+  if (!roadStageGrid) return;
+  const maxScroll = Math.max(roadStageGrid.scrollWidth - roadStageGrid.clientWidth, 0);
+  const current = Math.min(Math.max(roadStageGrid.scrollLeft, 0), maxScroll);
+  const ratio = maxScroll > 0 ? current / maxScroll : 0;
+
+  if (roadScrollPrev) roadScrollPrev.disabled = current <= 2;
+  if (roadScrollNext) roadScrollNext.disabled = current >= maxScroll - 2;
+  if (roadScrollProgress) {
+    const width = maxScroll > 0 ? (14 + ratio * 86) : 14;
+    roadScrollProgress.style.width = `${width}%`;
+  }
+}
+
+function scrollRoadCards(direction) {
+  if (!roadStageGrid) return;
+  const step = Math.max(220, Math.floor(roadStageGrid.clientWidth * 0.72));
+  roadStageGrid.scrollBy({
+    left: direction * step,
+    behavior: prefersReducedMotion ? 'auto' : 'smooth'
+  });
+}
 
 function renderPanel(idx) {
   const m = milestones[idx];
@@ -2178,6 +2384,10 @@ function renderPanel(idx) {
       panelMedia.innerHTML = '';
     }
   }
+  if (roadInfoPanel) {
+    roadInfoPanel.classList.remove('is-updating');
+    requestAnimationFrame(() => roadInfoPanel.classList.add('is-updating'));
+  }
 }
 
 function activateStop(idx) {
@@ -2188,20 +2398,47 @@ function activateStop(idx) {
     const isActive = i === idx;
     stop.classList.toggle('active', isActive);
     stop.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    stop.setAttribute('aria-current', isActive ? 'true' : 'false');
   });
 
   renderPanel(idx);
+  if (roadStageGrid && roadStageGrid.scrollWidth > roadStageGrid.clientWidth + 8) {
+    const target = roadStops[idx];
+    if (target) {
+      target.scrollIntoView({
+        inline: 'center',
+        block: 'nearest',
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      });
+    }
+  }
+  updateRoadScrollUI();
 }
 
 /* Click / tap each stop */
 roadStops.forEach(stop => {
   const idx = parseInt(stop.getAttribute('data-idx'), 10);
   stop.setAttribute('aria-pressed', 'false');
+  stop.setAttribute('aria-current', 'false');
 
   /* Both click and pointerup to cover mouse + touch reliably */
   stop.addEventListener('click', e => {
     e.stopPropagation();
     activateStop(idx);
+  });
+
+  stop.addEventListener('keydown', e => {
+    if (!['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+
+    let nextIdx = idx;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextIdx = Math.min(idx + 1, roadStops.length - 1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextIdx = Math.max(idx - 1, 0);
+    if (e.key === 'Home') nextIdx = 0;
+    if (e.key === 'End') nextIdx = roadStops.length - 1;
+
+    activateStop(nextIdx);
+    if (roadStops[nextIdx]) roadStops[nextIdx].focus();
   });
 
   /* Keyboard support for non-button elements */
@@ -2215,8 +2452,17 @@ roadStops.forEach(stop => {
   }
 });
 
+if (roadScrollPrev) roadScrollPrev.addEventListener('click', () => scrollRoadCards(-1));
+if (roadScrollNext) roadScrollNext.addEventListener('click', () => scrollRoadCards(1));
+if (roadStageGrid) {
+  roadStageGrid.scrollLeft = 0;
+  roadStageGrid.addEventListener('scroll', updateRoadScrollUI, { passive: true });
+}
+window.addEventListener('resize', updateRoadScrollUI);
+
 /* Auto-select first stop on load */
 activateStop(0);
+updateRoadScrollUI();
 
 /* ── Form ── */
 const contactForm = document.getElementById('contactForm');
