@@ -23,8 +23,14 @@
   --card-shadow: 0 2px 10px rgba(0,0,0,0.05);
   --card-shadow-hover: 0 10px 24px rgba(26,127,212,0.13);
   --card-radius: 12px;
+  --panel-radius: 16px;
+  --control-radius: 10px;
   --card-pad: 22px;
   --card-pad-mobile: 18px;
+  --section-pad-y: clamp(64px, 8vw, 88px);
+  --section-pad-x: clamp(20px, 4vw, 48px);
+  --panel-pad: clamp(30px, 5vw, 52px);
+  --focus-ring-color: rgba(26,127,212,0.22);
   --white:      #ffffff;
   --ink:        #1a2535;
   --ink-mid:    #3a4a5c;
@@ -46,6 +52,13 @@ body {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--blue-pale); }
 ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+:where(a, button, input, textarea, .road-stop):focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+:where(a, button, input, textarea):focus-visible {
+  box-shadow: 0 0 0 4px var(--focus-ring-color);
+}
 
 /* ══ NAV ══ */
 nav {
@@ -80,7 +93,7 @@ nav {
 .nav-cta {
   font-family: var(--font-main); font-size: 13px; font-weight: 700;
   color: white; background: var(--blue);
-  border: none; border-radius: 4px;
+  border: none; border-radius: var(--control-radius);
   padding: 10px 22px; cursor: pointer; text-decoration: none;
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
@@ -116,16 +129,16 @@ nav {
 }
 .hero-sci-bg::before {
   background:
-    radial-gradient(circle at 78% 18%, rgba(255,255,255,0.2), transparent 44%),
-    radial-gradient(circle at 22% 78%, rgba(255,255,255,0.11), transparent 40%);
+    radial-gradient(circle at 78% 18%, rgba(255,255,255,0.14), transparent 44%),
+    radial-gradient(circle at 22% 78%, rgba(255,255,255,0.08), transparent 40%);
   animation: heroGlowShift 16s ease-in-out infinite alternate;
 }
 .hero-sci-bg::after {
   inset: 0;
   background-image:
-    linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.16) 45%, transparent 60%),
-    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+    linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.1) 45%, transparent 60%),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,255,255,0.04) 1px, transparent 1px);
   background-size: auto, 56px 56px, 56px 56px;
   animation: heroSheenDrift 14s linear infinite;
   mix-blend-mode: screen;
@@ -135,7 +148,7 @@ nav {
   height: 100%;
   position: absolute;
   inset: 0;
-  opacity: 0.24;
+  opacity: 0.15;
   filter: none;
 }
 .hero-content {
@@ -216,7 +229,7 @@ nav {
 }
 .hero-desc {
   font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.88);
-  line-height: 1.75; max-width: 540px; margin-bottom: 28px;
+  line-height: 1.75; max-width: 52ch; margin-bottom: 28px;
 }
 .hero-desc strong { font-weight: 700; color: #fff; }
 .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -238,7 +251,7 @@ nav {
 .btn-outline-white:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.7); color: #fff; }
 
 /* ══ SECTION BASE ══ */
-section { padding: 80px 48px; }
+section { padding: var(--section-pad-y) var(--section-pad-x); }
 .container { max-width: 1120px; margin: 0 auto; }
 .bg-white { background: var(--white); }
 .bg-pale  { background: var(--blue-pale); }
@@ -261,8 +274,8 @@ section { padding: 80px 48px; }
 .section-theme-panel {
   background: var(--surface-soft);
   border: 1px solid var(--surface-border);
-  border-radius: 16px;
-  padding: clamp(30px, 5vw, 52px);
+  border-radius: var(--panel-radius);
+  padding: var(--panel-pad);
   box-shadow: 0 8px 26px rgba(20, 104, 176, 0.10);
 }
 .section-head {
@@ -290,7 +303,9 @@ section { padding: 80px 48px; }
 .section-subtitle {
   font-size: 15px;
   color: #66788d;
-  line-height: 1.7;
+  line-height: 1.75;
+  max-width: 62ch;
+  margin-inline: auto;
 }
 .section-theme-panel .section-kicker {
   font-size: 12px;
@@ -613,8 +628,8 @@ section { padding: 80px 48px; }
 .skills-showcase {
   background: var(--surface-soft);
   border: 1px solid var(--surface-border);
-  border-radius: 16px;
-  padding: clamp(30px, 5vw, 52px);
+  border-radius: var(--panel-radius);
+  padding: var(--panel-pad);
   box-shadow: 0 8px 26px rgba(20, 104, 176, 0.10);
 }
 .skills-intro {
@@ -776,7 +791,7 @@ section { padding: 80px 48px; }
 
 /* ══ CONTACT ══ */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-.contact-lead { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 32px; }
+.contact-lead { font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 32px; max-width: 50ch; }
 .contact-cards { display: flex; flex-direction: column; gap: 12px; }
 .contact-card {
   display: flex; gap: 14px; align-items: center;
@@ -795,7 +810,7 @@ section { padding: 80px 48px; }
 .form-label { font-family: var(--font-main); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .form-input {
   font-family: var(--font-body); font-size: 14px; color: var(--ink);
-  background: white; border: 1px solid var(--border); border-radius: 4px;
+  background: white; border: 1px solid var(--border); border-radius: var(--control-radius);
   padding: 11px 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
 }
 .form-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,127,212,0.08); }
@@ -805,7 +820,7 @@ textarea.form-input { resize: vertical; min-height: 110px; }
   display: flex; align-items: center; justify-content: center; gap: 8px;
   background: var(--blue); color: white;
   font-family: var(--font-main); font-size: 13px; font-weight: 700;
-  padding: 13px 28px; border-radius: 4px; border: none; cursor: pointer; transition: all 0.2s;
+  padding: 13px 28px; border-radius: var(--control-radius); border: none; cursor: pointer; transition: all 0.2s;
 }
 .form-submit:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,127,212,0.3); }
 
@@ -823,12 +838,12 @@ footer {
 
 /* ══ HERO ANIMATIONS ══ */
 @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
-.hero-label  { animation: fadeUp 0.6s ease-out 0.1s both; }
-.hero-name   { animation: fadeUp 0.6s ease-out 0.2s both; }
-.hero-title  { animation: fadeUp 0.6s ease-out 0.3s both; }
-.hero-desc   { animation: fadeUp 0.6s ease-out 0.4s both; }
-.hero-btns   { animation: fadeUp 0.6s ease-out 0.5s both; }
-.hero-profile-wrap { animation: fadeUp 0.6s ease-out 0.35s both; }
+.hero-label  { animation: fadeUp 0.5s ease-out 0.08s both; }
+.hero-name   { animation: fadeUp 0.5s ease-out 0.14s both; }
+.hero-title  { animation: fadeUp 0.5s ease-out 0.2s both; }
+.hero-desc   { animation: fadeUp 0.5s ease-out 0.26s both; }
+.hero-btns   { animation: fadeUp 0.5s ease-out 0.32s both; }
+.hero-profile-wrap { animation: fadeUp 0.5s ease-out 0.18s both; }
 @keyframes heroGlowShift {
   0%   { transform: translate3d(-1.5%, -1.5%, 0) scale(1); opacity: 0.9; }
   100% { transform: translate3d(1.5%, 1.5%, 0) scale(1.08); opacity: 1; }
@@ -875,6 +890,11 @@ footer {
   .svg-flask, .svg-tubes, .svg-micro, .svg-beaker, .svg-molecule, .svg-dna, .svg-hex, .svg-orbit, .svg-fruit, .svg-consumable,
   .svg-orbit-ring, .svg-b1, .svg-b2, .svg-b3, .svg-particle {
     animation: none !important;
+  }
+  .exp-item, .edu-card, .project-card, .skills-showcase-card, .cert-card, .standard-card {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -1194,20 +1214,31 @@ footer {
   }
   .nav-cta { display: none; }
   .nav-links {
-    display: none;
+    display: flex;
     position: fixed;
     top: 64px;
     left: 0;
     right: 0;
     flex-direction: column;
     gap: 0;
-    background: var(--white);
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
     box-shadow: 0 10px 24px rgba(0,0,0,0.08);
     padding: 8px 20px 14px;
     z-index: 290;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
   }
-  .nav-links.open { display: flex; }
+  .nav-links.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
   .nav-links a {
     padding: 10px 0;
     border-bottom: 1px solid var(--blue-pale);
@@ -1215,8 +1246,10 @@ footer {
   .nav-links a:last-child { border-bottom: none; }
   .nav-hamburger { display: flex; }
   section { padding: 60px 20px; }
-  #hero { padding: 90px 20px 72px; min-height: auto; flex-direction: column; align-items: flex-start; gap: 28px; }
+  #hero { padding: 86px 20px 64px; min-height: auto; flex-direction: column; align-items: flex-start; gap: 22px; }
   .hero-content { max-width: none; width: 100%; }
+  .hero-title { font-size: 16px; }
+  .hero-desc { line-height: 1.7; margin-bottom: 24px; }
   .hero-profile-wrap { order: -1; align-self: center; width: min(300px, 80vw); }
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
   .about-main { padding: var(--card-pad-mobile); }
@@ -1265,6 +1298,11 @@ footer {
   .section-subtitle { font-size: 14px; }
   .skills-overline { font-size: 11px; }
   .skill-pill { font-size: 11px; }
+  #hero { align-items: center; text-align: center; }
+  .hero-content { text-align: center; }
+  .hero-title { font-size: 15px; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-btns { justify-content: center; }
   .hero-profile-wrap { width: min(250px, 82vw); }
 }
 </style>
@@ -1434,7 +1472,7 @@ footer {
     <h1 class="hero-name">Edric Fendy</h1>
     <p class="hero-title">R&amp;D Specialist &nbsp;•&nbsp; QA/QC Expert &nbsp;•&nbsp; Innovator</p>
     <p class="hero-desc">
-      Bachelor's graduate from <strong>Monash University</strong> with hands-on experience in Research &amp; Development, Quality Assurance, and Food Certification at leading food companies across the region.
+      Food Science graduate from <strong>Monash University</strong> with hands-on internship experience in Research &amp; Development, QA/QC, and food certification across leading regional food companies.
     </p>
     <div class="hero-btns">
       <a href="#contact" class="btn-white">Get in Touch</a>
@@ -1463,7 +1501,7 @@ footer {
       <div class="about-main">
         <p class="about-text">I am an <strong>analytical and self-driven Food Science graduate</strong> who thrives in dynamic environments, continuously adapting and learning to overcome challenges.</p>
         <p class="about-text">My passion is in the F&amp;B sector within FMCG, where I aim to create <strong>innovative, sustainable, and nutritious food products</strong> that make a real difference in people's lives.</p>
-        <p class="about-text">Through industry exposure, I have built hands-on experience in <strong>NPD projects, shelf-life studies, sensory evaluations, and equipment operation</strong>, with strong food safety and compliance fundamentals in <strong>GMP, HACCP, ISO 9001:2015, Halal, and MeSTI regulations</strong>. I am eager to grow in a food manufacturing organization and strongly believe in continuous learning.</p>
+        <p class="about-text">Through internships, I built hands-on experience in <strong>NPD projects, shelf-life studies, sensory evaluations, and equipment operation</strong>, with strong compliance fundamentals in <strong>GMP, HACCP, ISO 9001:2015, Halal, and MeSTI regulations</strong>. I am eager to grow in food manufacturing through continuous learning.</p>
         <div class="about-highlights-title">Core strengths</div>
         <div class="about-points">
           <div class="about-point"><div class="ap-icon">🧠</div><div>Analytical, adaptive, and self-driven in fast-paced environments</div></div>
@@ -1596,7 +1634,7 @@ footer {
         <div class="project-meta">July 2024 – December 2024 · Monash University</div>
       </div>
       <div class="project-body">
-        <p class="project-desc">Developed a healthy instant noodle incorporating dried sunflower microgreen powder, combining cutting-edge nutrition science with convenience food innovation. The project encompassed full product formulation, sensory evaluation methodologies, and rigorous market analysis to create a commercially viable, health-forward noodle product ready for market entry.</p>
+        <p class="project-desc">Developed a healthier instant noodle using dried sunflower microgreen powder, combining nutrition-forward formulation with convenience food expectations. The project covered full formulation, sensory validation, and market analysis to build a commercially viable concept.</p>
         <a class="project-link" href="https://www.monash.edu.my/pages/latest/articles/2024/fst-students-lead-the-way-with-sustainable-food-innovations" target="_blank" rel="noopener">Monash Feature Article ↗</a>
         <div class="project-media-grid">
           <figure class="project-media-card">
@@ -1755,10 +1793,10 @@ footer {
 <section id="skills" class="bg-pale">
   <div class="container">
     <div class="skills-showcase">
-      <div class="skills-intro">
-        <div class="skills-overline">Skills &amp; Expertise</div>
-        <h2 class="skills-heading">What I bring to the table</h2>
-        <p class="skills-subtitle">A comprehensive look at the methods, instruments, and systems I use to develop safe, stable, and market-ready food products.</p>
+      <div class="skills-intro section-head">
+        <div class="skills-overline section-overline">Skills &amp; Expertise</div>
+        <h2 class="skills-heading section-title">What I bring to the table</h2>
+        <p class="skills-subtitle section-subtitle">A comprehensive look at the methods, instruments, and systems I use to develop safe, stable, and market-ready food products.</p>
       </div>
       <div class="skills-card-grid">
         <article class="skills-showcase-card">
@@ -1900,7 +1938,7 @@ footer {
     </div>
     <div class="contact-grid">
       <div>
-        <p class="contact-lead">Feel free to reach out for collaborations, opportunities, or just a friendly chat about food science and innovation!</p>
+        <p class="contact-lead">Reach out for collaborations, opportunities, or a conversation about food science and innovation.</p>
         <div class="contact-cards">
           <a href="mailto:edricfendy45@gmail.com" class="contact-card">
             <div class="contact-icon">✉️</div>
@@ -1954,13 +1992,13 @@ footer {
 /* ── Scroll reveal ── */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
+}, { threshold: 0.12 });
 document.querySelectorAll('.exp-item,.edu-card,.project-card,.skills-showcase-card,.cert-card,.standard-card').forEach(el => observer.observe(el));
-document.querySelectorAll('.edu-card').forEach((el,i)     => el.style.transitionDelay = (i * 0.12) + 's');
-document.querySelectorAll('.exp-item').forEach((el,i)     => el.style.transitionDelay = (i * 0.10) + 's');
-document.querySelectorAll('.skills-showcase-card').forEach((el,i) => el.style.transitionDelay = (i * 0.08) + 's');
-document.querySelectorAll('.cert-card').forEach((el,i)    => el.style.transitionDelay = (i * 0.10) + 's');
-document.querySelectorAll('.standard-card').forEach((el,i)=> el.style.transitionDelay = (i * 0.07) + 's');
+document.querySelectorAll('.edu-card').forEach((el,i)     => el.style.transitionDelay = (i * 0.08) + 's');
+document.querySelectorAll('.exp-item').forEach((el,i)     => el.style.transitionDelay = (i * 0.07) + 's');
+document.querySelectorAll('.skills-showcase-card').forEach((el,i) => el.style.transitionDelay = (i * 0.05) + 's');
+document.querySelectorAll('.cert-card').forEach((el,i)    => el.style.transitionDelay = (i * 0.07) + 's');
+document.querySelectorAll('.standard-card').forEach((el,i)=> el.style.transitionDelay = (i * 0.05) + 's');
 
 /* ── Active nav highlight ── */
 const sections = document.querySelectorAll('section[id]');
