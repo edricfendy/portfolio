@@ -484,10 +484,10 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
 .lang-card {
   position: sticky;
   top: 80px;
-  background: linear-gradient(160deg, #0f4a8b 0%, #1562b7 55%, #2f88de 100%);
+  background: linear-gradient(165deg, #0f4a8b 0%, #1a5fb3 55%, #2f88de 100%);
   border: 1px solid rgba(255,255,255,0.14);
   border-radius: calc(var(--card-radius) + 2px);
-  padding: var(--card-pad);
+  padding: calc(var(--card-pad) + 2px);
   box-shadow: 0 12px 28px rgba(15,74,139,0.28);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -509,17 +509,17 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
   align-items: center;
   gap: 8px;
   font-family: var(--font-main);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.86);
   margin-bottom: 14px;
 }
 .lang-card-sub {
-  font-size: 12px;
-  line-height: 1.6;
-  color: rgba(236,245,255,0.9);
+  font-size: 11px;
+  line-height: 1.55;
+  color: rgba(236,245,255,0.88);
   margin-bottom: 14px;
   max-width: 30ch;
 }
@@ -527,7 +527,7 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
   display: grid;
   gap: 8px;
   padding: 10px 0 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.18);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 .lang-row:last-child { border-bottom: none; }
 .lang-meta {
@@ -547,16 +547,16 @@ section { padding: var(--section-pad-y) var(--section-pad-x); }
 .lang-level.fluent     { background: rgba(229,241,255,0.95); color: #0f4f97; }
 .lang-level.conversant { background: rgba(238,232,253,0.95); color: #4e3da9; }
 .lang-meter {
-  height: 7px;
+  height: 6px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.24);
+  background: rgba(255,255,255,0.26);
   overflow: hidden;
 }
 .lang-meter > span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(to right, #d9ecff, #ffffff);
+  background: #ffffff;
 }
 .lang-row.native .lang-meter > span { width: 100%; }
 .lang-row.fluent .lang-meter > span { width: 84%; }
