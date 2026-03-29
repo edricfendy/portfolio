@@ -1173,6 +1173,10 @@ footer {
   padding: 44px 4px 10px;
   overflow-x: auto;
   scroll-snap-type: x proximity;
+  scroll-padding-inline: 8px;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -1188,6 +1192,7 @@ footer {
   height: 3px;
   border-radius: 999px;
   background: linear-gradient(to right, #8ab9e5, #5ea1dd, #8ab9e5);
+  pointer-events: none;
 }
 .road-scroll-progress {
   position: relative;
@@ -1214,14 +1219,14 @@ footer {
   border: 1px solid #c8dced;
   background: linear-gradient(160deg, #ffffff 0%, #f7fbff 100%);
   border-radius: 14px;
-  padding: 14px 13px 14px;
+  padding: 15px 14px 15px;
   text-align: left;
   display: grid;
   gap: 10px;
   cursor: pointer;
   color: var(--ink);
   position: relative;
-  min-height: 152px;
+  min-height: 156px;
   scroll-snap-align: start;
   transform: translateY(var(--lane-offset));
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
@@ -1254,6 +1259,9 @@ footer {
   border-color: #8cbce8;
   box-shadow: 0 8px 16px rgba(20,104,176,0.14);
   transform: translateY(calc(var(--lane-offset) - 3px));
+}
+.road-stop.road-stage-card:active {
+  transform: translateY(calc(var(--lane-offset) - 2px));
 }
 .road-stage-top {
   display: flex;
@@ -1512,7 +1520,7 @@ footer {
   .edu-grid, .cert-grid, .standards-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
-  .road-journey-wrap { padding: 24px 18px 24px; border-radius: 12px; }
+  .road-journey-wrap { padding: 22px 16px 22px; border-radius: 12px; }
   .road-header { flex-direction: column; align-items: flex-start; gap: 10px; }
   .road-header-sub { font-size: clamp(18px, 5.2vw, 24px); }
   .road-header-note { max-width: none; }
@@ -1526,19 +1534,27 @@ footer {
     display: none;
   }
   .road-stage-grid {
-    grid-auto-columns: minmax(220px, 72vw);
-    padding-top: 38px;
+    grid-auto-columns: minmax(250px, 80vw);
+    gap: 12px;
+    padding: 36px 2px 14px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 2px;
   }
   .road-scroll-progress {
     margin-left: 0;
     margin-right: 0;
   }
   .road-stop.road-stage-card {
-    min-height: 140px;
+    min-height: 156px;
+    padding: 16px 14px;
   }
   .road-stop.road-stage-card:nth-child(even) {
-    --lane-offset: 10px;
+    --lane-offset: 6px;
   }
+  .stage-logo-wrap { width: 44px; height: 44px; }
+  .stage-logo-wrap img { width: 31px; height: 31px; }
+  .stage-org { font-size: 14px; }
+  .panel-tag { font-size: 10px; padding: 5px 11px; }
   .project-media-grid { grid-template-columns: 1fr; }
   .section-theme-panel { padding: 26px 18px; border-radius: 12px; }
   .section-head { margin-bottom: 24px; }
@@ -1567,14 +1583,38 @@ footer {
   .skill-pill { font-size: 11px; }
   .about-facts { justify-content: center; }
   .road-header-note { font-size: 11px; }
-  .road-stage-grid { grid-auto-columns: 86vw; }
+  .road-stage-grid {
+    grid-auto-columns: 90vw;
+    gap: 10px;
+    padding-top: 34px;
+  }
+  .road-stop.road-stage-card { min-height: 152px; padding: 15px 13px; }
   .road-stop.road-stage-card:nth-child(even) { --lane-offset: 0px; }
+  .road-scroll-progress { height: 7px; }
   #hero { align-items: center; text-align: center; }
   .hero-content { text-align: center; }
   .hero-title { font-size: 15px; }
   .hero-desc { margin-left: auto; margin-right: auto; }
   .hero-btns { justify-content: center; }
   .hero-profile-wrap { width: min(250px, 82vw); }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .road-stop.road-stage-card:hover {
+    border-color: #c8dced;
+    box-shadow: none;
+    transform: translateY(var(--lane-offset));
+  }
+  .road-stop.road-stage-card.active:hover {
+    border-color: #2f89df;
+    box-shadow: 0 12px 24px rgba(26,127,212,0.2);
+    transform: translateY(calc(var(--lane-offset) - 4px));
+  }
+  .road-stop.road-stage-card:active {
+    border-color: #8cbce8;
+    box-shadow: 0 8px 16px rgba(20,104,176,0.14);
+    transform: translateY(calc(var(--lane-offset) - 2px));
+  }
 }
 </style>
 </head>
